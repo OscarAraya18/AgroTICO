@@ -1,1 +1,0 @@
-{"numeroCedula":101010101,"nombreUsuario":"XxRobertonxX","contrasena":"gato123","primerNombre":"Roberto","segundoNombre":"","primerApellido":"Gonzales","segundoApellido":"Torres","provinciaResidencia":"San Jose","cantonResidencia":"Tarrazu","distritoResidencia":"San Marcos","anioNacimiento":1995,"mesNacimiento":5,"diaNacimiento":20,"numeroTelefono":85471649}

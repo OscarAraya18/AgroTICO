@@ -8,21 +8,15 @@ namespace AgroticoApi.Controllers
     {
         DBMS _dbms = new DBMS();
 
-        // GET api/Productores
-        [HttpGet]
-        public IHttpActionResult Get()
-        {
-            return Ok();
-        }
 
         // GET api/Productores/Afiliacion
         [HttpGet]
         [Route("api/Productores/Afiliacion")]
-        public IHttpActionResult solicitudAfiliacion([FromUri]int id)
+        public IHttpActionResult solicitudAfiliacion([FromUri] int id)
         {
             var resultado = _dbms.encontrarSolicitudAfiliacion(id);
 
-            if(resultado == null)
+            if (resultado == null)
             {
                 return NotFound();
             }
@@ -72,7 +66,7 @@ namespace AgroticoApi.Controllers
                 return Ok(nuevoCliente);
             }
             return NotFound();
-       
+
         }
 
         // POST api/Productores/Producto/new
@@ -89,7 +83,7 @@ namespace AgroticoApi.Controllers
                 (int)producto["precio"],
                 (int)producto["identificadorCategoria"]);
 
-            if(resultado == false)
+            if (resultado == false)
             {
                 return NotFound();
             }
@@ -98,6 +92,7 @@ namespace AgroticoApi.Controllers
 
         // PUT api/Productores/Producto/edit
         [HttpPut]
+        [Route("api/Productores/Producto/edit")]
         public IHttpActionResult actualizarProducto([FromBody] JObject producto)
         {
             bool resultado = _dbms.actualizarProducto(
@@ -117,7 +112,8 @@ namespace AgroticoApi.Controllers
 
         // DELETE api/Productores/Producto/delete
         [HttpDelete]
-        public IHttpActionResult eliminarProducto(int id)
+        [Route("api/Productores/Producto/delete")]
+        public IHttpActionResult eliminarProducto([FromUri] int id)
         {
             bool resultado = _dbms.eliminarProducto(id);
 
