@@ -1,4 +1,4 @@
-﻿using DBManager;
+﻿using Backend.DBMS;
 using Newtonsoft.Json.Linq;
 using System.Web.Http;
 
@@ -15,32 +15,117 @@ namespace AgroticoApi.Controllers
             return Ok();
         }
 
-        // GET api/Productores/{id}
+        // GET api/Productores/Afiliacion
         [HttpGet]
-        public IHttpActionResult Get(int id)
+        [Route("api/Productores/Afiliacion")]
+        public IHttpActionResult solicitudAfiliacion([FromUri]int id)
         {
-            return Ok(id);
+            var resultado = _dbms.encontrarSolicitudAfiliacion(id);
+
+            if(resultado == null)
+            {
+                return NotFound();
+            }
+            return Ok(resultado);
         }
 
-        // POST api/Productores
+        // GET api/Productores/pedidos
+        [HttpGet]
+        [Route("api/Productores/pedidos")]
+        public IHttpActionResult encontrarPedidos([FromUri] int id)
+        {
+            var resultado = _dbms.encontrarPedidos(id);
+
+            if (resultado == null)
+            {
+                return NotFound();
+            }
+            return Ok(resultado);
+        }
+
+        // POST api/Productores/Afiliacion/new
         [HttpPost]
-        public IHttpActionResult Post([FromBody] JObject nuevoCliente)
+        [Route("api/Productores/Afiliacion/new")]
+        public IHttpActionResult crearSolicitudAfiliacion([FromBody] JObject nuevoCliente)
         {
-            return Ok(nuevoCliente);
+            bool resultado = _dbms.crearSolicitudAfiliacion(
+                (int)nuevoCliente["numeroCedula"],
+                (string)nuevoCliente["primerNombre"],
+                (string)nuevoCliente["segundoNombre"],
+                (string)nuevoCliente["primerApellido"],
+                (string)nuevoCliente["segundoApellido"],
+                (string)nuevoCliente["provinciaResidencia"],
+                (string)nuevoCliente["cantonResidencia"],
+                (string)nuevoCliente["distritoResidencia"],
+                (int)nuevoCliente["numeroTelefono"],
+                (int)nuevoCliente["numeroSINPE"],
+                (int)nuevoCliente["anioNacimiento"],
+                (int)nuevoCliente["mesNacimiento"],
+                (int)nuevoCliente["diaNacimiento"],
+                nuevoCliente.SelectToken("lugarEntrega")?.ToObject<string[]>(),
+                (int)nuevoCliente["anioSolicitud"],
+                (int)nuevoCliente["mesSolicitud"],
+                (int)nuevoCliente["diasSolicitud"]);
+
+            if (resultado == true)
+            {
+                return Ok(nuevoCliente);
+            }
+            return NotFound();
+       
         }
 
-        // PUT api/Productores
+        // POST api/Productores/Producto/new
+        [HttpPost]
+        [Route("api/Productores/Producto/new")]
+        public IHttpActionResult crearProducto([FromBody] JObject producto)
+        {
+            bool resultado = _dbms.crearProducto(
+                (int)producto["codigo"],
+                (int)producto["numeroCedulaProductor"],
+                (string)producto["nombre"],
+                (string)producto["modoVenta"],
+                (string)producto["disponibilidad"],
+                (int)producto["precio"],
+                (int)producto["identificadorCategoria"]);
+
+            if(resultado == false)
+            {
+                return NotFound();
+            }
+            return Ok("Producto creado correctamente");
+        }
+
+        // PUT api/Productores/Producto/edit
         [HttpPut]
-        public IHttpActionResult Put([FromBody] JObject objeto)
+        public IHttpActionResult actualizarProducto([FromBody] JObject producto)
         {
-            return Ok(objeto);
+            bool resultado = _dbms.actualizarProducto(
+                (int)producto["codigo"],
+                (string)producto["nombre"],
+                (string)producto["modoVenta"],
+                (string)producto["disponibilidad"],
+                (int)producto["precio"],
+                (int)producto["identificadorCategoria"]);
+
+            if (resultado == false)
+            {
+                return NotFound();
+            }
+            return Ok("Producto creado correctamente");
         }
 
-        // DELETE api/Productores/{id}
+        // DELETE api/Productores/Producto/delete
         [HttpDelete]
-        public IHttpActionResult Delete(int id)
+        public IHttpActionResult eliminarProducto(int id)
         {
-            return Ok(id);
+            bool resultado = _dbms.eliminarProducto(id);
+
+            if(resultado == true)
+            {
+                return Ok("Producto eliminado exitosamente");
+            }
+            return NotFound();
         }
     }
 }
