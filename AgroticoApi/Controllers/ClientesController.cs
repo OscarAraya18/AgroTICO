@@ -1,4 +1,5 @@
-﻿using Backend.DBMS;
+﻿using AgroticoApi.BackendAgroTICO;
+using Backend.DBMS;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json.Linq;
 using System.Web.Http;
@@ -9,6 +10,7 @@ namespace AgroticoApi.Controllers
     {
 
         DBMS _dbms = new DBMS();
+        Reporte _reporte = new Reporte();
 
      
         // GET api/Clientes
@@ -79,6 +81,25 @@ namespace AgroticoApi.Controllers
                 return NotFound();
             }
             return Ok(resultado);
+        }
+
+        // GET api/Clientes/pdf
+        [HttpGet]
+        [Route("api/Clientes/pdf")]
+        public IHttpActionResult getComprobante([FromBody] JObject reporte)
+        {
+
+            var pdf = _reporte.generarComprobante(
+                (string)reporte["nombre"],
+                (string)reporte["apellido"],
+                (string)reporte["monto"]);
+            
+
+            if (pdf == null)
+            {
+                return NotFound();
+            }
+            return Ok(pdf);
         }
 
         // POST api/Clientes/login
