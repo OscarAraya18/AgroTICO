@@ -1,0 +1,26 @@
+.head{
+	
+   margin-left: 20px;
+   display: flex;
+   align-items: center;
+   color:#FFFFFF;
+
+  
+   
+  
+}
+.container{
+	background-color: #196F3D ;
+	 margin-top:-8px;
+	 margin-left: -8px;
+	 width: 101.2%;
+	 height:70px;
+	 display: flex;
+   align-items: center;
+   margin-right: 0px;
+}
+
+.logo{
+	 margin-right: 20px;
+
+}

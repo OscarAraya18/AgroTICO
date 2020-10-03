@@ -1,0 +1,45 @@
+<mat-drawer-container>
+  <mat-drawer mode="side" opened class="sidebar">
+
+  
+
+      <div class="buttdiv">
+
+      	 <a href="admin/perfil" class="butt">
+         
+          <img class="buttimg" src="assets/user.svg" />
+          <p class="pbutt">Mi perfil</p>
+        </a>
+        <a href="admin/productores" class="butt">
+          
+          <img class="buttimg" src="assets/management.svg" />
+          <p class="pbutt">Gestión de productores</p>
+        </a>
+
+        <a href="admin/afiliaciones" class="butt">
+         
+          <img class="buttimg" src="assets/card.svg" />
+          <p class="pbutt">Administración de afiliaciones</p>
+        </a>
+        <a href="admin/categorias" class="butt">
+         
+          <img class="buttimg" src="assets/data-management.svg" />
+          <p class="pbutt">Gestión de categoría</p>
+        </a>
+        <a href="admin/vista" class="butt">
+          
+          <img class="buttimg" src="assets/eye.svg" />
+          <p class="pbutt">Vista de Reportes</p>
+        </a>
+       
+      </div>
+
+      
+    
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
+

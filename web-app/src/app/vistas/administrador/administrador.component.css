@@ -1,0 +1,66 @@
+$mainColor: #00a99d;
+$menufontColor: #999999;
+
+.projectTab {
+  border-radius: 12px;
+}
+
+
+
+.buttdiv {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin-top: 70px;
+}
+
+
+@media screen and (max-width: 600px) {
+  .sidebar {
+    display: none;
+  }
+}
+@media screen and (max-width: 2600px) {
+  .sidebar {
+    text-align: center;
+    width: 320px;
+    height: 100vh;
+    align: center;
+    box-shadow: 10px 4px 21px rgba(0, 0, 0, 0.05);
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+}
+
+
+.pbutt {
+  margin-left: 10px;
+  color:#186A3B  ;
+  font-weight: 600;
+  font-size: 18px;
+   display: flex;
+   align-items: center;
+}
+
+
+.butt {
+  margin-top: 50px;
+  text-align: left;
+  margin-left: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: left;
+  flex-direction: row;
+  text-decoration: none;
+   align-items: center;
+}
+.anone {
+  text-decoration: none;
+}
+
+.buttimg {
+  margin-left: 10px;
+  height: 22px;
+}
+
