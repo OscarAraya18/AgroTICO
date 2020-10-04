@@ -1,25 +1,15 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
-
 using System.Linq;
-
 using Newtonsoft.Json.Linq;
-
-using System.Collections.Generic;
-
-
-
 
 namespace DBMS
 {
-
     class DBMS
     {
-        //Rutas de las diferentes tablas dentro de la base de datos. Se almacenan como constantes para ahorrar tiempo.
         private static String RUTA_EJECUCION = Directory.GetParent(Directory.GetParent(Environment.CurrentDirectory).FullName).FullName;
         private static String RUTA_BASE_DE_DATOS = RUTA_EJECUCION + "\\BaseDeDatos";
-
         private static String RUTA_CLIENTES = RUTA_BASE_DE_DATOS + "//Cliente.txt";
         private static String RUTA_PRODUCTORES = RUTA_BASE_DE_DATOS + "//Productor.txt";
         private static String RUTA_VENTAS = RUTA_BASE_DE_DATOS + "//Venta.txt";
@@ -33,35 +23,12 @@ namespace DBMS
         {
             if (Directory.Exists(RUTA_BASE_DE_DATOS))
             {
-                if (File.Exists(RUTA_CLIENTES))
-                {
-                    File.Delete(RUTA_CLIENTES);
-                }
-                if (File.Exists(RUTA_PRODUCTORES))
-                {
-                    File.Delete(RUTA_PRODUCTORES);
-                }
-                if (File.Exists(RUTA_VENTAS))
-                {
-                    File.Delete(RUTA_VENTAS);
-                }
-                if (File.Exists(RUTA_PRODUCTOS))
-                {
-                    File.Delete(RUTA_PRODUCTOS);
-                }
-                if (File.Exists(RUTA_ADMINISTRADORES))
-                {
-                    File.Delete(RUTA_ADMINISTRADORES);
-                }
-                if (File.Exists(RUTA_CATEGORIAS))
-                {
-                    File.Delete(RUTA_CATEGORIAS);
-                }
-                if (File.Exists(RUTA_AFILIACIONES))
-                {
-                    File.Delete(RUTA_AFILIACIONES);
-                }
-
+                if (File.Exists(RUTA_CLIENTES)){File.Delete(RUTA_CLIENTES);}
+                if (File.Exists(RUTA_PRODUCTORES)){File.Delete(RUTA_PRODUCTORES);}
+                if (File.Exists(RUTA_VENTAS)){File.Delete(RUTA_VENTAS);}
+                if (File.Exists(RUTA_PRODUCTOS)){File.Delete(RUTA_PRODUCTOS);}    
+                if (File.Exists(RUTA_CATEGORIAS)){File.Delete(RUTA_CATEGORIAS);}
+                if (File.Exists(RUTA_AFILIACIONES)){File.Delete(RUTA_AFILIACIONES);}
                 Directory.Delete(RUTA_BASE_DE_DATOS);
             }
             DirectoryInfo basesDeDatos = Directory.CreateDirectory(RUTA_BASE_DE_DATOS);
@@ -79,8 +46,6 @@ namespace DBMS
             File.Delete(rutaDelConjuntoEntidad);
             File.CreateText(rutaDelConjuntoEntidad);
         }
-
-
         private String SELECT(String rutaDelConjuntoEntidad, int atributoLlave)
         {
             Console.WriteLine("El DBMS ha iniciado un proceso de SELECT en el conjunto de entidad " + rutaDelConjuntoEntidad);
@@ -164,7 +129,6 @@ namespace DBMS
             String[] conjuntoEntidadActual = File.ReadAllLines(rutaDelConjuntoEntidad);
             String[] conjuntoEntidadNuevo = { };
             JObject entidadAnalizar;
-
             for (int i = 0; i < conjuntoEntidadActual.Length; i++)
             {
                 entidadAnalizar = JObject.Parse(conjuntoEntidadActual[i]);
@@ -174,11 +138,7 @@ namespace DBMS
                     {
                         conjuntoEntidadNuevo = conjuntoEntidadNuevo.Concat(new String[] { conjuntoEntidadActual[i] }).ToArray();
                     }
-                    else
-                    {
-                        Console.WriteLine("Se ha eliminado la entidad solicitada " + conjuntoEntidadActual[i]);
-
-                    }
+                    else{Console.WriteLine("Se ha eliminado la entidad solicitada " + conjuntoEntidadActual[i]);}
                 }
                 else if (rutaDelConjuntoEntidad == RUTA_PRODUCTOS || rutaDelConjuntoEntidad == RUTA_ADMINISTRADORES)
                 {
@@ -186,11 +146,7 @@ namespace DBMS
                     {
                         conjuntoEntidadNuevo = conjuntoEntidadNuevo.Concat(new String[] { conjuntoEntidadActual[i] }).ToArray();
                     }
-                    else
-                    {
-                        Console.WriteLine("Se ha eliminado la entidad solicitada " + conjuntoEntidadActual[i]);
-
-                    }
+                    else{Console.WriteLine("Se ha eliminado la entidad solicitada " + conjuntoEntidadActual[i]);}
                 }
                 else if (rutaDelConjuntoEntidad == RUTA_VENTAS)
                 {
@@ -198,11 +154,7 @@ namespace DBMS
                     {
                         conjuntoEntidadNuevo = conjuntoEntidadNuevo.Concat(new String[] { conjuntoEntidadActual[i] }).ToArray();
                     }
-                    else
-                    {
-                        Console.WriteLine("Se ha eliminado la entidad solicitada " + conjuntoEntidadActual[i]);
-
-                    }
+                    else{Console.WriteLine("Se ha eliminado la entidad solicitada " + conjuntoEntidadActual[i]);}
                 }
                 else if (rutaDelConjuntoEntidad == RUTA_AFILIACIONES)
                 {
@@ -210,11 +162,7 @@ namespace DBMS
                     {
                         conjuntoEntidadNuevo = conjuntoEntidadNuevo.Concat(new String[] { conjuntoEntidadActual[i] }).ToArray();
                     }
-                    else
-                    {
-                        Console.WriteLine("Se ha eliminado la entidad solicitada " + conjuntoEntidadActual[i]);
-
-                    }
+                    else{Console.WriteLine("Se ha eliminado la entidad solicitada " + conjuntoEntidadActual[i]);}
                 }
                 else
                 {
@@ -222,14 +170,9 @@ namespace DBMS
                     {
                         conjuntoEntidadNuevo = conjuntoEntidadNuevo.Concat(new String[] { conjuntoEntidadActual[i] }).ToArray();
                     }
-                    else
-                    {
-                        Console.WriteLine("Se ha eliminado la entidad solicitada " + conjuntoEntidadActual[i]);
-
-                    }
+                    else{Console.WriteLine("Se ha eliminado la entidad solicitada " + conjuntoEntidadActual[i]);}
                 }
             }
-
             if (conjuntoEntidadActual.Length == conjuntoEntidadNuevo.Length)
             {
                 Console.WriteLine("No se ha encontrado a la entidad solicitada dentro del conjunto de entidad " + rutaDelConjuntoEntidad);
@@ -240,7 +183,6 @@ namespace DBMS
                 WRITE(rutaDelConjuntoEntidad, conjuntoEntidadNuevo);
                 return true;
             }
-
         }
         private bool UPDATE(String rutaDelConjuntoEntidad, int atributoLlave, String atributoModificar, String nuevoValorTexto, int nuevoValorNumerico)
         {
@@ -268,7 +210,6 @@ namespace DBMS
                 Console.WriteLine("No se ha encontrado a la entidad solicitada dentro del conjunto de entidad " + rutaDelConjuntoEntidad);
                 return false;
             }
-
         }
         private String[] FILTER(String rutaDelConjuntoEntidad, String atributoBuscar, String valorRequeridoTexto, int valorRequeridoNumerico)
         {
@@ -276,7 +217,6 @@ namespace DBMS
             String[] conjuntoEntidadActual = File.ReadAllLines(rutaDelConjuntoEntidad);
             String[] conjuntoEntidadFiltrado = { };
             JObject entidadAnalizar;
-
             for (int i = 0; i < conjuntoEntidadActual.Length; i++)
             {
                 entidadAnalizar = JObject.Parse(conjuntoEntidadActual[i]);
@@ -319,11 +259,6 @@ namespace DBMS
                     }
                 }
             }
-            Console.WriteLine("Segun la el atributo " + atributoOrdenar + " el conjunto entidad ordenado es: ");
-            for (int i=0; i<conjuntoEntidadActual.Length; i++)
-            {
-                Console.WriteLine(conjuntoEntidadActual[i]);
-            }
             return conjuntoEntidadActual;
         }
         private String[] READ(String rutaDelConjuntoEntidad)
@@ -332,16 +267,10 @@ namespace DBMS
         }
 
 
-
-     
-
-
-
         private String[] encontrarProductoPorProductor(int numeroCedulaProductor)
         {
             return FILTER(RUTA_PRODUCTOS, "numeroCedulaProductor", null, numeroCedulaProductor);
         }
-
         private String[] encontrarProductorPorProvincia(String provincia)
         {
             return FILTER(RUTA_PRODUCTORES, "provincia", provincia, 0);
@@ -354,25 +283,22 @@ namespace DBMS
         {
             return FILTER(RUTA_PRODUCTORES, "distrito", distrito, 0);
         }
-
-
         private String[] encontrarProductoPorProvincia(String provincia)
         {
             String[] listaProductoresPorProvincia = encontrarProductorPorProvincia(provincia);
             String[] listaProductosPorProvincia = { };
             JObject productorAnalizar;
-
-            for (int i=0; i<listaProductoresPorProvincia.Length; i++)
+            for (int i = 0; i < listaProductoresPorProvincia.Length; i++)
             {
                 productorAnalizar = JObject.Parse(listaProductoresPorProvincia[i]);
                 String[] listaProductosPorProductorPorProvincia = encontrarProductoPorProductor((int)productorAnalizar["numeroCedula"]);
-                
-                for(int j=0; j<listaProductosPorProductorPorProvincia.Length; j++)
+
+                for (int j = 0; j < listaProductosPorProductorPorProvincia.Length; j++)
                 {
-                    listaProductosPorProvincia = listaProductosPorProvincia.Concat(new String[] {listaProductosPorProductorPorProvincia[j]}).ToArray();
+                    listaProductosPorProvincia = listaProductosPorProvincia.Concat(new String[] { listaProductosPorProductorPorProvincia[j] }).ToArray();
                 }
             }
-            for (int k=0; k<listaProductosPorProvincia.Length; k++)
+            for (int k = 0; k < listaProductosPorProvincia.Length; k++)
             {
                 Console.WriteLine("Se ha encontrado el producto en la provincia " + provincia + " " + listaProductosPorProvincia[k]);
             }
@@ -383,7 +309,6 @@ namespace DBMS
             String[] listaProductoresPorCanton = encontrarProductorPorCanton(canton);
             String[] listaProductosPorCanton = { };
             JObject productorAnalizar;
-
             for (int i = 0; i < listaProductoresPorCanton.Length; i++)
             {
                 productorAnalizar = JObject.Parse(listaProductoresPorCanton[i]);
@@ -405,7 +330,6 @@ namespace DBMS
             String[] listaProductoresPorDistrito = encontrarProductorPorDistrito(distrito);
             String[] listaProductosPorDistrito = { };
             JObject productorAnalizar;
-
             for (int i = 0; i < listaProductoresPorDistrito.Length; i++)
             {
                 productorAnalizar = JObject.Parse(listaProductoresPorDistrito[i]);
@@ -423,18 +347,16 @@ namespace DBMS
             return listaProductosPorDistrito;
         }
 
-   
+
         /*-------------------------------------------------------------VISTA DE ADMINISTRACION-----------------------------------------------------------------*/
         private bool crearProductor(int numeroCedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String provinciaResidencia, 
                                     String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, int anioNacimiento, int mesNacimiento, 
-                                    int diaNacimiento, String[] lugarEntrega)
+                                    int diaNacimiento, String[] lugarEntrega, String claveAcceso)
         {
             if (SELECT(RUTA_PRODUCTORES, numeroCedula) == null)
             {
                 BackendAgroTICO.Productor nuevoProductor = new BackendAgroTICO.Productor();
-
                 nuevoProductor.lugarEntrega = lugarEntrega;
-
                 nuevoProductor.numeroCedula = numeroCedula;
                 nuevoProductor.primerNombre = primerNombre;
                 nuevoProductor.segundoNombre = segundoNombre;
@@ -449,27 +371,23 @@ namespace DBMS
                 nuevoProductor.mesNacimiento = mesNacimiento;
                 nuevoProductor.diaNacimiento = diaNacimiento;
                 nuevoProductor.lugarEntrega = lugarEntrega;
-
+                nuevoProductor.claveAcceso = claveAcceso;
                 INSERT(RUTA_PRODUCTORES, JsonConvert.SerializeObject(nuevoProductor));
-
                 return true;
             }
             return false;
         }
-        
         private bool actualizarProductor(int numeroCedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String provinciaResidencia,
                                         String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, int anioNacimiento, int mesNacimiento,
-                                        int diaNacimiento, String[] lugarEntrega)
+                                        int diaNacimiento, String[] lugarEntrega, String claveAcceso)
         {
             if(DELETE(RUTA_PRODUCTORES, numeroCedula))
             {
                 return crearProductor(numeroCedula, primerNombre, segundoNombre, primerApellido, segundoApellido, provinciaResidencia, cantonResidencia, distritoResidencia,
-                            numeroTelefono, numeroSINPE, anioNacimiento, mesNacimiento, diaNacimiento, lugarEntrega);
+                            numeroTelefono, numeroSINPE, anioNacimiento, mesNacimiento, diaNacimiento, lugarEntrega, claveAcceso);
             }
             return false;
         }
-
-
         private bool eliminarProductor(int numeroCedulaProductor)
         {
             if (SELECT(RUTA_PRODUCTORES, numeroCedulaProductor) != null)
@@ -486,13 +404,11 @@ namespace DBMS
             }
             return false;
         }
-
         private bool actualizarSolicitudAfiliacion(int codigoSolicitud, bool estado, int anioRespuesta, int mesRespuesta, int diaRespuesta, String motivoDenegacion)
         {
             String[] solicitudesSinRespuesta = FILTER(RUTA_AFILIACIONES, "estado", "Sin respuesta", 0);
             JObject posibleProductor;
             JObject productorAceptado = null;
-
             foreach(String solicitud in solicitudesSinRespuesta)
             {
                 posibleProductor = JObject.Parse(solicitud);
@@ -501,12 +417,10 @@ namespace DBMS
                     productorAceptado = posibleProductor;
                 }
             }
-
             if (productorAceptado == null)
             {
                 return false;
             }
-
             if (estado == true)
             {
                 UPDATE(RUTA_AFILIACIONES, codigoSolicitud, "estado", "Aceptado", 0);
@@ -519,7 +433,6 @@ namespace DBMS
                        (int)productorAceptado["numeroSINPE"], (int)productorAceptado["anioNacimiento"],
                        (int)productorAceptado["mesNacimiento"], (int)productorAceptado["diaNacimiento"],
                        productorAceptado["lugarEntrega"].Values<String>().ToArray());
-
             }
             else
             {
@@ -529,27 +442,20 @@ namespace DBMS
             UPDATE(RUTA_AFILIACIONES, codigoSolicitud, "anioRespuesta", null, anioRespuesta);
             UPDATE(RUTA_AFILIACIONES, codigoSolicitud, "mesRespuesta", null, mesRespuesta);
             UPDATE(RUTA_AFILIACIONES, codigoSolicitud, "diaRespuesta", null, diaRespuesta);
-
             return true;
         }
-
-
         private bool crearCategoria(int identificador, String nombre)
         {
             if (SELECT(RUTA_CATEGORIAS, identificador) == null)
             {
                 JObject nuevaCategoria = new JObject();
-
                 nuevaCategoria["identificador"] = identificador;
                 nuevaCategoria["nombre"] = nombre;
-
                 INSERT(RUTA_CATEGORIAS, JsonConvert.SerializeObject(nuevaCategoria));
-
                 return true;
             }
             return false;
         }
-
         private bool actualizarCategoria(int identificador, String nombre)
         {
             if (SELECT(RUTA_CATEGORIAS, identificador) != null)
@@ -559,16 +465,13 @@ namespace DBMS
             }
             return false;
         }
-
         private bool eliminarCategoria(int identificador)
         {
             if (SELECT(RUTA_CATEGORIAS, identificador)!=null)
             {
                 DELETE(RUTA_CATEGORIAS, identificador);
-
                 String[] productosModificar = FILTER(RUTA_PRODUCTOS, "identificadorCategoria", null, identificador);
                 JObject productoAnalizar;
-
                 foreach (String producto in productosModificar)
                 {
                     productoAnalizar = JObject.Parse(producto);
@@ -577,22 +480,16 @@ namespace DBMS
                 return true;
             }
             return false;
-
         }
-
-
         private String[] encontrarSolicitudesSinResponder()
         {
             return FILTER(RUTA_AFILIACIONES, "Estado", "Sin respuesta", 0);
         }
-
-
         private String[] encontrarPrimerosDiezElementos(String[] listaElementos)
         {
             if (listaElementos.Length > 10)
             {
                 String[] primerosDiezElementos = { };
-
                 for (int i = 0; i <= 9; i++)
                 {
                     primerosDiezElementos = primerosDiezElementos.Concat(new String[] { listaElementos[i] }).ToArray();
@@ -601,13 +498,10 @@ namespace DBMS
             }
             return listaElementos;
         }
-
         private String[] encontrarProductosMasVendidos()
         {
-            return encontrarPrimerosDiezElementos(SORT(RUTA_PRODUCTOS, "cantidadVendida"));
-            
+            return encontrarPrimerosDiezElementos(SORT(RUTA_PRODUCTOS, "cantidadVendida"));          
         }
-
         private String[] encontrarProductosMasVendidosPorProductor(int numeroCedulaProductor)
         {
             String[] productosSegunProductor = encontrarProductoPorProductor(numeroCedulaProductor);
@@ -628,7 +522,6 @@ namespace DBMS
             }
             return encontrarPrimerosDiezElementos(productosSegunProductor);          
         }
-
         private String[] encontrarProductosMasGanancias()
         {
             String[] productosSegunGanancias = File.ReadAllLines(RUTA_PRODUCTOS);
@@ -649,32 +542,25 @@ namespace DBMS
             }
             return encontrarPrimerosDiezElementos(productosSegunGanancias);
         }
-
         private String[] encontrarClientesMasCompras()
         {
             String[] clientesSegunCompras = SORT(RUTA_CLIENTES, "cantidadCompras");
             return encontrarPrimerosDiezElementos(clientesSegunCompras);
         }
 
-        /*-------------------------------------------------------------VISTA DE PRODUCTOR-----------------------------------------------------------------*/
 
-        // true para solicitud enviada. false para solicitud en espera del administrador
+        /*-------------------------------------------------------------VISTA DE PRODUCTOR-----------------------------------------------------------------*/
         private bool crearSolicitudAfiliacion(int numeroCedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String provinciaResidencia,
                                             String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, int anioNacimiento, int mesNacimiento,
-                                            int diaNacimiento, String[] lugarEntrega, int anioSolicitud, int mesSolicitud, int diaSolicitud)
+                                            int diaNacimiento, String[] lugarEntrega, String claveAcceso, int anioSolicitud, int mesSolicitud, int diaSolicitud)
         {
-
             String[] solicitudesRealizadas = FILTER(RUTA_AFILIACIONES, "codigoSolicitud", null, numeroCedula);
-
             String[] solicitudesAceptadas = FILTER(RUTA_PRODUCTORES, "numeroCedula", null, numeroCedula);
             if (solicitudesAceptadas.Length != 0)
             {
-                Console.WriteLine("ressss");
                 return false;
             }
-
             JObject solicitudAnalizar;
-
             for(int i=0; i<solicitudesRealizadas.Length; i++)
             {
                 solicitudAnalizar = JObject.Parse(solicitudesRealizadas[i]);
@@ -683,9 +569,7 @@ namespace DBMS
                     return false;
                 }
             }
-
             BackendAgroTICO.Afiliacion nuevaAfiliacion = new BackendAgroTICO.Afiliacion();
-
             nuevaAfiliacion.codigoSolicitud = numeroCedula;
             nuevaAfiliacion.primerNombre = primerNombre;
             nuevaAfiliacion.segundoNombre = segundoNombre;
@@ -701,29 +585,23 @@ namespace DBMS
             nuevaAfiliacion.mesNacimiento = mesNacimiento;
             nuevaAfiliacion.diaNacimiento = diaNacimiento;
             nuevaAfiliacion.lugarEntrega = lugarEntrega;
+            nuevaAfiliacion.claveAcceso = claveAcceso;
             nuevaAfiliacion.anioSolicitud = anioSolicitud;
             nuevaAfiliacion.mesSolicitud = mesSolicitud;
             nuevaAfiliacion.diaSolicitud = diaSolicitud;
-
             nuevaAfiliacion.estado = "Sin respuesta";
             nuevaAfiliacion.motivoDenegacion = "Sin respuesta";
             nuevaAfiliacion.anioRespuesta = 0;
             nuevaAfiliacion.mesRespuesta = 0;
             nuevaAfiliacion.diaRespuesta = 0;
-
             INSERT(RUTA_AFILIACIONES, JsonConvert.SerializeObject(nuevaAfiliacion));
-
-
-            return true;
-            
+            return true; 
         }
-
         private String encontrarSolicitudAfiliacion(int numeroCedula)
         {
             String[] solicitudesProductor = FILTER(RUTA_AFILIACIONES, "codigoSolicitud", null, numeroCedula);
             JObject posibleSolicitud;
             JObject solicitudPendiente = null;
-
             foreach (String solicitud in solicitudesProductor)
             {
                 posibleSolicitud = JObject.Parse(solicitud);
@@ -732,19 +610,15 @@ namespace DBMS
                     solicitudPendiente = posibleSolicitud;
                 }
             }
-
             if(solicitudPendiente == null)
             {
                 return null;
             }
-
             return solicitudPendiente.ToString();
-
         }
 
-
         private bool crearProducto(int codigo, int numeroCedulaProductor, String nombre, String modoVenta, String disponibilidad, int precio,
-                                    int identificadorCategoria)
+                                    int identificadorCategoria, String foto)
         {
             if (SELECT(RUTA_PRODUCTOS, codigo) == null)
             {
@@ -760,9 +634,9 @@ namespace DBMS
                     nuevoProducto["precio"] = precio;
                     nuevoProducto["identificadorCategoria"] = identificadorCategoria;
                     nuevoProducto["cantidadVendida"] = 0;
+                    nuevoProducto["foto"] = foto;
 
                     INSERT(RUTA_PRODUCTOS, JsonConvert.SerializeObject(nuevoProducto));
-
                     return true;
                 }
                 return false;
@@ -770,8 +644,9 @@ namespace DBMS
             return false;
         }
 
+
         private bool actualizarProducto(int codigo, String nombre, String modoVenta, String disponibilidad, int precio,
-                                        int identificadorCategoria)
+                                        int identificadorCategoria, String foto)
         {
             if (SELECT(RUTA_PRODUCTOS, codigo) != null)
             {
@@ -782,14 +657,13 @@ namespace DBMS
                     UPDATE(RUTA_PRODUCTOS, codigo, "disponibilidad", disponibilidad, 0);
                     UPDATE(RUTA_PRODUCTOS, codigo, "precio", null, precio);
                     UPDATE(RUTA_PRODUCTOS, codigo, "identificadorCategoria", null, identificadorCategoria);
-
+                    UPDATE(RUTA_PRODUCTOS, codigo, "foto", foto, 0);
                     return true;
                 }
                 return false;
             }
             return false;
         }
-
         private bool eliminarProducto(int codigo)
         {
             return DELETE(RUTA_PRODUCTOS, codigo);
@@ -837,6 +711,20 @@ namespace DBMS
             return productosEntregar;
         }
 
+
+        private bool autorizarLoginProductor(int numeroCedula, String claveAcceso)
+        {
+            if (SELECT(RUTA_PRODUCTORES, numeroCedula) != null)
+            {
+                JObject productorIngresado = JObject.Parse(SELECT(RUTA_PRODUCTORES, numeroCedula));
+                if ((String)productorIngresado["claveAcceso"] == claveAcceso)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
 
 
 
@@ -897,7 +785,7 @@ namespace DBMS
 
 
 
-        private bool autorizarLogin(String nombreUsuario, String claveAcceso)
+        private bool autorizarLoginCliente(String nombreUsuario, String claveAcceso)
         {
             String[] usuariosPosibles = FILTER(RUTA_CLIENTES, "nombreUsuario", nombreUsuario, 0);
             if (usuariosPosibles.Length == 1)

@@ -28,6 +28,8 @@ namespace BackendAgroTICO
 
         public String[] lugarEntrega;
 
+        public String claveAcceso;
+
         public Productor()
         {
         }
