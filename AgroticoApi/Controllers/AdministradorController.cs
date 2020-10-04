@@ -114,8 +114,8 @@ namespace AgroticoApi.Controllers
                 (int)nuevoProductor["anioNacimiento"],
                 (int)nuevoProductor["mesNacimiento"],
                 (int)nuevoProductor["diaNacimiento"],
-                nuevoProductor.SelectToken("lugarEntrega")?.ToObject<string[]>()
-                );
+                nuevoProductor.SelectToken("lugarEntrega")?.ToObject<string[]>(),
+                (string)nuevoProductor["claveAcceso"]);
 
             if (resultado == true)
             {
@@ -161,8 +161,8 @@ namespace AgroticoApi.Controllers
                 (int)objeto["anioNacimiento"],
                 (int)objeto["mesNacimiento"],
                 (int)objeto["diaNacimiento"],
-                objeto.SelectToken("lugarEntrega")?.ToObject<string[]>()
-                );
+                objeto.SelectToken("lugarEntrega")?.ToObject<string[]>(),
+                (string)objeto["claveAcceso"]);
 
             if (resultado == true)
             {

@@ -57,6 +57,7 @@ namespace AgroticoApi.Controllers
                 (int)nuevoCliente["mesNacimiento"],
                 (int)nuevoCliente["diaNacimiento"],
                 nuevoCliente.SelectToken("lugarEntrega")?.ToObject<string[]>(),
+                (string)nuevoCliente["claveAcceso"],
                 (int)nuevoCliente["anioSolicitud"],
                 (int)nuevoCliente["mesSolicitud"],
                 (int)nuevoCliente["diasSolicitud"]);
@@ -81,13 +82,30 @@ namespace AgroticoApi.Controllers
                 (string)producto["modoVenta"],
                 (string)producto["disponibilidad"],
                 (int)producto["precio"],
-                (int)producto["identificadorCategoria"]);
+                (int)producto["identificadorCategoria"],
+                (string)producto["foto"]);
 
             if (resultado == false)
             {
                 return NotFound();
             }
             return Ok("Producto creado correctamente");
+        }
+
+        // POST api/Productores/login
+        [HttpPost]
+        [Route("api/Productores/login")]
+        public IHttpActionResult autorizarLogin([FromBody] JObject login)
+        {
+            bool resultado = _dbms.autorizarLoginProductor(
+                (int)login["numeroCedula"],
+                (string)login["claveAcceso"]);
+
+            if (resultado == true)
+            {
+                return Ok("Inicio de sesion exitoso");
+            }
+            return BadRequest("Usuario o contrasenia incorrectos");
         }
 
         // PUT api/Productores/Producto/edit
@@ -101,7 +119,8 @@ namespace AgroticoApi.Controllers
                 (string)producto["modoVenta"],
                 (string)producto["disponibilidad"],
                 (int)producto["precio"],
-                (int)producto["identificadorCategoria"]);
+                (int)producto["identificadorCategoria"],
+                (string)producto["foto"]);
 
             if (resultado == false)
             {

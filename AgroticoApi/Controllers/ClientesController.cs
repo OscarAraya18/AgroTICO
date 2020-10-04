@@ -12,20 +12,6 @@ namespace AgroticoApi.Controllers
         DBMS _dbms = new DBMS();
         Reporte _reporte = new Reporte();
 
-     
-        // GET api/Clientes
-        [HttpGet]
-        [Route("api/Clientes")]
-        public IHttpActionResult Get([FromUri] int id)
-        {
-            var listado = _dbms.SELECT(DBMS.RUTA_CLIENTES, id);
-            if (listado == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(JObject.Parse(listado));
-        }
 
         // GET api/Clientes/Productor/distrito
         [HttpGet]
@@ -107,7 +93,7 @@ namespace AgroticoApi.Controllers
         [Route("api/Clientes/login")]
         public IHttpActionResult autorizarLogin([FromBody] JObject login)
         {
-            bool resultado = _dbms.autorizarLogin(
+            bool resultado = _dbms.autorizarLoginCliente(
                 (string)login["nombreUsuario"],
                 (string)login["claveAcceso"]);
 
