@@ -1,7 +1,14 @@
-<div class="container">
- 
-  <h1 class="head"> <img class="logo" height="50px" src="assets/logo.svg"> AgroTICO</h1>
+<!-- MAIN NAV-->
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+  <h5 class="my-0 mr-md-auto font-weight-normal">agroTICO</h5>
+  <nav class="my-2 my-md-0 mr-md-3">
+
+    <a routerLink="/cliente-inicio/login" routerLinkActive="acive" class="p-2 text-dark" href="#">Clientes</a>
+    <a class="p-2 text-dark" href="#">Productores</a>
+    <a routerLink="/admin/afiliaciones" routerLinkActive="acive" class="p-2 text-dark" href="#">Administración</a>
+    
+
+  </nav>
 </div>
-
-
+<!--HERE WE DISPLAY THE VIEWS (ADMIN, PRODUCT, CLIENT)-->
 <router-outlet></router-outlet>

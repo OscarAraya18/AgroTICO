@@ -11,7 +11,17 @@ import { PerfilComponent } from './vistas/administrador/perfil/perfil.component'
 import { VistaComponent } from './vistas/administrador/vista/vista.component';
 import { ProductoresComponent } from './vistas/administrador/productores/productores.component';
 import { CategoriasComponent } from './vistas/administrador/categorias/categorias.component';
-import { AfiliacionesComponent } from './vistas/administrador/afiliaciones/afiliaciones.component'; 
+import { AfiliacionesComponent } from './vistas/administrador/afiliaciones/afiliaciones.component';
+import { InicioComponent } from './vistas/publicoGeneral/inicio/inicio.component';
+import { LoginComponent } from './vistas/publicoGeneral/login/login.component';
+import { CrearCuentaComponent } from './vistas/publicoGeneral/crear-cuenta/crear-cuenta.component';
+import { ClienteContenidoComponent } from './vistas/publicoGeneral/cliente-contenido/cliente-contenido.component';
+import { ListaProductoresComponent } from './vistas/publicoGeneral/lista-productores/lista-productores.component';
+import { CarritoComprasComponent } from './vistas/publicoGeneral/carrito-compras/carrito-compras.component';
+import { TarjetaProductorComponent } from './vistas/publicoGeneral/tarjeta-productor/tarjeta-productor.component';
+import { TarjetaProductoComponent } from './vistas/publicoGeneral/tarjeta-producto/tarjeta-producto.component';
+import { ArticuloCarritoComponent } from './vistas/publicoGeneral/articulo-carrito/articulo-carrito.component';
+import { ListaProductosComponent } from './vistas/publicoGeneral/lista-productos/lista-productos.component'; 
 
 @NgModule({
   declarations: [
@@ -21,7 +31,17 @@ import { AfiliacionesComponent } from './vistas/administrador/afiliaciones/afili
     VistaComponent,
     ProductoresComponent,
     CategoriasComponent,
-    AfiliacionesComponent
+    AfiliacionesComponent,
+    InicioComponent,
+    LoginComponent,
+    CrearCuentaComponent,
+    ClienteContenidoComponent,
+    ListaProductoresComponent,
+    CarritoComprasComponent,
+    TarjetaProductorComponent,
+    TarjetaProductoComponent,
+    ArticuloCarritoComponent,
+    ListaProductosComponent
   ],
   imports: [
     BrowserModule,
