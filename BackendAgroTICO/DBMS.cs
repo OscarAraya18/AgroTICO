@@ -17,6 +17,7 @@ namespace DBMS
         private static String RUTA_ADMINISTRADORES = RUTA_BASE_DE_DATOS + "//Administrador.txt";
         private static String RUTA_CATEGORIAS = RUTA_BASE_DE_DATOS + "//Categoria.txt";
         private static String RUTA_AFILIACIONES = RUTA_BASE_DE_DATOS + "//Afiliacion.txt";
+        private static String RUTA_CARRITO_DE_COMPRAS = RUTA_BASE_DE_DATOS + "//CarritoDeCompras";
 
 
         private void RESET()
@@ -29,6 +30,7 @@ namespace DBMS
                 if (File.Exists(RUTA_PRODUCTOS)){File.Delete(RUTA_PRODUCTOS);}    
                 if (File.Exists(RUTA_CATEGORIAS)){File.Delete(RUTA_CATEGORIAS);}
                 if (File.Exists(RUTA_AFILIACIONES)){File.Delete(RUTA_AFILIACIONES);}
+                if (File.Exists(RUTA_CARRITO_DE_COMPRAS)){File.Delete(RUTA_CARRITO_DE_COMPRAS);}
                 Directory.Delete(RUTA_BASE_DE_DATOS);
             }
             DirectoryInfo basesDeDatos = Directory.CreateDirectory(RUTA_BASE_DE_DATOS);
@@ -39,6 +41,7 @@ namespace DBMS
             File.CreateText(RUTA_ADMINISTRADORES);
             File.CreateText(RUTA_CATEGORIAS);
             File.CreateText(RUTA_AFILIACIONES);
+            File.Create(RUTA_CARRITO_DE_COMPRAS);
 
         }
         private void CLEAN(String rutaDelConjuntoEntidad)
@@ -140,7 +143,7 @@ namespace DBMS
                     }
                     else{Console.WriteLine("Se ha eliminado la entidad solicitada " + conjuntoEntidadActual[i]);}
                 }
-                else if (rutaDelConjuntoEntidad == RUTA_PRODUCTOS || rutaDelConjuntoEntidad == RUTA_ADMINISTRADORES)
+                else if (rutaDelConjuntoEntidad == RUTA_PRODUCTOS || rutaDelConjuntoEntidad == RUTA_ADMINISTRADORES || rutaDelConjuntoEntidad == RUTA_CARRITO_DE_COMPRAS)
                 {
                     if (!((int)entidadAnalizar["codigo"] == atributoLlave))
                     {
@@ -432,7 +435,8 @@ namespace DBMS
                        (String)productorAceptado["distritoResidencia"], (int)productorAceptado["numeroTelefono"],
                        (int)productorAceptado["numeroSINPE"], (int)productorAceptado["anioNacimiento"],
                        (int)productorAceptado["mesNacimiento"], (int)productorAceptado["diaNacimiento"],
-                       productorAceptado["lugarEntrega"].Values<String>().ToArray());
+                       productorAceptado["lugarEntrega"].Values<String>().ToArray(),
+                       (String)productorAceptado["claveAcceso"]);
             }
             else
             {
@@ -616,7 +620,6 @@ namespace DBMS
             }
             return solicitudPendiente.ToString();
         }
-
         private bool crearProducto(int codigo, int numeroCedulaProductor, String nombre, String modoVenta, String disponibilidad, int precio,
                                     int identificadorCategoria, String foto)
         {
@@ -643,8 +646,6 @@ namespace DBMS
             }
             return false;
         }
-
-
         private bool actualizarProducto(int codigo, String nombre, String modoVenta, String disponibilidad, int precio,
                                         int identificadorCategoria, String foto)
         {
@@ -668,10 +669,6 @@ namespace DBMS
         {
             return DELETE(RUTA_PRODUCTOS, codigo);
         }
-
-
-
-
         private String[] encontrarPedidos(int numeroCedula)
         {
             String[] productosEntregar = { };
@@ -710,8 +707,6 @@ namespace DBMS
             }
             return productosEntregar;
         }
-
-
         private bool autorizarLoginProductor(int numeroCedula, String claveAcceso)
         {
             if (SELECT(RUTA_PRODUCTORES, numeroCedula) != null)
@@ -790,21 +785,78 @@ namespace DBMS
             String[] usuariosPosibles = FILTER(RUTA_CLIENTES, "nombreUsuario", nombreUsuario, 0);
             if (usuariosPosibles.Length == 1)
             {
-                return ((String)JObject.Parse(usuariosPosibles[0])["claveAcceso"] == claveAcceso);
+                if ((String)JObject.Parse(usuariosPosibles[0])["claveAcceso"] == claveAcceso)
+                {
+                    CLEAN(RUTA_CARRITO_DE_COMPRAS);
+                    return true;
+                }
             }
             return false;      
         }
 
 
-        private bool crearVenta(int numeroCedulaComprador, int anioCompra, int mesCompra, int diaCompra, int calificacionGeneral, String direccionEntrega,
-                                String[] productoVendido)
+        
+        //SISTEMA DEL CARRITO DE COMPRAS
+        
+
+        //Los productos que me lleguen del frontend tienen que tener la estructura {"codigo":123, "calificacion": 3}
+        
+        // IMPORTANTE! El sistema siempre agrega primero uno en la cantidad, ya luego en frontend la cantidad se actualiza
+
+
+        private bool agregarProductoCarrito(int codigo, int calificacion)
+        {
+            if (SELECT(RUTA_CARRITO_DE_COMPRAS, codigo) == null)
+            {
+                JObject productoSolicitado = JObject.Parse(SELECT(RUTA_CARRITO_DE_COMPRAS, codigo));
+                JObject nuevoProducto = new JObject();
+                nuevoProducto["codigo"] = codigo;
+                nuevoProducto["nombre"] = (String)productoSolicitado["nombre"];
+                nuevoProducto["precio"] = (int)productoSolicitado["precio"];
+                nuevoProducto["calificacion"] = calificacion;
+                nuevoProducto["cantidad"] = 1;
+                INSERT(RUTA_CARRITO_DE_COMPRAS, JsonConvert.SerializeObject(nuevoProducto));
+                return true;
+            }
+            return false;
+        }
+
+
+
+
+        private bool eliminarProductoCarrito(int codigo)
+        {
+            return DELETE(RUTA_CARRITO_DE_COMPRAS, codigo);
+        }
+
+
+
+
+        private bool aumentarCantidadProductoCarrito(int codigo)
+        {
+            JObject productoAumentar = JObject.Parse(SELECT(RUTA_CARRITO_DE_COMPRAS, codigo));
+            return UPDATE(RUTA_CARRITO_DE_COMPRAS, codigo, "cantidad", null, (int)productoAumentar["cantidad"] + 1);
+        }
+
+
+
+        private bool reducirCantidadProductoCarrito(int codigo)
+        {
+            JObject productoReducir = JObject.Parse(SELECT(RUTA_CARRITO_DE_COMPRAS, codigo));
+            if ((int)productoReducir["cantidad"] > 1)
+            {
+                return UPDATE(RUTA_CARRITO_DE_COMPRAS, codigo, "cantidad", null, (int)productoReducir["cantidad"] - 1);
+            }
+            return false;
+        }
+
+
+        private bool finalizarCompra(int numeroCedulaComprador, int anioCompra, int mesCompra, int diaCompra, 
+                                     int calificacionGeneral, String direccionEntrega)
         {
             int ventasPreviasCliente = FILTER(RUTA_VENTAS, "numeroCedulaComprador", null, numeroCedulaComprador).Length;
-
             BackendAgroTICO.Venta nuevaVenta = new BackendAgroTICO.Venta();
-
-            UPDATE(RUTA_CLIENTES, numeroCedulaComprador, "cantidadCompras", null, (int)JObject.Parse(SELECT(RUTA_CLIENTES, numeroCedulaComprador))["cantidadCompras"] + 1);  
-
+            UPDATE(RUTA_CLIENTES, numeroCedulaComprador, "cantidadCompras", null, ventasPreviasCliente + 1);
             nuevaVenta.numeroCedulaComprador = numeroCedulaComprador;
             nuevaVenta.codigoFactura = numeroCedulaComprador.ToString() + "-" + ventasPreviasCliente.ToString() + "-" + diaCompra.ToString() + mesCompra.ToString() + anioCompra.ToString();
             nuevaVenta.anioCompra = anioCompra;
@@ -812,27 +864,31 @@ namespace DBMS
             nuevaVenta.diaCompra = diaCompra;
             nuevaVenta.calificacionGeneral = calificacionGeneral;
             nuevaVenta.direccionEntrega = direccionEntrega;
-            nuevaVenta.productoVendido = productoVendido;
-
+            nuevaVenta.productoVendido = READ(RUTA_CARRITO_DE_COMPRAS);
             int montoTotal = 0;
-
             JObject productoAnalizar;
-            foreach(String producto in productoVendido)
+            foreach (String producto in READ(RUTA_CARRITO_DE_COMPRAS))
             {
-                
                 productoAnalizar = JObject.Parse(producto);
-                montoTotal = montoTotal + (int)productoAnalizar["cantidad"] *(int)productoAnalizar["precio"];
-
+                montoTotal = montoTotal + (int)productoAnalizar["cantidad"] * (int)productoAnalizar["precio"];
                 int cantidadVendidaPrevia = (int)(JObject.Parse(SELECT(RUTA_PRODUCTOS, (int)productoAnalizar["codigo"]))["cantidadVendida"]);
-
                 UPDATE(RUTA_PRODUCTOS, (int)productoAnalizar["codigo"], "cantidadVendida", null, cantidadVendidaPrevia + (int)productoAnalizar["cantidad"]);
             }
             nuevaVenta.montoTotal = montoTotal;
-
             INSERT(RUTA_VENTAS, JsonConvert.SerializeObject(nuevaVenta));
+            CLEAN(RUTA_CARRITO_DE_COMPRAS);
 
             return true;
+
         }
+
+
+
+
+        
+
+
+
 
 
 
