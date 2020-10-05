@@ -18,9 +18,9 @@ namespace AgroticoApi.Controllers
             return Ok(solicitudes);
         }
 
-        // GET api/Administrador/Productos/+vendidos
+        // GET api/Administrador/Productos/masVendidos
         [HttpGet]
-        [Route("api/Administrador/Productos/+vendidos")]
+        [Route("api/Administrador/Productos/masVendidos")]
         public IHttpActionResult masVendidos()
         {
             var resultado = _dbms.encontrarProductosMasVendidos();
@@ -32,9 +32,9 @@ namespace AgroticoApi.Controllers
             return Ok(resultado);
         }
 
-        // GET api/Administrador/Productos/+ganancia
+        // GET api/Administrador/Productos/masGanancia
         [HttpGet]
-        [Route("api/Administrador/Productos/+ganancia")]
+        [Route("api/Administrador/Productos/masGanancia")]
         public IHttpActionResult masGanancia()
         {
             var resultado = _dbms.encontrarProductosMasGanancias();
@@ -46,9 +46,9 @@ namespace AgroticoApi.Controllers
             return Ok(resultado);
         }
 
-        // GET api/Administrador/Productos/+vendidosProductor
+        // GET api/Administrador/Productos/masVendidosProductor
         [HttpGet]
-        [Route("api/Administrador/Productos/+vendidosProductor")]
+        [Route("api/Administrador/Productos/masVendidosProductor")]
         public IHttpActionResult masVendidosPorProductor([FromUri] int id)
         {
             var resultado = _dbms.encontrarProductosMasVendidosPorProductor(id);
@@ -60,9 +60,9 @@ namespace AgroticoApi.Controllers
             return Ok(resultado);
         }
 
-        // GET api/Administrador/Clientes/+compras
+        // GET api/Administrador/Clientes/masCompras
         [HttpGet]
-        [Route("api/Administrador/Clientes/+compras")]
+        [Route("api/Administrador/Clientes/masCompras")]
         public IHttpActionResult masCompras()
         {
             var resultado = _dbms.encontrarClientesMasCompras();

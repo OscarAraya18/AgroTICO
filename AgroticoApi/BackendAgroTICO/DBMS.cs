@@ -25,6 +25,7 @@ namespace Backend.DBMS
         private static String RUTA_ADMINISTRADORES = RUTA_BASE_DE_DATOS + "//Administrador.txt";
         private static String RUTA_CATEGORIAS = RUTA_BASE_DE_DATOS + "//Categoria.txt";
         private static String RUTA_AFILIACIONES = RUTA_BASE_DE_DATOS + "//Afiliacion.txt";
+        private static String RUTA_CARRITO_DE_COMPRAS = RUTA_BASE_DE_DATOS + "//CarritoDeCompras.txt";
 
 
         private void RESET()
@@ -37,6 +38,7 @@ namespace Backend.DBMS
                 if (File.Exists(RUTA_PRODUCTOS)) { File.Delete(RUTA_PRODUCTOS); }
                 if (File.Exists(RUTA_CATEGORIAS)) { File.Delete(RUTA_CATEGORIAS); }
                 if (File.Exists(RUTA_AFILIACIONES)) { File.Delete(RUTA_AFILIACIONES); }
+                if (File.Exists(RUTA_CARRITO_DE_COMPRAS)) { File.Delete(RUTA_CARRITO_DE_COMPRAS); }
                 Directory.Delete(RUTA_BASE_DE_DATOS);
             }
             DirectoryInfo basesDeDatos = Directory.CreateDirectory(RUTA_BASE_DE_DATOS);
@@ -47,6 +49,7 @@ namespace Backend.DBMS
             File.CreateText(RUTA_ADMINISTRADORES);
             File.CreateText(RUTA_CATEGORIAS);
             File.CreateText(RUTA_AFILIACIONES);
+            File.Create(RUTA_CARRITO_DE_COMPRAS);
 
         }
         private void CLEAN(String rutaDelConjuntoEntidad)
@@ -71,7 +74,7 @@ namespace Backend.DBMS
                         return conjuntoEntidadActual[i];
                     }
                 }
-                else if (rutaDelConjuntoEntidad == RUTA_PRODUCTOS || rutaDelConjuntoEntidad == RUTA_ADMINISTRADORES)
+                else if (rutaDelConjuntoEntidad == RUTA_PRODUCTOS || rutaDelConjuntoEntidad == RUTA_ADMINISTRADORES || rutaDelConjuntoEntidad == RUTA_CARRITO_DE_COMPRAS)
                 {
                     if ((int)entidadAnalizar["codigo"] == atributoLlave)
                     {
@@ -148,7 +151,7 @@ namespace Backend.DBMS
                     }
                     else { Console.WriteLine("Se ha eliminado la entidad solicitada " + conjuntoEntidadActual[i]); }
                 }
-                else if (rutaDelConjuntoEntidad == RUTA_PRODUCTOS || rutaDelConjuntoEntidad == RUTA_ADMINISTRADORES)
+                else if (rutaDelConjuntoEntidad == RUTA_PRODUCTOS || rutaDelConjuntoEntidad == RUTA_ADMINISTRADORES || rutaDelConjuntoEntidad == RUTA_CARRITO_DE_COMPRAS)
                 {
                     if (!((int)entidadAnalizar["codigo"] == atributoLlave))
                     {
@@ -219,7 +222,7 @@ namespace Backend.DBMS
                 return false;
             }
         }
-        private String[] FILTER(String rutaDelConjuntoEntidad, String atributoBuscar, String valorRequeridoTexto, int valorRequeridoNumerico)
+        public String[] FILTER(String rutaDelConjuntoEntidad, String atributoBuscar, String valorRequeridoTexto, int valorRequeridoNumerico)
         {
             Console.WriteLine("El DBMS ha iniciado un proceso de FILTER en el conjunto de entidad " + rutaDelConjuntoEntidad);
             String[] conjuntoEntidadActual = File.ReadAllLines(rutaDelConjuntoEntidad);
@@ -248,7 +251,7 @@ namespace Backend.DBMS
             }
             return conjuntoEntidadFiltrado;
         }
-        public String[] SORT(String rutaDelConjuntoEntidad, String atributoOrdenar)
+        private String[] SORT(String rutaDelConjuntoEntidad, String atributoOrdenar)
         {
             Console.WriteLine("El DBMS ha iniciado un proceso de SORT en el conjunto de entidad " + rutaDelConjuntoEntidad);
             String[] conjuntoEntidadActual = File.ReadAllLines(rutaDelConjuntoEntidad);
@@ -269,7 +272,7 @@ namespace Backend.DBMS
             }
             return conjuntoEntidadActual;
         }
-        public String[] READ(String rutaDelConjuntoEntidad)
+        private String[] READ(String rutaDelConjuntoEntidad)
         {
             return File.ReadAllLines(rutaDelConjuntoEntidad);
         }
@@ -279,10 +282,17 @@ namespace Backend.DBMS
         {
             return FILTER(RUTA_PRODUCTOS, "numeroCedulaProductor", null, numeroCedulaProductor);
         }
+
+
+
+
         public String[] encontrarProductorPorProvincia(String provincia)
         {
             return FILTER(RUTA_PRODUCTORES, "provincia", provincia, 0);
         }
+
+
+
         public String[] encontrarProductorPorCanton(String canton)
         {
             return FILTER(RUTA_PRODUCTORES, "canton", canton, 0);
@@ -385,6 +395,9 @@ namespace Backend.DBMS
             }
             return false;
         }
+
+
+
         public bool actualizarProductor(int numeroCedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String provinciaResidencia,
                                         String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, int anioNacimiento, int mesNacimiento,
                                         int diaNacimiento, String[] lugarEntrega, String claveAcceso)
@@ -441,7 +454,7 @@ namespace Backend.DBMS
                        (int)productorAceptado["numeroSINPE"], (int)productorAceptado["anioNacimiento"],
                        (int)productorAceptado["mesNacimiento"], (int)productorAceptado["diaNacimiento"],
                        productorAceptado["lugarEntrega"].Values<String>().ToArray(),
-                       (string)productorAceptado["claveAcceso"]);
+                       (String)productorAceptado["claveAcceso"]);
             }
             else
             {
@@ -626,6 +639,7 @@ namespace Backend.DBMS
             return solicitudPendiente.ToString();
         }
 
+
         public bool crearProducto(int codigo, int numeroCedulaProductor, String nombre, String modoVenta, String disponibilidad, int precio,
                                     int identificadorCategoria, String foto)
         {
@@ -654,6 +668,7 @@ namespace Backend.DBMS
         }
 
 
+
         public bool actualizarProducto(int codigo, String nombre, String modoVenta, String disponibilidad, int precio,
                                         int identificadorCategoria, String foto)
         {
@@ -677,10 +692,6 @@ namespace Backend.DBMS
         {
             return DELETE(RUTA_PRODUCTOS, codigo);
         }
-
-
-
-
         public String[] encontrarPedidos(int numeroCedula)
         {
             String[] productosEntregar = { };
@@ -719,8 +730,6 @@ namespace Backend.DBMS
             }
             return productosEntregar;
         }
-
-
         public bool autorizarLoginProductor(int numeroCedula, String claveAcceso)
         {
             if (SELECT(RUTA_PRODUCTORES, numeroCedula) != null)
@@ -792,28 +801,84 @@ namespace Backend.DBMS
         }
 
 
-
-
         public bool autorizarLoginCliente(String nombreUsuario, String claveAcceso)
         {
             String[] usuariosPosibles = FILTER(RUTA_CLIENTES, "nombreUsuario", nombreUsuario, 0);
             if (usuariosPosibles.Length == 1)
             {
-                return ((String)JObject.Parse(usuariosPosibles[0])["claveAcceso"] == claveAcceso);
+                if ((String)JObject.Parse(usuariosPosibles[0])["claveAcceso"] == claveAcceso)
+                {
+                    CLEAN(RUTA_CARRITO_DE_COMPRAS);
+                    return true;
+                }
             }
             return false;
         }
 
 
-        public bool crearVenta(int numeroCedulaComprador, int anioCompra, int mesCompra, int diaCompra, int calificacionGeneral, String direccionEntrega,
-                                String[] productoVendido)
+
+        //SISTEMA DEL CARRITO DE COMPRAS
+
+
+        //Los productos que me lleguen del frontend tienen que tener la estructura {"codigo":123, "calificacion": 3}
+
+        // IMPORTANTE! El sistema siempre agrega primero uno en la cantidad, ya luego en frontend la cantidad se actualiza
+
+
+        public bool agregarProductoCarrito(int codigo, int calificacion)
+        {
+            if (SELECT(RUTA_CARRITO_DE_COMPRAS, codigo) == null)
+            {
+
+                JObject productoSolicitado = JObject.Parse(SELECT(RUTA_PRODUCTOS, codigo));
+                if ((String)productoSolicitado["disponibilidad"] == "Disponible")
+                {
+                    JObject nuevoProducto = new JObject();
+                    nuevoProducto["codigo"] = codigo;
+                    nuevoProducto["nombre"] = (String)productoSolicitado["nombre"];
+                    nuevoProducto["precio"] = (int)productoSolicitado["precio"];
+                    nuevoProducto["calificacion"] = calificacion;
+                    nuevoProducto["cantidad"] = 1;
+                    INSERT(RUTA_CARRITO_DE_COMPRAS, JsonConvert.SerializeObject(nuevoProducto));
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
+
+        public bool eliminarProductoCarrito(int codigo)
+        {
+            return DELETE(RUTA_CARRITO_DE_COMPRAS, codigo);
+        }
+
+
+        public bool aumentarCantidadProductoCarrito(int codigo)
+        {
+            JObject productoAumentar = JObject.Parse(SELECT(RUTA_CARRITO_DE_COMPRAS, codigo));
+            return UPDATE(RUTA_CARRITO_DE_COMPRAS, codigo, "cantidad", null, (int)productoAumentar["cantidad"] + 1);
+        }
+
+
+
+        public bool reducirCantidadProductoCarrito(int codigo)
+        {
+            JObject productoReducir = JObject.Parse(SELECT(RUTA_CARRITO_DE_COMPRAS, codigo));
+            if ((int)productoReducir["cantidad"] > 1)
+            {
+                return UPDATE(RUTA_CARRITO_DE_COMPRAS, codigo, "cantidad", null, (int)productoReducir["cantidad"] - 1);
+            }
+            return false;
+        }
+
+
+        public bool finalizarCompra(int numeroCedulaComprador, int anioCompra, int mesCompra, int diaCompra,
+                                     int calificacionGeneral, String direccionEntrega)
         {
             int ventasPreviasCliente = FILTER(RUTA_VENTAS, "numeroCedulaComprador", null, numeroCedulaComprador).Length;
-
             BackendAgroTICO.Venta nuevaVenta = new BackendAgroTICO.Venta();
-
-            UPDATE(RUTA_CLIENTES, numeroCedulaComprador, "cantidadCompras", null, (int)JObject.Parse(SELECT(RUTA_CLIENTES, numeroCedulaComprador))["cantidadCompras"] + 1);
-
+            UPDATE(RUTA_CLIENTES, numeroCedulaComprador, "cantidadCompras", null, ventasPreviasCliente + 1);
             nuevaVenta.numeroCedulaComprador = numeroCedulaComprador;
             nuevaVenta.codigoFactura = numeroCedulaComprador.ToString() + "-" + ventasPreviasCliente.ToString() + "-" + diaCompra.ToString() + mesCompra.ToString() + anioCompra.ToString();
             nuevaVenta.anioCompra = anioCompra;
@@ -821,27 +886,52 @@ namespace Backend.DBMS
             nuevaVenta.diaCompra = diaCompra;
             nuevaVenta.calificacionGeneral = calificacionGeneral;
             nuevaVenta.direccionEntrega = direccionEntrega;
-            nuevaVenta.productoVendido = productoVendido;
-
+            nuevaVenta.productoVendido = READ(RUTA_CARRITO_DE_COMPRAS);
             int montoTotal = 0;
-
             JObject productoAnalizar;
-            foreach (String producto in productoVendido)
+            foreach (String producto in READ(RUTA_CARRITO_DE_COMPRAS))
             {
-
                 productoAnalizar = JObject.Parse(producto);
                 montoTotal = montoTotal + (int)productoAnalizar["cantidad"] * (int)productoAnalizar["precio"];
-
                 int cantidadVendidaPrevia = (int)(JObject.Parse(SELECT(RUTA_PRODUCTOS, (int)productoAnalizar["codigo"]))["cantidadVendida"]);
-
                 UPDATE(RUTA_PRODUCTOS, (int)productoAnalizar["codigo"], "cantidadVendida", null, cantidadVendidaPrevia + (int)productoAnalizar["cantidad"]);
             }
             nuevaVenta.montoTotal = montoTotal;
-
             INSERT(RUTA_VENTAS, JsonConvert.SerializeObject(nuevaVenta));
-
+            CLEAN(RUTA_CARRITO_DE_COMPRAS);
             return true;
         }
+
+        // --------------- FUNCIONES UTILES --------------------------------
+
+
+        public string SelectGeneral(string nombreRuta, string usuario)
+        {
+            int atributoLlave;
+
+            if (nombreRuta.Equals("clientes")) {
+                string[] resultado = FILTER(RUTA_CLIENTES, "nombreUsuario", usuario, 0);
+                JObject cliente = JObject.Parse(resultado[0]);
+                atributoLlave = (int)cliente["numeroCedula"];
+                return SELECT(RUTA_CLIENTES, atributoLlave);
+            }
+            /*else if (nombreRuta.Equals("administradores"))
+            {
+                return SELECT(RUTA_ADMINISTRADORES, atributoLlave);
+            }
+            else if (nombreRuta.Equals("productores"))
+            {
+                return SELECT(RUTA_PRODUCTORES, atributoLlave);
+            }*/
+
+           else
+            {
+                return null;
+            }
+
+
+        }
+
 
         /*static void Main(string[] args)
         {

@@ -69,6 +69,20 @@ namespace AgroticoApi.Controllers
             return Ok(resultado);
         }
 
+        // GET api/Clientes/MiInfo
+        [HttpGet]
+        [Route("api/Clientes/MiInfo")]
+        public IHttpActionResult getComprobante([FromBody] string usuario)
+        {
+            string resultado = _dbms.SelectGeneral("clientes", usuario);
+            if (resultado == null)
+            {
+                return NotFound();
+            }
+            JObject jcliente = JObject.Parse(resultado);
+            return Ok(jcliente);
+        }
+
         // GET api/Clientes/pdf
         [HttpGet]
         [Route("api/Clientes/pdf")]
@@ -132,6 +146,21 @@ namespace AgroticoApi.Controllers
             return NotFound();
         }
 
+        // POST api/Clientes/Carrito/new
+        [HttpPost]
+        [Route("api/Clientes/Carrito/new")]
+        public IHttpActionResult agregarProductoCarrito([FromBody] JObject producto)
+        {
+            bool resultado = _dbms.agregarProductoCarrito(
+                (int)producto["codigo"],
+                5);
+
+            if (resultado == true)
+            {
+                return Ok("Producto agregado exitosamente");
+            }
+            return NotFound();
+        }
 
         // PUT api/Clientes/edit
         [HttpPut]
@@ -161,16 +190,59 @@ namespace AgroticoApi.Controllers
             return NotFound();
         }
 
+        // PUT api/Clientes/Carrito/mas
+        [HttpPut]
+        [Route("api/Clientes/Carrito/mas")]
+        public IHttpActionResult aumentarCantidadProductoCarrito([FromBody] int codigo)
+        {
+            bool resultado = _dbms.aumentarCantidadProductoCarrito(codigo);
+
+            if (resultado == true)
+            {
+                return Ok("Se aumento la cantidad exitosamente");
+            }
+            return BadRequest("Producto no encontrado");
+        }
+
+        // PUT api/Clientes/Carrito/edit-
+        [HttpPut]
+        [Route("api/Clientes/Carrito/menos")]
+        public IHttpActionResult reducirCantidadProductoCarrito([FromBody] int codigo)
+        {
+            bool resultado = _dbms.reducirCantidadProductoCarrito(codigo);
+
+
+            if (resultado == true)
+            {
+                return Ok("Se redujo la cantidad exitosamente");
+            }
+            return BadRequest("Ya tiene la cantidad minima del producto");
+        }
+
         // DELETE api/Clientes/delete
         [HttpDelete]
         [Route("api/Clientes/delete")]
-        public IHttpActionResult Delete([FromUri] int id)
+        public IHttpActionResult eliminarCliente([FromBody] int id)
         {
             bool res = _dbms.eliminarCliente(id);
 
             if (res == true)
             {
                 return Ok("Cliente eliminado exitosamente");
+            }
+            return NotFound();
+        }
+
+        // DELETE api/Clientes/Carrito/delete
+        [HttpDelete]
+        [Route("api/Clientes/Carrito/delete")]
+        public IHttpActionResult eliminarProductoCarrito([FromUri] int codigo)
+        {
+            bool res = _dbms.eliminarProductoCarrito(codigo);
+
+            if (res == true)
+            {
+                return Ok("Producto eliminado del carrito exitosamente");
             }
             return NotFound();
         }

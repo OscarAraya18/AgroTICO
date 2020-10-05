@@ -1,0 +1,1 @@
+{"codigo":1234,"nombre":"papa","precio":800,"calificacion":3,"cantidad":3}

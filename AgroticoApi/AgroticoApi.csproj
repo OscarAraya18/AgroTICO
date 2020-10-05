@@ -299,6 +299,7 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="BackendAgroTICO\BaseDeDatos\Administrador.txt" />
     <Content Include="BackendAgroTICO\BaseDeDatos\Afiliacion.txt" />
+    <Content Include="BackendAgroTICO\BaseDeDatos\CarritoDeCompras.txt" />
     <Content Include="BackendAgroTICO\BaseDeDatos\Categoria.txt" />
     <Content Include="BackendAgroTICO\BaseDeDatos\Cliente.txt" />
     <Content Include="BackendAgroTICO\BaseDeDatos\Producto.txt" />
