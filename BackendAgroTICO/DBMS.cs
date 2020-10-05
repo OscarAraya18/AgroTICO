@@ -274,10 +274,17 @@ namespace DBMS
         {
             return FILTER(RUTA_PRODUCTOS, "numeroCedulaProductor", null, numeroCedulaProductor);
         }
+
+
+
+
         private String[] encontrarProductorPorProvincia(String provincia)
         {
             return FILTER(RUTA_PRODUCTORES, "provincia", provincia, 0);
         }
+
+
+
         private String[] encontrarProductorPorCanton(String canton)
         {
             return FILTER(RUTA_PRODUCTORES, "canton", canton, 0);
@@ -380,6 +387,9 @@ namespace DBMS
             }
             return false;
         }
+
+
+
         private bool actualizarProductor(int numeroCedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String provinciaResidencia,
                                         String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, int anioNacimiento, int mesNacimiento,
                                         int diaNacimiento, String[] lugarEntrega, String claveAcceso)
@@ -620,6 +630,8 @@ namespace DBMS
             }
             return solicitudPendiente.ToString();
         }
+
+
         private bool crearProducto(int codigo, int numeroCedulaProductor, String nombre, String modoVenta, String disponibilidad, int precio,
                                     int identificadorCategoria, String foto)
         {
@@ -646,6 +658,9 @@ namespace DBMS
             }
             return false;
         }
+
+
+
         private bool actualizarProducto(int codigo, String nombre, String modoVenta, String disponibilidad, int precio,
                                         int identificadorCategoria, String foto)
         {
@@ -808,19 +823,23 @@ namespace DBMS
         {
             if (SELECT(RUTA_CARRITO_DE_COMPRAS, codigo) == null)
             {
+                
                 JObject productoSolicitado = JObject.Parse(SELECT(RUTA_CARRITO_DE_COMPRAS, codigo));
-                JObject nuevoProducto = new JObject();
-                nuevoProducto["codigo"] = codigo;
-                nuevoProducto["nombre"] = (String)productoSolicitado["nombre"];
-                nuevoProducto["precio"] = (int)productoSolicitado["precio"];
-                nuevoProducto["calificacion"] = calificacion;
-                nuevoProducto["cantidad"] = 1;
-                INSERT(RUTA_CARRITO_DE_COMPRAS, JsonConvert.SerializeObject(nuevoProducto));
-                return true;
+                if ((String)productoSolicitado["disponibilidad"] == "Disponible")
+                {
+                    JObject nuevoProducto = new JObject();
+                    nuevoProducto["codigo"] = codigo;
+                    nuevoProducto["nombre"] = (String)productoSolicitado["nombre"];
+                    nuevoProducto["precio"] = (int)productoSolicitado["precio"];
+                    nuevoProducto["calificacion"] = calificacion;
+                    nuevoProducto["cantidad"] = 1;
+                    INSERT(RUTA_CARRITO_DE_COMPRAS, JsonConvert.SerializeObject(nuevoProducto));
+                    return true;
+                }
+                return false;
             }
             return false;
         }
-
 
 
 
@@ -877,30 +896,15 @@ namespace DBMS
             nuevaVenta.montoTotal = montoTotal;
             INSERT(RUTA_VENTAS, JsonConvert.SerializeObject(nuevaVenta));
             CLEAN(RUTA_CARRITO_DE_COMPRAS);
-
             return true;
-
         }
-
-
-
-
-        
-
-
-
-
 
 
 
         static void Main(string[] args)
         {
             DBMS dbms = new DBMS();
-
-
-
-
-            dbms.RESET();
+          
 
         }
     }
