@@ -4,6 +4,8 @@ import { Productor } from '../../modelos/publicoGeneral/productor';
   providedIn: 'root'
 })
 export class ProductoresService {
+
+  
   //lista de productores
   productores: Productor[] = [
     new Productor(1, "Kevin Acevedo", "assets/jack.png", "Mis productos son de la zona de Santa Cruz"),
