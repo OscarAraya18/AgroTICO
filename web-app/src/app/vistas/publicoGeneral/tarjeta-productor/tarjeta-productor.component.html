@@ -1,12 +1,12 @@
 <div class="card mb-4 box-shadow">
     <div class="card-header text-center">
-        <strong><h4>{{ productorInfo.nombre }}</h4></strong>
+        <strong><h4>{{ productorInfo.primerNombre }} {{ productorInfo.primerApellido }}</h4></strong>
     </div>
     
     <img class="bd-placeholder-img card-img-top" width="100%" src="assets/jack.png">
     <div class="card-body">
       <p class="card-text">
-        {{ productorInfo.descripcion | slice: 0:80 }}...
+        
       </p>
       <div class="d-flex justify-content-between align-items-center">
         <div class="btn-group">

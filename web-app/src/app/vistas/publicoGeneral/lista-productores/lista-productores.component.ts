@@ -10,12 +10,13 @@ import { Productor } from 'src/app/modelos/publicoGeneral/productor';
 })
 export class ListaProductoresComponent implements OnInit {
 
-  productoresLista: Productor[] = [];
+  productoresLista = [];
 
   constructor(private route: ActivatedRoute, private router: Router, private productorService: ProductoresService) { }
 
   ngOnInit(): void {
-    this.productoresLista = this.productorService.getProductores();
+    this.productorService.getProductores()
+    .subscribe( data => this.productoresLista = data);
   }
 
 }

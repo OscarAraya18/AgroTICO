@@ -1,13 +1,18 @@
-export class Productor {
-    id: number;
-    nombre: string;
-    imgURL: string;
-    descripcion: string;
-
-    constructor(id, nombre, imgURL, descripcion){
-        this.id = id;
-        this.nombre = nombre;
-        this.imgURL = imgURL;
-        this.descripcion = descripcion;
-    }
+export interface Productor{
+    numeroCedula: number;
+    primerNombre: string;
+    segundoNombre: string;
+    primerApellido: string;
+    segundoApellido: string;
+    provinciaResidencia: string;
+    cantonResidencia: string;
+    distritoResidencia: string;
+    numeroTelefono: number;
+    numeroSINPE: number;
+    anioNacimiento: number;
+    mesNacimiento: number;
+    diaNacimiento: number;
+    lugarEntrega: string[];
+    claveAcceso: string;
+    
 }
