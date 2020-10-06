@@ -36,7 +36,7 @@ namespace AgroticoApi.Controllers
 
             if (resultado == null)
             {
-                return NotFound();
+                return BadRequest(canton);
             }
             return Ok(resultado);
         }

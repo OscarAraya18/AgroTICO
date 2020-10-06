@@ -288,18 +288,18 @@ namespace Backend.DBMS
 
         public String[] encontrarProductorPorProvincia(String provincia)
         {
-            return FILTER(RUTA_PRODUCTORES, "provincia", provincia, 0);
+            return FILTER(RUTA_PRODUCTORES, "provinciaResidencia", provincia, 0);
         }
 
 
 
         public String[] encontrarProductorPorCanton(String canton)
         {
-            return FILTER(RUTA_PRODUCTORES, "canton", canton, 0);
+            return FILTER(RUTA_PRODUCTORES, "cantonResidencia", canton, 0);
         }
         public String[] encontrarProductorPorDistrito(String distrito)
         {
-            return FILTER(RUTA_PRODUCTORES, "distrito", distrito, 0);
+            return FILTER(RUTA_PRODUCTORES, "distritoResidencia", distrito, 0);
         }
         public String[] encontrarProductoPorProvincia(String provincia)
         {
