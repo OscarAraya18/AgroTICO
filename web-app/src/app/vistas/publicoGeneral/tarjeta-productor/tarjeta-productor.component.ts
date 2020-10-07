@@ -18,7 +18,7 @@ export class TarjetaProductorComponent implements OnInit {
   }
 
   gotoProductList(){
-    this.router.navigate(['/cliente-contenido/lista-productos']);
+    this.router.navigate(['/cliente-contenido/lista-productos', this.productorInfo.numeroCedula]);
   }
 
 }

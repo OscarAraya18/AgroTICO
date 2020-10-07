@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute, ParamMap} from '@angular/router';
 import { ProductoresService } from 'src/app/servicios/publicoGeneral/productores.service';
 
 
@@ -11,12 +11,16 @@ import { ProductoresService } from 'src/app/servicios/publicoGeneral/productores
 export class ListaProductoresComponent implements OnInit {
 
   public productoresLista = [];
-
+  nombreUsuario = ''
   constructor(private route: ActivatedRoute, private router: Router, private productorService: ProductoresService) { }
 
   ngOnInit(): void {
-   this.getProductoresCanton();
-    
+
+   this.route.paramMap.subscribe((params: ParamMap) => {
+    let usuario = params.get('usuario');
+    this.nombreUsuario = usuario;
+  });
+  this.getProductoresCanton();
   }
 
   //Get productor list from canton
