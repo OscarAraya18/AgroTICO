@@ -1,7 +1,7 @@
 
 <div  class="container-fluid" >
 
-	<button type="button" class="btn btn-success button1" (click)="formVisibility = true"  *ngIf="!formVisibility && !form2Visibility">
+	<button type="button" class="btn btn-success button1" (click)="formVisibility = true"  *ngIf="!formVisibility && !form2Visibility && !elimina">
 	Agregar productor
 	</button>
 
@@ -88,11 +88,11 @@
 		
 	</div>
 
-	<button type="button" class="btn btn-success button1" (click)="form2Visibility = true"  *ngIf="!formVisibility && !form2Visibility">
+	<button type="button" class="btn btn-success button1" (click)="form2Visibility = true"  *ngIf="!formVisibility && !form2Visibility && !elimina">
 	Actualizar productor
 	</button>
 
-	<button type="button" class="btn btn-success butt2 button1" (click)="elimina = true"  *ngIf="!formVisibility && !form2Visibility">
+	<button type="button" class="btn btn-success butt2 button1" (click)="elimina = true"  *ngIf="!formVisibility && !form2Visibility && !elimina">
 	Eliminar productor
 	</button>
 
