@@ -1,1 +1,146 @@
-<p>productores works!</p>
+
+<div  class="container-fluid" >
+
+	<button type="button" class="btn btn-success button1" (click)="formVisibility = true"  *ngIf="!formVisibility && !form2Visibility">
+	Agregar productor
+	</button>
+
+	<br/>
+	<div class="wrapper" *ngIf="formVisibility || form2Visibility " >
+
+		<h2 class="text-white">Datos del productor</h2>
+		<form 
+              (ngSubmit)="submit(cedula.value,nombre.value,apellidos.value,apellidos2.value,provincia.value,canton.value,distrito.value,fecha.value,
+              numero.value,sinpe.value,lugar.value)"
+              #f="ngForm">
+		<label class="text-white">Numero de cédula:</label> <input class="inputred" type="number" ngModel  #cedula required name="cedula"/>
+		<p class="text-white">Nombre: <input type="text" #nombre  class="inputred"  name="nombre" ngModel required /><br/></p>
+		<p class="text-white">Primer Apellido: <input type="text" #apellidos  name="apellidos" class="inputred" ngModel required /><br/></p>
+		<p class="text-white">Segundo Apellido: <input type="text" #apellidos2  name="apellidos" class="inputred" ngModel required /><br/></p>
+		<p class="text-white">Dirección<br/></p>
+		<p class="text-white">Provincia:
+			<select #provincia class="inputred" (change)="cambioProvincia($event.target.value)" ngModel  name="provincia" required>
+					<option *ngFor="let provincia of provincias" [value]='provincia' > {{provincia}}</option>
+			</select>
+
+
+			
+		<br/>
+		</p>
+		<p class="text-white">Canton: 
+  <select  #canton class="inputred" (change)="cambioCanton($event.target.value)" ngModel  name="canton" required>
+  	<option [value]=''> </option>
+  <option *ngFor="let canton of cantones"  [value]='canton'> {{canton}}</option>
+
+</select>
+</p>
+
+<p class="text-white">Distrito: 
+  <select #distrito class="inputred" required ngModel  name="distrito"  >
+  <option [value]=''> </option>
+  <option *ngFor="let distrito of distritos" [value]='distrito'> {{distrito}}</option>
+
+</select>
+</p>
+
+<p class="text-white">Fecha de nacimiento:
+  <input #fecha type="date" ngModel name="born" class="inputred"  required /></p>
+
+  <p class="text-white">Numero de telefono: <input class="inputred" type="number" ngModel  #numero required name="num"/></p>
+  <p class="text-white">Numero de Sinpe: <input class="inputred" type="number" ngModel  #sinpe required name="sinpes"/></p>
+ <p class="plugar text-white"clas>Lugares de entrega: <textarea rows="2" cols="50"  type="text" #lugar  class="inputred"  name="lugar" ngModel required placeholder="Separe los lugares con una coma " ></textarea>
+ </p>
+
+
+<div class= "cont"  *ngIf="formVisibility">
+	<button type="button" class="btn btn-success but" (click)="formVisibility = false">
+	Cancelar
+	</button>
+	<button type="button" class="btn btn-success but"
+	 mat-button
+	  type="submit"
+   [disabled]="f.invalid"
+                  >
+	Agregar productor
+	</button>
+
+
+</div>
+
+<div class= "cont"  *ngIf="form2Visibility">
+	<button type="button" class="btn btn-success but" (click)="form2Visibility = false">
+	Cancelar
+	</button>
+	<button type="button" class="btn btn-success but"
+	 mat-button
+	
+   [disabled]="f.invalid"
+   (click)="submit2(cedula.value,nombre.value,apellidos.value,apellidos2.value,provincia.value,canton.value,distrito.value,fecha.value,
+              numero.value,sinpe.value,lugar.value)"
+                  >
+	Actualizar productor
+	</button>
+
+
+</div>
+</form>
+
+		
+	</div>
+
+	<button type="button" class="btn btn-success button1" (click)="form2Visibility = true"  *ngIf="!formVisibility && !form2Visibility">
+	Actualizar productor
+	</button>
+
+	<button type="button" class="btn btn-success butt2 button1" (click)="elimina = true"  *ngIf="!formVisibility && !form2Visibility">
+	Eliminar productor
+	</button>
+
+	<div class= "cont2"  *ngIf="elimina">
+	<form 
+              (ngSubmit)="submit3(cedula2.value)"
+              #f2="ngForm">
+
+
+ 		<label class="text-white">Numero de cédula:</label> <input class="inputred" type="number" ngModel  #cedula2 required name="cedula"/>
+
+
+
+<div class= "cont">
+	<button type="button" class="btn btn-success but" (click)="elimina = false">
+	Cancelar
+	</button>
+	<button type="button" class="btn btn-success but"
+	 mat-button
+	  type="submit"
+   [disabled]="f2.invalid"
+                  >
+	Eliminar
+	</button>
+
+
+</div>
+
+<div class= "cont"  *ngIf="form2Visibility">
+	<button type="button" class="btn btn-success but" (click)="form2Visibility = false">
+	Cancelar
+	</button>
+	<button type="button" class="btn btn-success but"
+	 mat-button
+	
+   [disabled]="f.invalid"
+   (click)="submit2(cedula.value,nombre.value,apellidos.value,apellidos2.value,provincia.value,canton.value,distrito.value,fecha.value,
+              numero.value,sinpe.value,lugar.value)"
+                  >
+	Actualizar productor
+	</button>
+
+
+</div>
+</form>
+
+
+</div>
+
+</div>
+

@@ -1,26 +1,33 @@
 .head{
-	
-   margin-left: 20px;
+	margin-top: 15px;
    display: flex;
    align-items: center;
    color:#FFFFFF;
 
-  
-   
-  
+ 
 }
-.container{
+.container-fluid{
 	background-color: #196F3D ;
-	 margin-top:-8px;
-	 margin-left: -8px;
-	 width: 101.2%;
-	 height:70px;
-	 display: flex;
+	
+	height:70px;
+	display: flex;
    align-items: center;
-   margin-right: 0px;
+  
+    left: 0; /* Posicionamos la cabecera al lado izquierdo */
+	top: 0; /* Posicionamos la cabecera pegada arriba */
+	position: fixed;
+	width: 100%;
+	z-index: 999;
+
 }
 
 .logo{
 	 margin-right: 20px;
 
+}
+
+.divPrin{
+	padding-top: 80px;
+	z-index: 0;
+	
 }
