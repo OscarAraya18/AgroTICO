@@ -1,18 +1,18 @@
 
 	<figure class="card card-product">
-		<div class="img-wrap"><img src="assets/fresas.png"></div>
+		<div class="img-wrap"><img src="{{ productoInfo.foto }}"></div>
 		<figcaption class="info-wrap">
 				<h4 class="title">{{ productoInfo.nombre }}</h4>
-				<p class="desc">{{ productoInfo.descripcion | slice: 0:80 }}...</p>
+				<p class="desc">Modo de venta: {{ productoInfo.modoVenta}}</p>
 				<div class="rating-wrap">
-					<div class="label-rating">Disponibles:</div>
+					
 					<div class="label-rating">{{ productoInfo.disponibilidad }}</div>
 				</div> <!-- rating-wrap.// -->
 		</figcaption>
 		<div class="bottom-wrap">
 			<a (click)="addToCarrito()" class="btn btn-sm btn-primary float-right">Añadir al carrito</a>	
 			<div class="price-wrap h5">
-				<span class="price-new badge badge-pill badge-success">{{ productoInfo.precio }}</span>
+				<span class="price-new badge badge-pill badge-success"> ₡ {{ productoInfo.precio }}</span>
 			</div> <!-- price-wrap.// -->
 		</div> <!-- bottom-wrap.// -->
 	</figure>

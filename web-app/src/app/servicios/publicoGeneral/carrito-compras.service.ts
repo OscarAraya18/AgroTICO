@@ -53,6 +53,7 @@ export class CarritoComprasService {
     let index = this.articulosCarrito.indexOf(articulo);
     if (index > -1) {
       this.articulosCarrito.splice(index, 1);
+      this.updateMontoTotal();
     }
 
   }

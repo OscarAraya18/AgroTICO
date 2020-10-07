@@ -1,24 +1,32 @@
-<div class="modal-content">
+<div class="modal-dialog text-center"> 
+  <div class="col-sm-8 main-section"> 
+    <div class="modal-content">
 
 
-    <div class="col-12 user-img">
-        <img src="assets/client.png" alt="">
-    </div>
-  
-    <form class="col-12">
-        <div class="form-group" id="user-group">
-          <input class="form-control" type="text" placeholder="Nombre de usuario">
+        <div class="col-12 user-img">
+            <img src="assets/client.png" alt="">
         </div>
-  
-        <div class="form-group" id="contrasena-group">
-          <input class="form-control" type="password" placeholder="Contraseña">
+      
+        <form #loginForm="ngForm" class="col-12" novalidate>
+            <div class="form-group" id="user-group">
+              <input class="form-control" type="text" required #nombre="ngModel" [class.is-invalid]="nombre.invalid && nombre.touched"
+               placeholder="Nombre de usuario" name="nombreUsuario" [(ngModel)]="usuarioL.nombreUsuario">
+               <small class="text-danger" [class.d-none]="nombre.valid || nombre.untouched">Nombre de usuario válido es requerido</small>
+            </div>
+      
+            <div class="form-group" id="contrasena-group">
+              <input class="form-control" type="password" required #contrasena="ngModel" [class.is-invalid]="contrasena.invalid && contrasena.touched"
+              placeholder="Contraseña" name="contrasena" [(ngModel)]="usuarioL.contrasena">
+              <small class="text-danger" [class.d-none]="contrasena.valid || contrasena.untouched">Nombre es requerido</small>
+            </div>
+      
+            <button [disabled]="loginForm.form.invalid" (click)="gotoContenido()" type="button" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i>  Ingresar</button>
+      
+        </form>
+      
+        <div class="col-12 forgot">
+          <a routerLink="/cliente-inicio/crear-cuenta" routerLinkActive="acive">Crear cuenta</a>
         </div>
-  
-        <button (click)="gotoContenido()" type="button" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i>  Ingresar</button>
-  
-    </form>
-  
-    <div class="col-12 forgot">
-      <a routerLink="/cliente-inicio/crear-cuenta" routerLinkActive="acive">Crear cuenta</a>
+      </div>
     </div>
-  </div>
+</div>

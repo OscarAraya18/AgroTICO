@@ -59,8 +59,8 @@ const routes: Routes = [
 
        { path: 'cliente-contenido', component: ClienteContenidoComponent,
          children:[
-         {path: 'lista-productores', component: ListaProductoresComponent},
-         {path: 'lista-productos', component: ListaProductosComponent},
+         {path: 'lista-productores/:usuario', component: ListaProductoresComponent},
+         {path: 'lista-productos/:idProductor', component: ListaProductosComponent},
          {path: 'carrito-compras', component: CarritoComprasComponent}
        ]}
    //TODO: ADD PAGE NOT FOUND COMPONENT

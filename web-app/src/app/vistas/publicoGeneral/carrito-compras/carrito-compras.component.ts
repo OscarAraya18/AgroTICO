@@ -30,6 +30,7 @@ export class CarritoComprasComponent implements OnInit {
 
   removeArticulo(articulo: Articulo){
     this.carritoComprasService.removeArticulo(articulo);
+    this.montoTotal = this.carritoComprasService.getMontoTotal();
   }
   
 

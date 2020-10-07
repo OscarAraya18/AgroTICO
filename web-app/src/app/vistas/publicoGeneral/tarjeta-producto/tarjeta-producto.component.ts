@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CarritoComprasService } from 'src/app/servicios/publicoGeneral/carrito-compras.service';
-import { Producto } from 'src/app/modelos/publicoGeneral/producto';
+import { ProductoI } from 'src/app/modelos/publicoGeneral/producto';
 import { Articulo } from 'src/app/modelos/publicoGeneral/articulo';
 
 @Component({
@@ -10,14 +10,15 @@ import { Articulo } from 'src/app/modelos/publicoGeneral/articulo';
 })
 export class TarjetaProductoComponent implements OnInit {
 
-  @Input() productoInfo: Producto;
+  @Input() productoInfo: ProductoI;
+
   constructor(private carritoComprasService: CarritoComprasService) { }
 
   ngOnInit(): void {
-
+  
   }
   addToCarrito(){
-    this.carritoComprasService.getArticulosCarrito().push(new Articulo(this.productoInfo.nombre, this.productoInfo.disponibilidad, this.productoInfo.precio, this.productoInfo.id));
+    this.carritoComprasService.getArticulosCarrito().push(new Articulo(this.productoInfo.nombre, this.productoInfo.disponibilidad, this.productoInfo.precio, this.productoInfo.codigo));
     }
 
 }

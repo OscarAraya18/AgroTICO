@@ -1,20 +1,36 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Productor } from '../../modelos/publicoGeneral/productor';
-import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
+import { ProductorI } from 'src/app/modelos/publicoGeneral/productor'
+import { __param } from 'tslib';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductoresService {
 
-  
-  //lista de productores
-
   constructor(private http: HttpClient) { }
 
-  getProductores(): Observable<Productor[]>{
-    return this.http.get<Productor[]>("");
+  getProductoresPorCanton(canton: string): Observable<ProductorI[]>{
+    return this.http.get<ProductorI[]>('/api/Clientes/Productor/canton?', {
+      params: {
+        canton: canton
+      }});
+  }
+
+  getProductoresPorDistrito(distrito: string): Observable<ProductorI[]>{
+    return this.http.get<ProductorI[]>('/api/Clientes/Productor/distrito?', {
+      params: {
+        distrito: distrito
+      }});
+  }
+
+  getProductoresPorProvincia(provincia: string): Observable<ProductorI[]>{
+    return this.http.get<ProductorI[]>('/api/Clientes/Productor/provincia?', {
+      params: {
+        provincia: provincia
+      }});
   }
 
 }

@@ -27,6 +27,7 @@ import { ArticuloCarritoComponent } from './vistas/publicoGeneral/articulo-carri
 import { ListaProductosComponent } from './vistas/publicoGeneral/lista-productos/lista-productos.component';
 import { HttpClientModule} from '@angular/common/http';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +55,7 @@ import { HttpClientModule} from '@angular/common/http';
     BrowserAnimationsModule,
     MatFormFieldModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

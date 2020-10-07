@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute, ParamMap} from '@angular/router';
 import { ProductoresService } from 'src/app/servicios/publicoGeneral/productores.service';
-import { Productor } from 'src/app/modelos/publicoGeneral/productor';
+
 
 @Component({
   selector: 'app-lista-productores',
@@ -10,13 +10,35 @@ import { Productor } from 'src/app/modelos/publicoGeneral/productor';
 })
 export class ListaProductoresComponent implements OnInit {
 
-  productoresLista = [];
-
+  public productoresLista = [];
+  nombreUsuario = ''
   constructor(private route: ActivatedRoute, private router: Router, private productorService: ProductoresService) { }
 
   ngOnInit(): void {
-    this.productorService.getProductores()
-    .subscribe( data => this.productoresLista = data);
+
+   this.route.paramMap.subscribe((params: ParamMap) => {
+    let usuario = params.get('usuario');
+    this.nombreUsuario = usuario;
+  });
+  this.getProductoresCanton();
+  }
+
+  //Get productor list from canton
+  getProductoresCanton(){
+    this.productorService.getProductoresPorCanton('Perez Zeledon')
+    .subscribe(data => this.productoresLista = data );
+  }
+
+  //Get productor list from distrito
+  getProductoresDistrito(){
+    this.productorService.getProductoresPorDistrito('Santa Cruz')
+    .subscribe(data => this.productoresLista = data );
+  }
+
+  //Get productor list from provincia
+  getProductoresProvincia(){
+    this.productorService.getProductoresPorProvincia('Guanacaste')
+    .subscribe(data => this.productoresLista = data );
   }
 
 }
