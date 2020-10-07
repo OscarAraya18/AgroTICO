@@ -2,10 +2,14 @@
 using Backend.DBMS;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace AgroticoApi.Controllers
 {
+    [EnableCors(origins: "http://localhost:4200/", headers: "*", methods: "*")]
     public class ClientesController : ApiController
     {
 
@@ -22,9 +26,14 @@ namespace AgroticoApi.Controllers
 
             if(resultado == null)
             {
-                return NotFound();
+                return BadRequest("No se pudo obtener resultados");
             }
-            return Ok(resultado);
+            List<JObject> lista = new List<JObject>();
+            foreach (string element in resultado)
+            {
+                lista.Add(JObject.Parse(element));
+            }
+            return Ok(lista);
         }
 
         // GET api/Clientes/Productor/canton
@@ -36,9 +45,14 @@ namespace AgroticoApi.Controllers
 
             if (resultado == null)
             {
-                return BadRequest(canton);
+                return BadRequest("No se pudo obtener resultados");
             }
-            return Ok(resultado);
+            List<JObject> lista = new List<JObject>();
+            foreach (string element in resultado)
+            {
+                lista.Add(JObject.Parse(element));
+            }
+            return Ok(lista);
         }
 
         // GET api/Clientes/Productor/provincia
@@ -50,9 +64,14 @@ namespace AgroticoApi.Controllers
 
             if (resultado == null)
             {
-                return NotFound();
+                return BadRequest("No se pudo obtener resultados");
             }
-            return Ok(resultado);
+            List<JObject> lista = new List<JObject>();
+            foreach (string element in resultado)
+            {
+                lista.Add(JObject.Parse(element));
+            }
+            return Ok(lista);
         }
 
         // GET api/Clientes/Productos/productor
@@ -64,9 +83,14 @@ namespace AgroticoApi.Controllers
 
             if (resultado == null)
             {
-                return NotFound();
+                return BadRequest("No se pudo obtener resultados");
             }
-            return Ok(resultado);
+            List<JObject> lista = new List<JObject>();
+            foreach (string element in resultado)
+            {
+                lista.Add(JObject.Parse(element));
+            }
+            return Ok(lista);
         }
 
         // GET api/Clientes/MiInfo

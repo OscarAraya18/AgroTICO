@@ -1,9 +1,12 @@
 ﻿using Backend.DBMS;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace AgroticoApi.Controllers
 {
+    [EnableCors(origins: "http://localhost:4200/", headers: "*", methods: "*")]
     public class AdministradorController : ApiController
     {
         DBMS _dbms = new DBMS();
@@ -15,7 +18,17 @@ namespace AgroticoApi.Controllers
         public IHttpActionResult GetAfiliaciones()
         {
             var solicitudes = _dbms.encontrarSolicitudesSinResponder();
-            return Ok(solicitudes);
+
+            if (solicitudes == null)
+            {
+                return BadRequest("No se ha encontrado nada");
+            }
+            List<JObject> lista = new List<JObject>();
+            foreach (string element in solicitudes)
+            {
+                lista.Add(JObject.Parse(element));
+            }
+            return Ok(lista);
         }
 
         // GET api/Administrador/Productos/masVendidos
@@ -25,11 +38,16 @@ namespace AgroticoApi.Controllers
         {
             var resultado = _dbms.encontrarProductosMasVendidos();
 
-            if(resultado == null)
+            if (resultado == null)
             {
-                return NotFound();
+                return BadRequest("No se ha encontrado nada");
             }
-            return Ok(resultado);
+            List<JObject> lista = new List<JObject>();
+            foreach (string element in resultado)
+            {
+                lista.Add(JObject.Parse(element));
+            }
+            return Ok(lista);
         }
 
         // GET api/Administrador/Productos/masGanancia
@@ -41,9 +59,14 @@ namespace AgroticoApi.Controllers
 
             if (resultado == null)
             {
-                return NotFound();
+                return BadRequest("No se ha encontrado nada");
             }
-            return Ok(resultado);
+            List<JObject> lista = new List<JObject>();
+            foreach (string element in resultado)
+            {
+                lista.Add(JObject.Parse(element));
+            }
+            return Ok(lista);
         }
 
         // GET api/Administrador/Productos/masVendidosProductor
@@ -55,9 +78,14 @@ namespace AgroticoApi.Controllers
 
             if (resultado == null)
             {
-                return NotFound();
+                return BadRequest("No se ha encontrado nada");
             }
-            return Ok(resultado);
+            List<JObject> lista = new List<JObject>();
+            foreach (string element in resultado)
+            {
+                lista.Add(JObject.Parse(element));
+            }
+            return Ok(lista);
         }
 
         // GET api/Administrador/Clientes/masCompras
@@ -69,9 +97,14 @@ namespace AgroticoApi.Controllers
 
             if (resultado == null)
             {
-                return NotFound();
+                return BadRequest("No se ha encontrado nada");
             }
-            return Ok(resultado);
+            List<JObject> lista = new List<JObject>();
+            foreach (string element in resultado)
+            {
+                lista.Add(JObject.Parse(element));
+            }
+            return Ok(lista);
         }
 
         // POST api/Administrador/Afiliacion/edit
@@ -119,7 +152,7 @@ namespace AgroticoApi.Controllers
 
             if (resultado == true)
             {
-                return Ok(nuevoProductor);
+                return Ok("El productor se ha creado correctamente");
             }
             return NotFound();
         }
@@ -166,7 +199,7 @@ namespace AgroticoApi.Controllers
 
             if (resultado == true)
             {
-                return Ok(objeto);
+                return Ok("Actualizacion de productor realizada correctamente");
             }
             return NotFound();
         }

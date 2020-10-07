@@ -1,9 +1,12 @@
 ﻿using Backend.DBMS;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace AgroticoApi.Controllers
 {
+    [EnableCors(origins: "http://localhost:4200/", headers: "*", methods: "*")]
     public class ProductoresController : ApiController
     {
         DBMS _dbms = new DBMS();
@@ -18,9 +21,9 @@ namespace AgroticoApi.Controllers
 
             if (resultado == null)
             {
-                return NotFound();
+                return BadRequest("Ocurrio un error");
             }
-            return Ok(resultado);
+            return Ok(JObject.Parse(resultado));
         }
 
         // GET api/Productores/pedidos
@@ -32,9 +35,14 @@ namespace AgroticoApi.Controllers
 
             if (resultado == null)
             {
-                return NotFound();
+                return BadRequest("No se pudo obtener resultados");
             }
-            return Ok(resultado);
+            List<JObject> lista = new List<JObject>();
+            foreach (string element in resultado)
+            {
+                lista.Add(JObject.Parse(element));
+            }
+            return Ok(lista);
         }
 
         // POST api/Productores/Afiliacion/new
@@ -64,7 +72,7 @@ namespace AgroticoApi.Controllers
 
             if (resultado == true)
             {
-                return Ok(nuevoCliente);
+                return Ok("Solicitud creada con exito");
             }
             return NotFound();
 
@@ -140,7 +148,7 @@ namespace AgroticoApi.Controllers
             {
                 return Ok("Producto eliminado exitosamente");
             }
-            return NotFound();
+            return BadRequest("Ha ocurrido un error");
         }
     }
 }

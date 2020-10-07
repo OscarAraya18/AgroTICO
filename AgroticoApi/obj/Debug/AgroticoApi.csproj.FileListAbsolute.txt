@@ -278,3 +278,6 @@ C:\Users\DELL\Documents\GitHub\AgroTICO\AgroticoApi\bin\Microsoft.AspNetCore.Met
 C:\Users\DELL\Documents\GitHub\AgroTICO\AgroticoApi\bin\Microsoft.Bcl.AsyncInterfaces.xml
 C:\Users\DELL\Documents\GitHub\AgroTICO\AgroticoApi\bin\Microsoft.DotNet.PlatformAbstractions.xml
 C:\Users\DELL\Documents\GitHub\AgroTICO\AgroticoApi\bin\Microsoft.Extensions.DependencyModel.xml
+C:\Users\DELL\Documents\GitHub\AgroTICO\AgroticoApi\bin\System.Web.Cors.dll
+C:\Users\DELL\Documents\GitHub\AgroTICO\AgroticoApi\bin\System.Web.Http.Cors.dll
+C:\Users\DELL\Documents\GitHub\AgroTICO\AgroticoApi\bin\System.Web.Http.Cors.xml
