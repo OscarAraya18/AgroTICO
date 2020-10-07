@@ -7,6 +7,9 @@ import { AdministradorComponent } from './vistas/administrador/administrador.com
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+
 import { PerfilComponent } from './vistas/administrador/perfil/perfil.component';
 import { VistaComponent } from './vistas/administrador/vista/vista.component';
 import { ProductoresComponent } from './vistas/administrador/productores/productores.component';
@@ -27,7 +30,9 @@ import { AfiliacionesComponent } from './vistas/administrador/afiliaciones/afili
     BrowserModule,
     AppRoutingModule,
     MatSidenavModule,
-    BrowserAnimationsModule 
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

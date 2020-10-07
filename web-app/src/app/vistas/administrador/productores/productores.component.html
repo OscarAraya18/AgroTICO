@@ -1,1 +1,87 @@
-<p>productores works!</p>
+
+<div  class="container-fluid" >
+
+	<button type="button" class="btn btn-success" (click)="formVisibility = true"  *ngIf="!formVisibility">
+	Agregar productor
+	</button>
+
+	<br/>
+	<div class="wrapper" *ngIf="formVisibility" >
+
+		<h2>Datos del productor</h2>
+		<form 
+              (ngSubmit)="submit(cedula.value,nombre.value,apellidos.value,apellidos2.value,provincia.value,canton.value,distrito.value,fecha.value,
+              numero.value,sinpe.value,lugar.value)"
+              #f="ngForm">
+		<label>Numero de cédula:</label> <input class="inputred" type="number" ngModel  #cedula required name="cedula"/>
+		<p>Nombre: <input type="text" #nombre  class="inputred"  name="nombre" ngModel required /><br/></p>
+		<p>Primer Apellido: <input type="text" #apellidos  name="apellidos" class="inputred" ngModel required /><br/></p>
+		<p>Segundo Apellido: <input type="text" #apellidos2  name="apellidos" class="inputred" ngModel required /><br/></p>
+		<p>Dirección<br/></p>
+		<p>Provincia:
+			<select #provincia class="inputred" (change)="cambioProvincia($event.target.value)" ngModel  name="provincia" required>
+					<option *ngFor="let provincia of provincias" [value]='provincia' > {{provincia}}</option>
+			</select>
+
+
+			
+		<br/>
+		</p>
+		<p>Canton: 
+  <select  #canton class="inputred" (change)="cambioCanton($event.target.value)" ngModel  name="canton" required>
+  	<option [value]=''> </option>
+  <option *ngFor="let canton of cantones"  [value]='canton'> {{canton}}</option>
+
+</select>
+</p>
+
+<p>Distrito: 
+  <select #distrito class="inputred" required ngModel  name="distrito"  >
+  <option [value]=''> </option>
+  <option *ngFor="let distrito of distritos" [value]='distrito'> {{distrito}}</option>
+
+</select>
+</p>
+
+<p>Fecha de nacimiento:
+  <input #fecha type="date" ngModel name="born" class="inputred"  required /></p>
+
+  <p>Numero de telefono: <input class="inputred" type="number" ngModel  #numero required name="num"/></p>
+  <p>Numero de Sinpe: <input class="inputred" type="number" ngModel  #sinpe required name="sinpes"/></p>
+ <p class="plugar"clas>Lugares de entrega: <textarea rows="2" cols="50"  type="text" #lugar  class="inputred"  name="lugar" ngModel required placeholder="Separe los lugares con una coma " ></textarea>
+
+
+
+
+ </p>
+
+
+<div class= "cont">
+	<button type="button" class="btn btn-success but" (click)="formVisibility = false">
+	Cancelar
+	</button>
+	<button type="button" class="btn btn-success but"
+	 mat-button
+	 type="submit"
+   [disabled]="f.invalid"
+                  >
+	Agregar productor
+	</button>
+
+
+</div>
+</form>
+
+		
+	</div>
+
+	<button type="button" class="btn btn-success" (click)="formVisibility = true"  *ngIf="!formVisibility">
+	Actualizar productor
+	</button>
+
+	<button type="button" class="btn btn-success butt2" (click)="formVisibility = true"  *ngIf="!formVisibility">
+	Eliminar productor
+	</button>
+
+</div>
+
