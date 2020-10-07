@@ -368,8 +368,7 @@ namespace Backend.DBMS
 
         /*-------------------------------------------------------------VISTA DE ADMINISTRACION-----------------------------------------------------------------*/
         public bool crearProductor(int numeroCedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String provinciaResidencia,
-                                    String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, int anioNacimiento, int mesNacimiento,
-                                    int diaNacimiento, String[] lugarEntrega, String claveAcceso)
+                                    String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, String fechaNacimiento, String[] lugarEntrega, String claveAcceso)
         {
             if (SELECT(RUTA_PRODUCTORES, numeroCedula) == null)
             {
@@ -385,9 +384,7 @@ namespace Backend.DBMS
                 nuevoProductor.distritoResidencia = distritoResidencia;
                 nuevoProductor.numeroTelefono = numeroTelefono;
                 nuevoProductor.numeroSINPE = numeroSINPE;
-                nuevoProductor.anioNacimiento = anioNacimiento;
-                nuevoProductor.mesNacimiento = mesNacimiento;
-                nuevoProductor.diaNacimiento = diaNacimiento;
+                nuevoProductor.
                 nuevoProductor.lugarEntrega = lugarEntrega;
                 nuevoProductor.claveAcceso = claveAcceso;
                 INSERT(RUTA_PRODUCTORES, JsonConvert.SerializeObject(nuevoProductor));
@@ -399,13 +396,12 @@ namespace Backend.DBMS
 
 
         public bool actualizarProductor(int numeroCedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String provinciaResidencia,
-                                        String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, int anioNacimiento, int mesNacimiento,
-                                        int diaNacimiento, String[] lugarEntrega, String claveAcceso)
+                                        String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, String fechaNacimiento , String[] lugarEntrega, String claveAcceso)
         {
             if (DELETE(RUTA_PRODUCTORES, numeroCedula))
             {
                 return crearProductor(numeroCedula, primerNombre, segundoNombre, primerApellido, segundoApellido, provinciaResidencia, cantonResidencia, distritoResidencia,
-                            numeroTelefono, numeroSINPE, anioNacimiento, mesNacimiento, diaNacimiento, lugarEntrega, claveAcceso);
+                            numeroTelefono, numeroSINPE, fechaNacimiento, lugarEntrega, claveAcceso);
             }
             return false;
         }
@@ -451,8 +447,7 @@ namespace Backend.DBMS
                        (String)productorAceptado["primerApellido"], (String)productorAceptado["segundoApellido"],
                        (String)productorAceptado["provinciaResidencia"], (String)productorAceptado["cantonResidencia"],
                        (String)productorAceptado["distritoResidencia"], (int)productorAceptado["numeroTelefono"],
-                       (int)productorAceptado["numeroSINPE"], (int)productorAceptado["anioNacimiento"],
-                       (int)productorAceptado["mesNacimiento"], (int)productorAceptado["diaNacimiento"],
+                       (int)productorAceptado["numeroSINPE"], (String)productorAceptado["fechaNacimiento"],
                        productorAceptado["lugarEntrega"].Values<String>().ToArray(),
                        (String)productorAceptado["claveAcceso"]);
             }
@@ -573,8 +568,8 @@ namespace Backend.DBMS
 
         /*-------------------------------------------------------------VISTA DE PRODUCTOR-----------------------------------------------------------------*/
         public bool crearSolicitudAfiliacion(int numeroCedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String provinciaResidencia,
-                                            String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, int anioNacimiento, int mesNacimiento,
-                                            int diaNacimiento, String[] lugarEntrega, String claveAcceso, int anioSolicitud, int mesSolicitud, int diaSolicitud)
+                                            String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, String fechaNacimiento ,String[] lugarEntrega, 
+                                            String claveAcceso, int anioSolicitud, int mesSolicitud, int diaSolicitud)
         {
             String[] solicitudesRealizadas = FILTER(RUTA_AFILIACIONES, "codigoSolicitud", null, numeroCedula);
             String[] solicitudesAceptadas = FILTER(RUTA_PRODUCTORES, "numeroCedula", null, numeroCedula);
@@ -603,9 +598,7 @@ namespace Backend.DBMS
             nuevaAfiliacion.numeroTelefono = numeroTelefono;
             nuevaAfiliacion.numeroSINPE = numeroSINPE;
             nuevaAfiliacion.numeroCedula = numeroCedula;
-            nuevaAfiliacion.anioNacimiento = anioNacimiento;
-            nuevaAfiliacion.mesNacimiento = mesNacimiento;
-            nuevaAfiliacion.diaNacimiento = diaNacimiento;
+            nuevaAfiliacion.fechaNacimiento = fechaNacimiento;
             nuevaAfiliacion.lugarEntrega = lugarEntrega;
             nuevaAfiliacion.claveAcceso = claveAcceso;
             nuevaAfiliacion.anioSolicitud = anioSolicitud;
@@ -640,7 +633,7 @@ namespace Backend.DBMS
         }
 
 
-        public bool crearProducto(int codigo, int numeroCedulaProductor, String nombre, String modoVenta, String disponibilidad, int precio,
+        public bool crearProducto(int codigo, int numeroCedulaProductor, String nombre, String modoVenta, int disponibilidad, int precio,
                                     int identificadorCategoria, String foto)
         {
             if (SELECT(RUTA_PRODUCTOS, codigo) == null)
@@ -749,8 +742,7 @@ namespace Backend.DBMS
         /*-------------------------------------------------------------VISTA DEL CLIENTE-----------------------------------------------------------------*/
 
         public bool crearCliente(int numeroCedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
-                                String provinciaResidencia, String cantonResidencia, String distritoResidencia, int anioNacimiento,
-                                int mesNacimiento, int diaNacimiento, int numeroTelefono, String nombreUsuario, String claveAcceso)
+                                String provinciaResidencia, String cantonResidencia, String distritoResidencia, String fechaNacimiento, int numeroTelefono, String nombreUsuario, String claveAcceso)
         {
             if (SELECT(RUTA_CLIENTES, numeroCedula) == null && FILTER(RUTA_CLIENTES, "nombreUsuario", nombreUsuario, 0).Length == 0)
             {
@@ -763,9 +755,7 @@ namespace Backend.DBMS
                 nuevoCliente["provinciaResidencia"] = provinciaResidencia;
                 nuevoCliente["cantonResidencia"] = cantonResidencia;
                 nuevoCliente["distritoResidencia"] = distritoResidencia;
-                nuevoCliente["anioNacimiento"] = anioNacimiento;
-                nuevoCliente["mesNacimiento"] = mesNacimiento;
-                nuevoCliente["diaNacimiento"] = diaNacimiento;
+                nuevoCliente["fechaNacimiento"] = fechaNacimiento;
                 nuevoCliente["numeroTelefono"] = numeroTelefono;
                 nuevoCliente["nombreUsuario"] = nombreUsuario;
                 nuevoCliente["claveAcceso"] = claveAcceso;
@@ -779,8 +769,7 @@ namespace Backend.DBMS
         }
 
         public bool actualizarCliente(int numeroCedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
-                                String provinciaResidencia, String cantonResidencia, String distritoResidencia, int anioNacimiento,
-                                int mesNacimiento, int diaNacimiento, int numeroTelefono, String nombreUsuario, String claveAcceso)
+                                String provinciaResidencia, String cantonResidencia, String distritoResidencia, String fechaNacimiento, int numeroTelefono, String nombreUsuario, String claveAcceso)
         {
             JObject clienteModificar = JObject.Parse(FILTER(RUTA_CLIENTES, "nombreUsuario", nombreUsuario, 0)[0]);
             if ((int)clienteModificar["numeroCedula"] == numeroCedula)
@@ -788,7 +777,7 @@ namespace Backend.DBMS
                 if (DELETE(RUTA_CLIENTES, numeroCedula))
                 {
                     return crearCliente(numeroCedula, primerNombre, segundoNombre, primerApellido, segundoApellido, provinciaResidencia, cantonResidencia,
-                                        distritoResidencia, anioNacimiento, mesNacimiento, diaNacimiento, numeroTelefono, nombreUsuario, claveAcceso);
+                                        distritoResidencia, fechaNacimiento, numeroTelefono, nombreUsuario, claveAcceso);
                 }
                 return false;
             }
@@ -831,7 +820,7 @@ namespace Backend.DBMS
             {
 
                 JObject productoSolicitado = JObject.Parse(SELECT(RUTA_PRODUCTOS, codigo));
-                if ((String)productoSolicitado["disponibilidad"] == "Disponible")
+                if ((int)productoSolicitado["disponibilidad"] > 0)
                 {
                     JObject nuevoProducto = new JObject();
                     nuevoProducto["codigo"] = codigo;

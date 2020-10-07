@@ -144,9 +144,7 @@ namespace AgroticoApi.Controllers
                 (string)nuevoProductor["distritoResidencia"],
                 (int)nuevoProductor["numeroTelefono"],
                 (int)nuevoProductor["numeroSINPE"],
-                (int)nuevoProductor["anioNacimiento"],
-                (int)nuevoProductor["mesNacimiento"],
-                (int)nuevoProductor["diaNacimiento"],
+                (string)nuevoProductor["fechaNacimiento"],
                 nuevoProductor.SelectToken("lugarEntrega")?.ToObject<string[]>(),
                 (string)nuevoProductor["claveAcceso"]);
 
@@ -178,24 +176,22 @@ namespace AgroticoApi.Controllers
         // PUT api/Administrador/Productor/edit
         [HttpPut]
         [Route("api/Administrador/Productor/edit")]
-        public IHttpActionResult actualizarProductor([FromBody] JObject objeto)
+        public IHttpActionResult actualizarProductor([FromBody] JObject productor)
         {
             bool resultado = _dbms.actualizarProductor(
-                (int)objeto["numeroCedula"],
-                (string)objeto["primerNombre"],
-                (string)objeto["segundoNombre"],
-                (string)objeto["primerApellido"],
-                (string)objeto["segundoApellido"],
-                (string)objeto["provinciaResidencia"],
-                (string)objeto["cantonResidencia"],
-                (string)objeto["distritoResidencia"],
-                (int)objeto["numeroTelefono"],
-                (int)objeto["numeroSINPE"],
-                (int)objeto["anioNacimiento"],
-                (int)objeto["mesNacimiento"],
-                (int)objeto["diaNacimiento"],
-                objeto.SelectToken("lugarEntrega")?.ToObject<string[]>(),
-                (string)objeto["claveAcceso"]);
+                (int)productor["numeroCedula"],
+                (string)productor["primerNombre"],
+                (string)productor["segundoNombre"],
+                (string)productor["primerApellido"],
+                (string)productor["segundoApellido"],
+                (string)productor["provinciaResidencia"],
+                (string)productor["cantonResidencia"],
+                (string)productor["distritoResidencia"],
+                (int)productor["numeroTelefono"],
+                (int)productor["numeroSINPE"],
+                (string)productor["distritoResidencia"],
+                productor.SelectToken("lugarEntrega")?.ToObject<string[]>(),
+                (string)productor["claveAcceso"]);
 
             if (resultado == true)
             {

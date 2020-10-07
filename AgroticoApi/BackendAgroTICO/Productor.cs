@@ -22,9 +22,7 @@ namespace BackendAgroTICO
         public int numeroTelefono;
         public int numeroSINPE;
 
-        public int anioNacimiento;
-        public int mesNacimiento;
-        public int diaNacimiento;
+        public String fechaNacimiento;
 
         public String[] lugarEntrega;
 

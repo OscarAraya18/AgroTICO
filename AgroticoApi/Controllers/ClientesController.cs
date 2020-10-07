@@ -156,9 +156,7 @@ namespace AgroticoApi.Controllers
                 (string)nuevoCliente["provinciaResidencia"],
                 (string)nuevoCliente["cantonResidencia"],
                 (string)nuevoCliente["distritoResidencia"],
-                (int)nuevoCliente["anioNacimiento"],
-                (int)nuevoCliente["mesNacimiento"],
-                (int)nuevoCliente["diaNacimiento"],
+                (string)nuevoCliente["fechaNacimiento"],
                 (int)nuevoCliente["numeroTelefono"],
                 (string)nuevoCliente["nombreUsuario"],
                 (string)nuevoCliente["claveAcceso"]);
@@ -200,9 +198,7 @@ namespace AgroticoApi.Controllers
                 (string)cliente["provinciaResidencia"],
                 (string)cliente["cantonResidencia"],
                 (string)cliente["distritoResidencia"],
-                (int)cliente["anioNacimiento"],
-                (int)cliente["mesNacimiento"],
-                (int)cliente["diaNacimiento"],
+                (string)cliente["fechaNacimiento"],
                 (int)cliente["numeroTelefono"],
                 (string)cliente["nombreUsuario"],
                 (string)cliente["claveAcceso"]);
