@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute} from '@angular/router';
-import { Productor } from 'src/app/modelos/publicoGeneral/productor';
+import { ProductorI } from 'src/app/modelos/publicoGeneral/productor';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { Productor } from 'src/app/modelos/publicoGeneral/productor';
 })
 export class TarjetaProductorComponent implements OnInit {
 
-  @Input() productorInfo: Productor;
+  @Input() productorInfo: ProductorI;
   
   constructor(private route: ActivatedRoute, private router: Router) { }
 

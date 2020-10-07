@@ -22,8 +22,7 @@ import { TarjetaProductorComponent } from './vistas/publicoGeneral/tarjeta-produ
 import { TarjetaProductoComponent } from './vistas/publicoGeneral/tarjeta-producto/tarjeta-producto.component';
 import { ArticuloCarritoComponent } from './vistas/publicoGeneral/articulo-carrito/articulo-carrito.component';
 import { ListaProductosComponent } from './vistas/publicoGeneral/lista-productos/lista-productos.component'; 
-import { HttpClientModule} from '@angular/common/http';
-
+import { HttpClientModule} from '@angular/common/http'
 @NgModule({
   declarations: [
     AppComponent,

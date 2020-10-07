@@ -1,0 +1,91 @@
+[
+    {
+        "numeroCedula": 123,
+        "primerNombre": "Kevin",
+        "segundoNombre": "Francisco",
+        "primerApellido": "Acevedo",
+        "segundoApellido": "Rodriguez",
+        "provinciaResidencia": "Guanacaste",
+        "cantonResidencia": "Santa Cruz",
+        "distritoResidencia": "La Palma",
+        "numeroTelefono": 83488907,
+        "numeroSINPE": 757575,
+        "anioNacimiento": 2000,
+        "mesNacimiento": 6,
+        "diaNacimiento": 20,
+        "lugarEntrega": ["Parque", "Mercado"],
+        "claveAcceso": "234Hola"
+    },
+
+    {
+        "numeroCedula": 123,
+        "primerNombre": "Albert",
+        "segundoNombre": "Francisco",
+        "primerApellido": "Acevedo",
+        "segundoApellido": "Rodriguez",
+        "provinciaResidencia": "Guanacaste",
+        "cantonResidencia": "Santa Cruz",
+        "distritoResidencia": "La Palma",
+        "numeroTelefono": 83488907,
+        "numeroSINPE": 757575,
+        "anioNacimiento": 2000,
+        "mesNacimiento": 6,
+        "diaNacimiento": 20,
+        "lugarEntrega": ["Parque", "Mercado"],
+        "claveAcceso": "234Hola"
+    },
+
+    {
+        "numeroCedula": 123,
+        "primerNombre": "Karol",
+        "segundoNombre": "Francisco",
+        "primerApellido": "Acevedo",
+        "segundoApellido": "Rodriguez",
+        "provinciaResidencia": "Guanacaste",
+        "cantonResidencia": "Santa Cruz",
+        "distritoResidencia": "La Palma",
+        "numeroTelefono": 83488907,
+        "numeroSINPE": 757575,
+        "anioNacimiento": 2000,
+        "mesNacimiento": 6,
+        "diaNacimiento": 20,
+        "lugarEntrega": ["Parque", "Mercado"],
+        "claveAcceso": "234Hola"
+    },
+
+    {
+        "numeroCedula": 123,
+        "primerNombre": "Saymon",
+        "segundoNombre": "Francisco",
+        "primerApellido": "Acevedo",
+        "segundoApellido": "Rodriguez",
+        "provinciaResidencia": "Guanacaste",
+        "cantonResidencia": "Santa Cruz",
+        "distritoResidencia": "La Palma",
+        "numeroTelefono": 83488907,
+        "numeroSINPE": 757575,
+        "anioNacimiento": 2000,
+        "mesNacimiento": 6,
+        "diaNacimiento": 20,
+        "lugarEntrega": ["Parque", "Mercado"],
+        "claveAcceso": "234Hola"
+    },
+
+    {
+        "numeroCedula": 123,
+        "primerNombre": "Oscar",
+        "segundoNombre": "Francisco",
+        "primerApellido": "Acevedo",
+        "segundoApellido": "Rodriguez",
+        "provinciaResidencia": "Guanacaste",
+        "cantonResidencia": "Santa Cruz",
+        "distritoResidencia": "La Palma",
+        "numeroTelefono": 83488907,
+        "numeroSINPE": 757575,
+        "anioNacimiento": 2000,
+        "mesNacimiento": 6,
+        "diaNacimiento": 20,
+        "lugarEntrega": ["Parque", "Mercado"],
+        "claveAcceso": "234Hola"
+    }
+]

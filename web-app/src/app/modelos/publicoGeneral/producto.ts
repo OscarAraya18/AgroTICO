@@ -1,17 +1,11 @@
-export class Producto {
-    imgURL: string;
+export interface ProductoI {
+    codigo: number;
+    numeroCedulaProductor: number;
     nombre: string;
-    descripcion: string;
-    disponibilidad: number;
+    modoVenta: string;
+    disponibilidad: string;
     precio: number;
-    id: number;
-
-    constructor(imgURL, nombre, descripcion, disponibiliad, precio, id){
-        this.imgURL = imgURL;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.disponibilidad = disponibiliad;
-        this.precio = precio;
-        this.id = id;
-    }
+    identificadorCategoria: number;
+    cantidadVendida: number;
+    foto: string;
 }

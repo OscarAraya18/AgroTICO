@@ -1,3 +1,10 @@
+<div class="text-center">
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button (click)="getProductoresCanton()" type="button" class="btn btn-secondary">Productores por cantón</button>
+    <button (click)="getProductoresProvincia()" type="button" class="btn btn-secondary">Productores por provincia</button>
+    <button (click)="getProductoresDistrito()" type="button" class="btn btn-secondary">Productores por distrito</button>
+  </div>
+</div>
 <div class="row">
     <div class="col-md-4" *ngFor="let productor of productoresLista">
       <app-tarjeta-productor [productorInfo]="productor"></app-tarjeta-productor>
