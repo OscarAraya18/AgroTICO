@@ -11,6 +11,8 @@ provincias: string[];
 cantones: string[];
 distritos: string[];
 formVisibility: boolean;
+form2Visibility: boolean;
+elimina: boolean;
 
 provinciasSeleccion = {
     Alajuela: ['Alajuela', 'San Ramón','Grecia','San Mateo','Atenas','Naranjo','Palmares','Poás','San Pedro',
@@ -128,6 +130,8 @@ Hojancha: ['Hojancha', 'Monte Romo','Puerto Carrillo','Huacas','Matambú']
   constructor() {
 this.provincias = ['Elegir','Alajuela','San José','Cartago','Heredia','Puntarenas','Limón','Guanacaste'];
 this.formVisibility = false;
+this.form2Visibility = false;
+this.elimina = false;
 
   }
 
@@ -151,6 +155,35 @@ console.log('Dia: ' + fecha.split('-')[2]);
 console.log(numero);
 console.log(sinpe);
 console.log(lugar.split(','));
+
+  }
+
+  submit2(cedula, nombre, apellido1, apellido2, provincia, canton, distrito, fecha, numero, sinpe, lugar): void  {
+this.form2Visibility = false;
+console.log('Actualiza');
+console.log(cedula);
+console.log(nombre);
+console.log(apellido1);
+console.log(apellido2);
+console.log(provincia);
+console.log(canton);
+console.log(distrito);
+console.log('Año: ' + fecha.split('-')[0]);
+console.log('Mes: ' + fecha.split('-')[1]);
+console.log('Dia: ' + fecha.split('-')[2]);
+console.log(numero);
+console.log(sinpe);
+console.log(lugar.split(','));
+
+  }
+  submit3(cedula): void  {
+const confirmed = window.confirm('¿Seguro que desea eliminar este productor?');
+if (confirmed) {
+this.elimina = false;
+console.log('Eliminaa');
+console.log(cedula);
+}
+
 
   }
   cambioProvincia(provincia): void  {

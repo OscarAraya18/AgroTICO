@@ -11,6 +11,7 @@
   border-radius: 10px;
   border: 1px solid green;
   margin-left: 5px;
+   background-color: rgba(151, 169, 147,0.8);
 }
 
 .but{
@@ -36,3 +37,14 @@
 	align-items: center;
 	justify-content: center;
 }
+.button1{
+	height: 50px;
+	font-size: 25px;
+
+}
+
+.cont2{
+	margin-top: 10px;
+}
+
+::placeholder { color: black; }

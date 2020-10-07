@@ -1,0 +1,60 @@
+<div class="container bootstrap snippets bootdey">
+    <div class="col-md-9 col-sm-8 content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-info panel-shadow">
+                    <div class="panel-heading">
+                        <h3>
+                            <img class="img-circle img-thumbnail" src="https://bootdey.com/img/Content/user_3.jpg">
+                            EL BANANERO
+                        </h3>
+                    </div>
+                    <div class="panel-body"> 
+                        <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Nombre</th>
+                                <th>Cantidad</th>
+                                <th>Precio unitario</th>
+                                <th>sub Total</th>
+                                
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let articulo of articulosCarrito">
+                                    <td><img src="assets/fresas.png" class="img-cart" width="100px" height="100px"></td>
+                                    <td><strong>{{ articulo.nombre }}</strong></td>
+                                    <td>
+                                    <form class="form-inline">
+                                        <span class="badge badge-pill badge-secondary">{{ articulo.cantidad}}</span>
+                                        <a (click)="updateQts(articulo.id, 1)" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+                                        <a (click)="updateQts(articulo.id, 2)" class="btn btn-primary"><i class="fa fa-minus"></i></a>
+                                        <a (click)="removeArticulo(articulo)" class="btn btn-primary"><i class="fa fa-trash"></i></a>
+                                    </form>
+                                    </td>
+                                    <td>{{ articulo.precioUnidad }}</td>
+                                    <td>{{ articulo.precioTotal }}</td>
+                                </tr>
+         
+                                <tr>
+                                    <td colspan="6">&nbsp;</td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="4" class="text-right"><strong>Total</strong></td>
+                                    <td>$ {{ montoTotal }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+                <a href="#" class="btn btn-success"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Continue Shopping</a>
+                <a href="#" class="btn btn-primary pull-right">Next<span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+        </div>
+    </div>
+</div>

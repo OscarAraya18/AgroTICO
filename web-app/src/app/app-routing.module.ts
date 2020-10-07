@@ -8,9 +8,20 @@ import { CategoriasComponent } from './vistas/administrador/categorias/categoria
 import { VistaComponent } from './vistas/administrador/vista/vista.component';
 import { ProductoresComponent } from './vistas/administrador/productores/productores.component';
 import { PerfilComponent } from './vistas/administrador/perfil/perfil.component';
-
+import { InicioComponent } from './vistas/publicoGeneral/inicio/inicio.component';
+import { LoginComponent } from './vistas/publicoGeneral/login/login.component';
+import { CrearCuentaComponent } from './vistas/publicoGeneral/crear-cuenta/crear-cuenta.component';
+import { ClienteContenidoComponent } from './vistas/publicoGeneral/cliente-contenido/cliente-contenido.component';
+import { ListaProductoresComponent} from './vistas/publicoGeneral/lista-productores/lista-productores.component';
+import { ListaProductosComponent} from './vistas/publicoGeneral/lista-productos/lista-productos.component';
+import { CarritoComprasComponent} from './vistas/publicoGeneral/carrito-compras/carrito-compras.component';
 
 const routes: Routes = [
+      //This is the default route
+      //You can change it if you want
+      {
+        path: '',redirectTo: '/cliente-inicio/login',
+         pathMatch: 'full'},
       {
         path: 'admin',
         component: AdministradorComponent,
@@ -38,6 +49,21 @@ const routes: Routes = [
         ]
       },
 
+      {
+        path: 'cliente-inicio',
+        component: InicioComponent,
+        children:[
+        {path: 'login', component: LoginComponent},
+        {path: 'crear-cuenta', component: CrearCuentaComponent}
+       ]},
+
+       { path: 'cliente-contenido', component: ClienteContenidoComponent,
+         children:[
+         {path: 'lista-productores', component: ListaProductoresComponent},
+         {path: 'lista-productos', component: ListaProductosComponent},
+         {path: 'carrito-compras', component: CarritoComprasComponent}
+       ]}
+   //TODO: ADD PAGE NOT FOUND COMPONENT
 ];
 
 @NgModule({
