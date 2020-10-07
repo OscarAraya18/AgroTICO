@@ -384,7 +384,7 @@ namespace Backend.DBMS
                 nuevoProductor.distritoResidencia = distritoResidencia;
                 nuevoProductor.numeroTelefono = numeroTelefono;
                 nuevoProductor.numeroSINPE = numeroSINPE;
-                nuevoProductor.
+                nuevoProductor.fechaNacimiento = fechaNacimiento;
                 nuevoProductor.lugarEntrega = lugarEntrega;
                 nuevoProductor.claveAcceso = claveAcceso;
                 INSERT(RUTA_PRODUCTORES, JsonConvert.SerializeObject(nuevoProductor));
