@@ -31,6 +31,9 @@ import { TarjetaProductorComponent } from './vistas/publicoGeneral/tarjeta-produ
 import { TarjetaProductoComponent } from './vistas/publicoGeneral/tarjeta-producto/tarjeta-producto.component';
 import { ArticuloCarritoComponent } from './vistas/publicoGeneral/articulo-carrito/articulo-carrito.component';
 import { ListaProductosComponent } from './vistas/publicoGeneral/lista-productos/lista-productos.component';
+import { ActualizarCuentaComponent } from './vistas/publicoGeneral/actualizar-cuenta/actualizar-cuenta.component';
+import { ComprobanteCompraComponent } from './vistas/publicoGeneral/comprobante-compra/comprobante-compra.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ProductorComponent } from './vistas/productor/productor.component';
 import { AfiliacionComponent } from './vistas/productor/afiliacion/afiliacion.component';
 import { ProductosComponent } from './vistas/productor/productos/productos.component';
@@ -59,7 +62,8 @@ import { FormComponent } from './vistas/productor/afiliacion/form/form.component
     TarjetaProductoComponent,
     ArticuloCarritoComponent,
     ListaProductosComponent,
-
+    ActualizarCuentaComponent,
+    ComprobanteCompraComponent,
     ProductorComponent,
     AfiliacionComponent,
     ProductosComponent,
@@ -77,6 +81,7 @@ import { FormComponent } from './vistas/productor/afiliacion/form/form.component
     HttpClientModule,
     MatTableModule,
     MatCardModule
+    PdfViewerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

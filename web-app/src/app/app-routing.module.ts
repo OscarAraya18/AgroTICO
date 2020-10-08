@@ -14,6 +14,9 @@ import { ClienteContenidoComponent } from './vistas/publicoGeneral/cliente-conte
 import { ListaProductoresComponent} from './vistas/publicoGeneral/lista-productores/lista-productores.component';
 import { ListaProductosComponent} from './vistas/publicoGeneral/lista-productos/lista-productos.component';
 import { CarritoComprasComponent} from './vistas/publicoGeneral/carrito-compras/carrito-compras.component';
+import { ActualizarCuentaComponent } from './vistas/publicoGeneral/actualizar-cuenta/actualizar-cuenta.component';
+import { ComprobanteCompraComponent } from './vistas/publicoGeneral/comprobante-compra/comprobante-compra.component';
+
 import { ProductorComponent } from './vistas/productor/productor.component';
 import { AfiliacionComponent } from './vistas/productor/afiliacion/afiliacion.component';
 import { ProductosComponent } from './vistas/productor/productos/productos.component';
@@ -21,8 +24,7 @@ import { PedidosComponent } from './vistas/productor/pedidos/pedidos.component';
 import { FormComponent } from './vistas/productor/afiliacion/form/form.component';
 
 const routes: Routes = [
-      // This is the default route
-      // You can change it if you want
+     //VISTA ADMINISTRACION
       {
         path: '', redirectTo: '/cliente-inicio/login',
          pathMatch: 'full'
@@ -54,6 +56,8 @@ const routes: Routes = [
         ]
       },
 
+      //VISTA PÚBLICO GENERAL
+
       {
         path: 'cliente-inicio',
         component: InicioComponent,
@@ -66,8 +70,14 @@ const routes: Routes = [
          children: [
          {path: 'lista-productores/:usuario', component: ListaProductoresComponent},
          {path: 'lista-productos/:idProductor', component: ListaProductosComponent},
-         {path: 'carrito-compras', component: CarritoComprasComponent}
+         {path: 'carrito-compras', component: CarritoComprasComponent,
+        children:[
+        {path: 'comprobante', component: ComprobanteCompraComponent}
+         ]},
+         {path: 'actualizar-cuenta', component: ActualizarCuentaComponent}
        ]},
+
+       //VISTA PRODUCTOR
       {
         path: 'productor',
         component: ProductorComponent,
@@ -93,4 +103,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }

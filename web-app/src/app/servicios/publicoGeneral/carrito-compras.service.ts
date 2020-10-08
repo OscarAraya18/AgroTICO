@@ -10,19 +10,17 @@ export class CarritoComprasService {
 
   articulosCarrito: Articulo[] = [];
 
-  nombreUsuario:string = '';
+  pdfSrc = '';
 
 
   constructor(private clienteInfoService: ClienteInfoService) {
-    this.nombreUsuario = this.clienteInfoService.getNombreUsuario();
+    
    }
   
   getArticulosCarrito(): Articulo[]{
     return this.articulosCarrito;
   }
-  getNombreUsuario():string{
-    return this.nombreUsuario;
-  }
+
 
 
   updateMontoTotal(){
@@ -88,6 +86,11 @@ export class CarritoComprasService {
       this.articulosCarrito.push(new Articulo(nombre, 1, disponibilidad, precioUnidad, id, foto));
       this.updateMontoTotal();
     }
+  }
+
+  reset(){
+    this.articulosCarrito = [];
+    this.montoTotal = 0;
   }
 
 
