@@ -28,6 +28,7 @@ import { ListaProductosComponent } from './vistas/publicoGeneral/lista-productos
 import { HttpClientModule} from '@angular/common/http';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +47,7 @@ import { HttpClientModule} from '@angular/common/http';
     TarjetaProductorComponent,
     TarjetaProductoComponent,
     ArticuloCarritoComponent,
-    ListaProductosComponent
+    ListaProductosComponent,
   ],
   imports: [
     BrowserModule,

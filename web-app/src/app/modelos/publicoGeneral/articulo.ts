@@ -4,12 +4,16 @@ export class Articulo {
     precioUnidad: number;
     precioTotal: number;
     id: number;
+    disponibilidad:number;
+    foto:string;
 
-    constructor(nombre, cantidad, precioUnidad, id, precioTotal = precioUnidad * cantidad){
+    constructor(nombre, cantidad, disponibilidad, precioUnidad, id, foto, precioTotal = precioUnidad * cantidad){
         this.nombre = nombre;
         this.cantidad = cantidad;
+        this.disponibilidad = disponibilidad;
         this.precioUnidad = precioUnidad;
         this.id = id;
+        this.foto = foto;
         this.precioTotal = precioTotal;
 
     }

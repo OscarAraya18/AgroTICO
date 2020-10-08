@@ -3,9 +3,10 @@ export interface ProductoI {
     numeroCedulaProductor: number;
     nombre: string;
     modoVenta: string;
-    disponibilidad: string;
+    disponibilidad: number;
     precio: number;
     identificadorCategoria: number;
     cantidadVendida: number;
     foto: string;
+    
 }

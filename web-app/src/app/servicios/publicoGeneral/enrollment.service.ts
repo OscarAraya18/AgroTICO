@@ -12,10 +12,10 @@ export class EnrollmentService {
 
   //The post method returns a response as observable
   enrollCrearCuenta(usuario: UsuarioRegistro){
-    return this.http.post<any>('', usuario);
+    return this.http.post<string>('/api/Clientes/new', usuario);
   }
 
   enrollLogin(usuario: UsuarioLogin){
-    return this.http.post<any>('', usuario);
+    return this.http.post<string>('/api/Clientes/login', usuario);
   }
 }
