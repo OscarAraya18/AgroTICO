@@ -64,9 +64,7 @@ namespace AgroticoApi.Controllers
                 (string)nuevoCliente["fechanacimiento"],
                 nuevoCliente.SelectToken("lugarEntrega")?.ToObject<string[]>(),
                 (string)nuevoCliente["claveAcceso"],
-                (int)nuevoCliente["anioSolicitud"],
-                (int)nuevoCliente["mesSolicitud"],
-                (int)nuevoCliente["diasSolicitud"]);
+                (string)nuevoCliente["fechaSolicitud"]);
 
             if (resultado == true)
             {
@@ -123,7 +121,7 @@ namespace AgroticoApi.Controllers
                 (int)producto["codigo"],
                 (string)producto["nombre"],
                 (string)producto["modoVenta"],
-                (string)producto["disponibilidad"],
+                (int)producto["disponibilidad"],
                 (int)producto["precio"],
                 (int)producto["identificadorCategoria"],
                 (string)producto["foto"]);

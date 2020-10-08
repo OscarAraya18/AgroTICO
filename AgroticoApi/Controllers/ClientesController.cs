@@ -1,8 +1,6 @@
 ﻿using AgroticoApi.BackendAgroTICO;
 using Backend.DBMS;
-using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -20,33 +18,42 @@ namespace AgroticoApi.Controllers
         // GET api/Clientes/Productor/distrito
         [HttpGet]
         [Route("api/Clientes/Productor/distrito")]
-        public IHttpActionResult productorPorDistrito([FromUri] string distrito)
+        public IHttpActionResult productorPorDistrito([FromUri] string usuario)
         {
-            var resultado = _dbms.encontrarProductorPorDistrito(distrito);
+            string cliente = _dbms.SelectGeneral("clientes", usuario);
 
-            if(resultado == null)
+            // Valida si el cliente existe
+            if (cliente == null)
             {
                 return BadRequest("No se pudo obtener resultados");
             }
+
+            JObject jcliente = JObject.Parse(cliente);
+            var resultado = _dbms.encontrarProductorPorDistrito((string)jcliente["distritoResidencia"]);
             List<JObject> lista = new List<JObject>();
             foreach (string element in resultado)
             {
                 lista.Add(JObject.Parse(element));
             }
             return Ok(lista);
+
         }
 
         // GET api/Clientes/Productor/canton
         [HttpGet]
         [Route("api/Clientes/Productor/canton")]
-        public IHttpActionResult productorPorCanton([FromUri] string canton)
+        public IHttpActionResult productorPorCanton([FromUri] string usuario)
         {
-            var resultado = _dbms.encontrarProductorPorCanton(canton);
+            string cliente = _dbms.SelectGeneral("clientes", usuario);
 
-            if (resultado == null)
+            // Valida si el cliente existe
+            if (cliente == null)
             {
                 return BadRequest("No se pudo obtener resultados");
             }
+
+            JObject jcliente = JObject.Parse(cliente);
+            var resultado = _dbms.encontrarProductorPorCanton((string)jcliente["cantonResidencia"]);
             List<JObject> lista = new List<JObject>();
             foreach (string element in resultado)
             {
@@ -58,20 +65,25 @@ namespace AgroticoApi.Controllers
         // GET api/Clientes/Productor/provincia
         [HttpGet]
         [Route("api/Clientes/Productor/provincia")]
-        public IHttpActionResult productorPorProvincia([FromUri] string provincia)
+        public IHttpActionResult productorPorProvincia([FromUri] string usuario)
         {
-            var resultado = _dbms.encontrarProductorPorProvincia(provincia);
+            string cliente = _dbms.SelectGeneral("clientes", usuario);
 
-            if (resultado == null)
+            // Valida si el cliente existe
+            if (cliente == null)
             {
                 return BadRequest("No se pudo obtener resultados");
             }
+
+            JObject jcliente = JObject.Parse(cliente);
+            var resultado = _dbms.encontrarProductorPorProvincia((string)jcliente["provinciaResidencia"]);
             List<JObject> lista = new List<JObject>();
             foreach (string element in resultado)
             {
                 lista.Add(JObject.Parse(element));
             }
             return Ok(lista);
+
         }
 
         // GET api/Clientes/Productos/productor
@@ -96,7 +108,7 @@ namespace AgroticoApi.Controllers
         // GET api/Clientes/MiInfo
         [HttpGet]
         [Route("api/Clientes/MiInfo")]
-        public IHttpActionResult getComprobante([FromBody] string usuario)
+        public IHttpActionResult getComprobante([FromUri] string usuario)
         {
             string resultado = _dbms.SelectGeneral("clientes", usuario);
             if (resultado == null)
@@ -182,6 +194,34 @@ namespace AgroticoApi.Controllers
                 return Ok("Producto agregado exitosamente");
             }
             return NotFound();
+        }
+
+        // POST api/Clientes/compra
+        [HttpPost]
+        [Route("api/Clientes/compra")]
+        public IHttpActionResult crearCompra([FromBody] JObject compra)
+        {
+            string cliente = _dbms.SelectGeneral("clientes", (string)compra["nombreUsuario"]);
+
+            // Valida si el cliente existe
+            if (cliente == null)
+            {
+                return BadRequest("No se pudo realizar la compra");
+            }
+            JObject jcliente = JObject.Parse(cliente);
+            var resultado = _dbms.finalizarCompra((int)jcliente["numeroCedula"],
+                (string)compra["fechaCompra"],
+                (int)compra["calificacionGeneral"],
+                (string)jcliente["provinciaResidencia"] + ", " + (string)jcliente["cantonResidencia"] 
+                + ", " + (string)jcliente["distritoResidencia"] + ", " + (string)compra["direccionEntrega"],
+                compra["productos"].ToObject<List<JObject>>(),
+                (int)compra["montoTotal"]
+                );
+            if(resultado == true)
+            {
+                return Ok("Compra realizada con exito");
+            }
+            return BadRequest("Ha ocurrido un error");
         }
 
         // PUT api/Clientes/edit

@@ -10,9 +10,7 @@ namespace BackendAgroTICO
     {
         public int numeroCedulaComprador;
         public String codigoFactura;
-        public int anioCompra;
-        public int mesCompra;
-        public int diaCompra;
+        public string fechaCompra;
         public int calificacionGeneral;
         public String direccionEntrega;
 

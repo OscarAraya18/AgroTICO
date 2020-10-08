@@ -12,12 +12,8 @@ namespace BackendAgroTICO
 
         public String motivoDenegacion;
         public String estado;
-        public int anioSolicitud;
-        public int mesSolicitud;
-        public int diaSolicitud;
-        public int anioRespuesta;
-        public int mesRespuesta;
-        public int diaRespuesta;
+        public String fechaSolicitud;
+        public String fechaRespuesta;
 
         public Afiliacion()
         {

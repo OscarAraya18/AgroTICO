@@ -569,7 +569,7 @@ namespace Backend.DBMS
         /*-------------------------------------------------------------VISTA DE PRODUCTOR-----------------------------------------------------------------*/
         public bool crearSolicitudAfiliacion(int numeroCedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String provinciaResidencia,
                                             String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, String fechaNacimiento ,String[] lugarEntrega, 
-                                            String claveAcceso, int anioSolicitud, int mesSolicitud, int diaSolicitud)
+                                            String claveAcceso, string fechaSolicitud)
         {
             String[] solicitudesRealizadas = FILTER(RUTA_AFILIACIONES, "codigoSolicitud", null, numeroCedula);
             String[] solicitudesAceptadas = FILTER(RUTA_PRODUCTORES, "numeroCedula", null, numeroCedula);
@@ -601,14 +601,10 @@ namespace Backend.DBMS
             nuevaAfiliacion.fechaNacimiento = fechaNacimiento;
             nuevaAfiliacion.lugarEntrega = lugarEntrega;
             nuevaAfiliacion.claveAcceso = claveAcceso;
-            nuevaAfiliacion.anioSolicitud = anioSolicitud;
-            nuevaAfiliacion.mesSolicitud = mesSolicitud;
-            nuevaAfiliacion.diaSolicitud = diaSolicitud;
+            nuevaAfiliacion.fechaSolicitud = fechaSolicitud;
             nuevaAfiliacion.estado = "Sin respuesta";
             nuevaAfiliacion.motivoDenegacion = "Sin respuesta";
-            nuevaAfiliacion.anioRespuesta = 0;
-            nuevaAfiliacion.mesRespuesta = 0;
-            nuevaAfiliacion.diaRespuesta = 0;
+            nuevaAfiliacion.fechaRespuesta = null;
             INSERT(RUTA_AFILIACIONES, JsonConvert.SerializeObject(nuevaAfiliacion));
             return true;
         }
@@ -662,7 +658,7 @@ namespace Backend.DBMS
 
 
 
-        public bool actualizarProducto(int codigo, String nombre, String modoVenta, String disponibilidad, int precio,
+        public bool actualizarProducto(int codigo, String nombre, String modoVenta, int disponibilidad, int precio,
                                         int identificadorCategoria, String foto)
         {
             if (SELECT(RUTA_PRODUCTOS, codigo) != null)
@@ -671,7 +667,7 @@ namespace Backend.DBMS
                 {
                     UPDATE(RUTA_PRODUCTOS, codigo, "nombre", nombre, 0);
                     UPDATE(RUTA_PRODUCTOS, codigo, "modoVenta", modoVenta, 0);
-                    UPDATE(RUTA_PRODUCTOS, codigo, "disponibilidad", disponibilidad, 0);
+                    UPDATE(RUTA_PRODUCTOS, codigo, "disponibilidad", null, disponibilidad);
                     UPDATE(RUTA_PRODUCTOS, codigo, "precio", null, precio);
                     UPDATE(RUTA_PRODUCTOS, codigo, "identificadorCategoria", null, identificadorCategoria);
                     UPDATE(RUTA_PRODUCTOS, codigo, "foto", foto, 0);
@@ -681,6 +677,7 @@ namespace Backend.DBMS
             }
             return false;
         }
+
         public bool eliminarProducto(int codigo)
         {
             return DELETE(RUTA_PRODUCTOS, codigo);
@@ -862,32 +859,33 @@ namespace Backend.DBMS
         }
 
 
-        public bool finalizarCompra(int numeroCedulaComprador, int anioCompra, int mesCompra, int diaCompra,
-                                     int calificacionGeneral, String direccionEntrega)
+        public bool finalizarCompra(int numeroCedulaComprador, String fechaCompra,
+                                     int calificacionGeneral, String direccionEntrega, List<JObject> productos, int montoTotal)
         {
             int ventasPreviasCliente = FILTER(RUTA_VENTAS, "numeroCedulaComprador", null, numeroCedulaComprador).Length;
             BackendAgroTICO.Venta nuevaVenta = new BackendAgroTICO.Venta();
             UPDATE(RUTA_CLIENTES, numeroCedulaComprador, "cantidadCompras", null, ventasPreviasCliente + 1);
             nuevaVenta.numeroCedulaComprador = numeroCedulaComprador;
-            nuevaVenta.codigoFactura = numeroCedulaComprador.ToString() + "-" + ventasPreviasCliente.ToString() + "-" + diaCompra.ToString() + mesCompra.ToString() + anioCompra.ToString();
-            nuevaVenta.anioCompra = anioCompra;
-            nuevaVenta.mesCompra = mesCompra;
-            nuevaVenta.diaCompra = diaCompra;
+            nuevaVenta.codigoFactura = numeroCedulaComprador.ToString() + "-" + ventasPreviasCliente.ToString() + "-" + fechaCompra;
+            nuevaVenta.fechaCompra = fechaCompra;
             nuevaVenta.calificacionGeneral = calificacionGeneral;
             nuevaVenta.direccionEntrega = direccionEntrega;
-            nuevaVenta.productoVendido = READ(RUTA_CARRITO_DE_COMPRAS);
-            int montoTotal = 0;
-            JObject productoAnalizar;
-            foreach (String producto in READ(RUTA_CARRITO_DE_COMPRAS))
+            List<string> lista = new List<string>();
+
+            foreach (JObject productoAnalizar in productos)
             {
-                productoAnalizar = JObject.Parse(producto);
-                montoTotal = montoTotal + (int)productoAnalizar["cantidad"] * (int)productoAnalizar["precio"];
+                lista.Add(JsonConvert.SerializeObject(productoAnalizar));
+                int nuevaDisponibilidad = (int)(JObject.Parse(SELECT(RUTA_PRODUCTOS, (int)productoAnalizar["codigo"]))["disponibilidad"])
+                    - (int)productoAnalizar["cantidad"];
+                //productoAnalizar = JObject.Parse(producto);
+                UPDATE(RUTA_PRODUCTOS, (int)productoAnalizar["codigo"], "disponibilidad", null, nuevaDisponibilidad);
+                
                 int cantidadVendidaPrevia = (int)(JObject.Parse(SELECT(RUTA_PRODUCTOS, (int)productoAnalizar["codigo"]))["cantidadVendida"]);
                 UPDATE(RUTA_PRODUCTOS, (int)productoAnalizar["codigo"], "cantidadVendida", null, cantidadVendidaPrevia + (int)productoAnalizar["cantidad"]);
             }
+            nuevaVenta.productoVendido = lista.ToArray();
             nuevaVenta.montoTotal = montoTotal;
             INSERT(RUTA_VENTAS, JsonConvert.SerializeObject(nuevaVenta));
-            CLEAN(RUTA_CARRITO_DE_COMPRAS);
             return true;
         }
 
