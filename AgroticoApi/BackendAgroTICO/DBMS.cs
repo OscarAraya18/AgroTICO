@@ -794,7 +794,7 @@ namespace Backend.DBMS
             {
                 if ((String)JObject.Parse(usuariosPosibles[0])["claveAcceso"] == claveAcceso)
                 {
-                    CLEAN(RUTA_CARRITO_DE_COMPRAS);
+
                     return true;
                 }
             }
@@ -859,7 +859,7 @@ namespace Backend.DBMS
         }
 
 
-        public bool finalizarCompra(int numeroCedulaComprador, String fechaCompra,
+        public string finalizarCompra(int numeroCedulaComprador, String fechaCompra,
                                      int calificacionGeneral, String direccionEntrega, List<JObject> productos, int montoTotal)
         {
             int ventasPreviasCliente = FILTER(RUTA_VENTAS, "numeroCedulaComprador", null, numeroCedulaComprador).Length;
@@ -877,7 +877,7 @@ namespace Backend.DBMS
                 lista.Add(JsonConvert.SerializeObject(productoAnalizar));
                 int nuevaDisponibilidad = (int)(JObject.Parse(SELECT(RUTA_PRODUCTOS, (int)productoAnalizar["codigo"]))["disponibilidad"])
                     - (int)productoAnalizar["cantidad"];
-                //productoAnalizar = JObject.Parse(producto);
+
                 UPDATE(RUTA_PRODUCTOS, (int)productoAnalizar["codigo"], "disponibilidad", null, nuevaDisponibilidad);
                 
                 int cantidadVendidaPrevia = (int)(JObject.Parse(SELECT(RUTA_PRODUCTOS, (int)productoAnalizar["codigo"]))["cantidadVendida"]);
@@ -886,7 +886,7 @@ namespace Backend.DBMS
             nuevaVenta.productoVendido = lista.ToArray();
             nuevaVenta.montoTotal = montoTotal;
             INSERT(RUTA_VENTAS, JsonConvert.SerializeObject(nuevaVenta));
-            return true;
+            return nuevaVenta.codigoFactura;
         }
 
         // --------------- FUNCIONES UTILES --------------------------------
@@ -918,17 +918,5 @@ namespace Backend.DBMS
 
 
         }
-
-
-        /*static void Main(string[] args)
-        {
-            DBMS dbms = new DBMS();
-
-
-
-
-            dbms.RESET();
-
-        }*/
     }
 }

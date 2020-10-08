@@ -108,7 +108,7 @@ namespace AgroticoApi.Controllers
         // GET api/Clientes/MiInfo
         [HttpGet]
         [Route("api/Clientes/MiInfo")]
-        public IHttpActionResult getComprobante([FromUri] string usuario)
+        public IHttpActionResult getMiInfo([FromUri] string usuario)
         {
             string resultado = _dbms.SelectGeneral("clientes", usuario);
             if (resultado == null)
@@ -119,24 +119,6 @@ namespace AgroticoApi.Controllers
             return Ok(jcliente);
         }
 
-        // GET api/Clientes/pdf
-        [HttpGet]
-        [Route("api/Clientes/pdf")]
-        public IHttpActionResult getComprobante([FromBody] JObject reporte)
-        {
-
-            var pdf = _reporte.generarComprobante(
-                (string)reporte["nombre"],
-                (string)reporte["apellido"],
-                (string)reporte["monto"]);
-            
-
-            if (pdf == null)
-            {
-                return NotFound();
-            }
-            return Ok(pdf);
-        }
 
         // POST api/Clientes/login
         [HttpPost]
@@ -217,9 +199,17 @@ namespace AgroticoApi.Controllers
                 compra["productos"].ToObject<List<JObject>>(),
                 (int)compra["montoTotal"]
                 );
-            if(resultado == true)
+
+            var pdf = _reporte.generarComprobante(
+                (string)jcliente["primerNombre"],
+                (string)jcliente["primerApellido"],
+                (string)jcliente["segundoApellido"],
+                (string)compra["montoTotal"],
+                resultado);
+            
+            if (pdf != null)
             {
-                return Ok("Compra realizada con exito");
+                return Ok(pdf);
             }
             return BadRequest("Ha ocurrido un error");
         }
@@ -282,9 +272,16 @@ namespace AgroticoApi.Controllers
         // DELETE api/Clientes/delete
         [HttpDelete]
         [Route("api/Clientes/delete")]
-        public IHttpActionResult eliminarCliente([FromBody] int id)
+        public IHttpActionResult eliminarCliente([FromUri] string usuario)
         {
-            bool res = _dbms.eliminarCliente(id);
+            string resultado = _dbms.SelectGeneral("clientes", usuario);
+            if (resultado == null)
+            {
+                return NotFound();
+            }
+
+            JObject cliente = JObject.Parse(resultado);
+            bool res = _dbms.eliminarCliente((int)cliente["numeroCedula"]);
 
             if (res == true)
             {
