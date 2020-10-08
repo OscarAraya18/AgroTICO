@@ -1,0 +1,36 @@
+.tittle{
+	
+	font-weight: 600px;
+	text-align: center;
+}
+
+.list{
+	
+	text-align: center;
+}
+
+.row{
+	background-color: rgba(151, 169, 147,0.8);
+	width: 98%;
+	margin-left: 10px;
+	border-radius: 20px;
+	box-shadow: 10px;
+}
+.inputred {
+  border-radius: 10px;
+  border: 1px solid green;
+  margin-left: 5px;
+   background-color: rgba(151, 169, 147,0.8);
+}
+.consultar{
+	margin-top: 10px;
+}
+
+.but{
+	margin-left: 5px;
+	border-radius: 20px;
+	height: 30px;
+	line-height:10px; 
+	margin-bottom: 5px;
+
+}
