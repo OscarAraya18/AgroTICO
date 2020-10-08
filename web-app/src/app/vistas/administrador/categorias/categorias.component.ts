@@ -12,7 +12,7 @@ elimina: boolean;
 
   constructor() {
 this.form2Visibility = false;
-this.formVisibility = true;
+this.formVisibility = false;
 this.elimina = false;
 }
 

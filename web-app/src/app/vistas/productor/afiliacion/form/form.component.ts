@@ -127,10 +127,6 @@ Hojancha: ['Hojancha', 'Monte Romo','Puerto Carrillo','Huacas','Matambú']
 
   constructor() {
 this.provincias = ['Elegir','Alajuela','San José','Cartago','Heredia','Puntarenas','Limón','Guanacaste'];
-this.formVisibility = false;
-this.form2Visibility = false;
-this.elimina = false;
-
   }
 
   ngOnInit(): void {
@@ -139,7 +135,6 @@ this.elimina = false;
 
 
   solicitar(cedula, nombre, apellido1, apellido2, provincia, canton, distrito, fecha, numero, sinpe, lugar,contrasena): void  {
-this.formVisibility = false;
 console.log(cedula);
 console.log(nombre.split(' '));
 console.log(apellido1);

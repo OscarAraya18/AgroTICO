@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import {MatTableModule} from '@angular/material/table';
+import {MatCardModule} from '@angular/material/card';
 
 import { PerfilComponent } from './vistas/administrador/perfil/perfil.component';
 import { VistaComponent } from './vistas/administrador/vista/vista.component';
@@ -74,7 +75,8 @@ import { FormComponent } from './vistas/productor/afiliacion/form/form.component
     MatFormFieldModule,
     FormsModule,
     HttpClientModule,
-    MatTableModule
+    MatTableModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,26 @@
+.example-card {
+  max-width: 320px;
+  background-color: rgba(151, 169, 147,0.8);
+	border-radius: 20px;
+	box-shadow: 10px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin-bottom: 5px;
+
+}
+.name{
+	text-align: center;
+}
+
+.but{
+	margin-left:20px;
+}
+.row{
+	display: flex;
+	justify-content:space-around;
+	flex-direction: row;
+	width: 95%;
+	margin-left: 10px;
+
+}
