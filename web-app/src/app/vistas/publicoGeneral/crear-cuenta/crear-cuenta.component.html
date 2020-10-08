@@ -10,10 +10,17 @@
           <div class="col-md-6">
             <div class="form-group">
                 <input type="text" required #name="ngModel" [class.is-invalid]="name.invalid && name.touched"
-                 class="form-control" placeholder="Nombre" name="primerNombre" [(ngModel)]="usuarioR.nombre"/>
+                 class="form-control" placeholder="Nombre" name="primerNombre" [(ngModel)]="usuarioR.primerNombre"/>
                  <small class="text-danger" [class.d-none]="name.valid || name.untouched">Nombre es requerido</small>
             </div>
         </div>
+        <div class="col-md-6">
+          <div class="form-group">
+              <input type="text" #name2="ngModel" [class.is-invalid]="name2.invalid && name2.touched"
+               class="form-control" placeholder="Segundo nombre" name="primerNombre" [(ngModel)]="usuarioR.segundoNombre"/>
+               <small class="text-danger" [class.d-none]="name2.valid || name2.untouched">Segundo nombre es requerido</small>
+          </div>
+      </div>
         </div>
 
           <div class="row">
@@ -44,7 +51,7 @@
 
             <div class="col-md-6">
               <div class="form-group">
-                  <input type="tel" #telefono="ngModel" [class.is-invalid]="telefono.invalid && telefono.touched"
+                  <input type="number" #telefono="ngModel" [class.is-invalid]="telefono.invalid && telefono.touched"
                    #telefono="ngModel" pattern="^\d{8}$"
                   [class.is-invalid]="telefono.invalid && telefono.touched" class="form-control" placeholder="Numero de teléfono" name="numeroTelefono" [(ngModel)]="usuarioR.numeroTelefono"/>
                   <small class="text-danger" [class.d-none]="telefono.valid || telefono.untouched">Numero de teléfono debe de tener 8 dígitos</small>
@@ -56,7 +63,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <input type="text" required #provincia="ngModel" [class.is-invalid]="provincia.invalid && provincia.touched"
-              class="form-control" placeholder="Provincia" name="Provincia" [(ngModel)]="usuarioR.provincia"/>
+              class="form-control" placeholder="Provincia" name="Provincia" [(ngModel)]="usuarioR.provinciaResidencia"/>
               <small class="text-danger" [class.d-none]="provincia.valid || provincia.untouched">Provincia es requerida</small>
 
           </div>
@@ -65,7 +72,7 @@
         <div class="col-md-4">
           <div class="form-group">
             <input type="text" required #canton="ngModel" [class.is-invalid]="canton.invalid && canton.touched"
-             class="form-control" placeholder="Cantón" name="canton" [(ngModel)]="usuarioR.canton"/>
+             class="form-control" placeholder="Cantón" name="canton" [(ngModel)]="usuarioR.cantonResidencia"/>
              <small class="text-danger" [class.d-none]="canton.valid || canton.untouched">Canton es requerido</small>
 
         </div>
@@ -74,7 +81,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <input type="text" required #distrito="ngModel" [class.is-invalid]="distrito.invalid && distrito.touched"
-           class="form-control" placeholder="Distrito" name="distrito" [(ngModel)]="usuarioR.distrito"/>
+           class="form-control" placeholder="Distrito" name="distrito" [(ngModel)]="usuarioR.distritoResidencia"/>
            <small class="text-danger" [class.d-none]="distrito.valid || distrito.untouched">Distrito es requerido</small>
 
       </div>
@@ -94,7 +101,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <input type="text" required #usuario="ngModel" [class.is-invalid]="usuario.invalid && usuario.touched"
-                 class="form-control" placeholder="Usuario" name="nombreUsuario" [(ngModel)]="usuarioR.usuario"/>
+                 class="form-control" placeholder="Usuario" name="nombreUsuario" [(ngModel)]="usuarioR.nombreUsuario"/>
                  <small class="text-danger" [class.d-none]="usuario.valid || usuario.untouched">Nombre de usuario es requerido</small>
 
             </div>
@@ -102,12 +109,20 @@
         <div class="col-md-6">
             <div class="form-group">
                 <input type="password" required #contrasena="ngModel" [class.is-invalid]="contrasena.invalid && contrasena.touched"
-                class="form-control" placeholder="Contraseña" name="Contraseña" [(ngModel)]="usuarioR.contrasena"/>
+                class="form-control" placeholder="Contraseña" name="Contraseña" [(ngModel)]="usuarioR.claveAcceso"/>
                 <small class="text-danger" [class.d-none]="contrasena.valid || contrasena.untouched">La contraseña es requerida</small>
 
             </div>
 
         </div>
+    </div>
+
+    <div class="row" *ngIf="userExist">
+      <div class="col-md-12">
+          <div class="form-group">
+              <strong><h3 class="text text-danger">Ya existe una cuenta con este nombre de usuario o número de cédula</h3></strong>
+          </div>
+      </div>
     </div>
         
     <button [disabled]="userForm.form.invalid" (click)="onSubmit()" type="button" class="btn btn-primary">Submit</button>

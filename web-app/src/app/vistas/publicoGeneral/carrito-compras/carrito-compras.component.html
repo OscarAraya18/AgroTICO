@@ -1,13 +1,12 @@
 <div class="container bootstrap snippets bootdey">
     <div class="col-md-9 col-sm-8 content">
-
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-info panel-shadow">
                     <div class="panel-heading">
                         <h3>
                             <img class="img-circle img-thumbnail" src="https://bootdey.com/img/Content/user_3.jpg">
-                            EL BANANERO
+                            {{ nombreUsuario }}
                         </h3>
                     </div>
                     <div class="panel-body"> 
@@ -25,7 +24,7 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let articulo of articulosCarrito">
-                                    <td><img src="assets/fresas.png" class="img-cart" width="100px" height="100px"></td>
+                                    <td><img src="{{ articulo.foto }}" class="img-cart" width="100px" height="100px"></td>
                                     <td><strong>{{ articulo.nombre }}</strong></td>
                                     <td>
                                     <form class="form-inline">
@@ -50,11 +49,34 @@
                             </tbody>
                         </table>
                     </div>
+                    <form #compraForm="ngForm" class="form-content" novalidate>
+                        <div class="row">
+                          <div class="col-md-4">
+                              <div class="form-group">
+                                  <input type="text" required #direccion="ngModel" [class.is-invalid]="direccion.invalid && direccion.touched"
+                                   class="form-control" placeholder="Direccion de entrega" name="direccionEntrega" [(ngModel)]="clienteCompra.direccionEntrega"/>
+                                   <small class="text-danger" [class.d-none]="direccion.valid || direccion.untouched">Es necesaria una dirección de entrega</small>
+                              </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="number" required #calificacion="ngModel" pattern="^\d{1}$" [class.is-invalid]="calificacion.invalid && calificacion.touched"
+                                class="form-control" placeholder="Calificar" name="calificacionGeneral" [(ngModel)]="clienteCompra.calificacionGeneral"/>                
+                            </div>
+                        </div>
+                      </div>
+                          
+                      <button [disabled]="compraForm.form.invalid" (click)="buyProducts()"type="button" class="btn btn-primary">Submit</button>
+                    </form>
+                   
                 </div>
-                </div>
-                <a href="#" class="btn btn-success"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Continue Shopping</a>
-                <a href="#" class="btn btn-primary pull-right">Next<span class="glyphicon glyphicon-chevron-right"></span></a>
+
+            </div>
             </div>
         </div>
+
+
+
+        
     </div>
 </div>

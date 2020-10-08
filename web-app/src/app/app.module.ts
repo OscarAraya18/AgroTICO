@@ -38,6 +38,7 @@ import { FormComponent } from './vistas/productor/afiliacion/form/form.component
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,11 +58,13 @@ import { FormComponent } from './vistas/productor/afiliacion/form/form.component
     TarjetaProductoComponent,
     ArticuloCarritoComponent,
     ListaProductosComponent,
+
     ProductorComponent,
     AfiliacionComponent,
     ProductosComponent,
     PedidosComponent,
     FormComponent
+
   ],
   imports: [
     BrowserModule,

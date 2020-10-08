@@ -18,7 +18,7 @@ export class TarjetaProductoComponent implements OnInit {
   
   }
   addToCarrito(){
-    this.carritoComprasService.getArticulosCarrito().push(new Articulo(this.productoInfo.nombre, this.productoInfo.disponibilidad, this.productoInfo.precio, this.productoInfo.codigo));
+    this.carritoComprasService.addArticulo(this.productoInfo.nombre, this.productoInfo.disponibilidad, this.productoInfo.precio, this.productoInfo.codigo, this.productoInfo.foto);
     }
 
 }

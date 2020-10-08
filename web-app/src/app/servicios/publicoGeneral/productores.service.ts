@@ -12,24 +12,24 @@ export class ProductoresService {
 
   constructor(private http: HttpClient) { }
 
-  getProductoresPorCanton(canton: string): Observable<ProductorI[]>{
+  getProductoresPorCanton(usuario: string): Observable<ProductorI[]>{
     return this.http.get<ProductorI[]>('/api/Clientes/Productor/canton?', {
       params: {
-        canton: canton
+        usuario: usuario
       }});
   }
 
-  getProductoresPorDistrito(distrito: string): Observable<ProductorI[]>{
+  getProductoresPorDistrito(usuario: string): Observable<ProductorI[]>{
     return this.http.get<ProductorI[]>('/api/Clientes/Productor/distrito?', {
       params: {
-        distrito: distrito
+        usuario: usuario
       }});
   }
 
-  getProductoresPorProvincia(provincia: string): Observable<ProductorI[]>{
+  getProductoresPorProvincia(usuario: string): Observable<ProductorI[]>{
     return this.http.get<ProductorI[]>('/api/Clientes/Productor/provincia?', {
       params: {
-        provincia: provincia
+        usuario: usuario
       }});
   }
 

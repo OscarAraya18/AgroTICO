@@ -9,10 +9,13 @@ import {EnrollmentService } from 'src/app/servicios/publicoGeneral/enrollment.se
 })
 export class CrearCuentaComponent implements OnInit {
 
+  isCreated:boolean = false;
+  userExist:boolean = false;
+
   constructor(private route: ActivatedRoute, private router: Router, private enrollmentService: EnrollmentService) { }
 
 
-  usuarioR = new UsuarioRegistro('', '', '', null, null, '', '', '', '', '', '');
+  usuarioR = new UsuarioRegistro('', '', '', '', null, null, '', '', '', '', '', '');
   ngOnInit(): void {
   }
   gotoLogin(){
@@ -22,9 +25,25 @@ export class CrearCuentaComponent implements OnInit {
   onSubmit(){
     this.enrollmentService.enrollCrearCuenta(this.usuarioR)
     .subscribe(
-      data => console.log('Success', data),
-      error => console.error('Error', error)
-    )
+      data => {
+        console.log(data);
+        //reset the fields
+        this.usuarioR = new UsuarioRegistro('', '', '', '', null, null, '', '', '', '', '', '');
+        this.isCreated = true;
+        this.userExist = false;
+        this.gotoLogin();
+      },
+      error => {
+        console.log(error);
+        this.isCreated = false;
+        if(error.status === 404){
+          this.isCreated = false;
+          this.userExist = true;
+        }
+      })
+
   }
+
+  
 
 }
