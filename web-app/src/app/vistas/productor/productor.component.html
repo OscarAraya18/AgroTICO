@@ -1,0 +1,16 @@
+
+
+  <nav class="my-2 my-md-0 mr-md-3 container-fluid"  *ngIf="!this.route.url.includes('productor/afiliacion')">
+<div class="column">
+    <a routerLink="/productor/productos" routerLinkActive="acive" class="p-2 text-dark" href="#">Gestión de productos</a>
+</div>
+<div class="column">
+    <a class="p-2 text-dark" routerLink="/productor/pedidos" r href="#">Gestión de pedidos</a>
+</div>
+   
+    
+
+  </nav>
+
+
+<router-outlet></router-outlet>

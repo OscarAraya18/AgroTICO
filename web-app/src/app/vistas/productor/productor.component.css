@@ -3,21 +3,23 @@
    display: flex;
    align-items: center;
    color:#FFFFFF;
-
+   width: 100%;
  
 }
 .container-fluid{
-	background-color: #196F3D ;
+	background-color: #FFFFFF ;
 	
-	height:10%;
 	display: flex;
    align-items: center;
-  
-    left: 0; /* Posicionamos la cabecera al lado izquierdo */
-	top: 0; /* Posicionamos la cabecera pegada arriba */
-	position: fixed;
+  flex-direction: row;
 	width: 100%;
 	z-index: 999;
+
+}
+.column{
+	display: flex;
+   align-items: center;
+  flex-direction: column;
 
 }
 

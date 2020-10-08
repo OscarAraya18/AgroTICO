@@ -1,0 +1,50 @@
+.container-fluid{
+	margin-top:20px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+
+}
+
+.inputred {
+  border-radius: 10px;
+  border: 1px solid green;
+  margin-left: 5px;
+   background-color: rgba(151, 169, 147,0.8);
+}
+
+.but{
+	margin-left:20px;
+}
+
+.butt2{
+	margin-top: 20px;
+}
+.wrapper{
+	margin-top: -20px;
+}
+
+.buta{
+	margin-left: 5px;
+	border-radius: 50px;
+	height: 30px;
+	line-height: 10px;
+
+}
+.plugar{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.button1{
+	height: 50px;
+	font-size: 25px;
+
+}
+
+.cont2{
+	margin-top: 10px;
+}
+
+::placeholder { color: black; }

@@ -2,6 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 
+
+
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdministradorComponent } from './vistas/administrador/administrador.component';
@@ -27,6 +30,11 @@ import { TarjetaProductorComponent } from './vistas/publicoGeneral/tarjeta-produ
 import { TarjetaProductoComponent } from './vistas/publicoGeneral/tarjeta-producto/tarjeta-producto.component';
 import { ArticuloCarritoComponent } from './vistas/publicoGeneral/articulo-carrito/articulo-carrito.component';
 import { ListaProductosComponent } from './vistas/publicoGeneral/lista-productos/lista-productos.component';
+import { ProductorComponent } from './vistas/productor/productor.component';
+import { AfiliacionComponent } from './vistas/productor/afiliacion/afiliacion.component';
+import { ProductosComponent } from './vistas/productor/productos/productos.component';
+import { PedidosComponent } from './vistas/productor/pedidos/pedidos.component';
+import { FormComponent } from './vistas/productor/afiliacion/form/form.component';
 
 
 
@@ -48,7 +56,12 @@ import { ListaProductosComponent } from './vistas/publicoGeneral/lista-productos
     TarjetaProductorComponent,
     TarjetaProductoComponent,
     ArticuloCarritoComponent,
-    ListaProductosComponent
+    ListaProductosComponent,
+    ProductorComponent,
+    AfiliacionComponent,
+    ProductosComponent,
+    PedidosComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,
