@@ -25,6 +25,10 @@ export class ClienteContenidoComponent implements OnInit {
     this.router.navigate(['/cliente-contenido/carrito-compras']);
   }
 
+  gotoActualizarCuenta(){
+    this.router.navigate(['/cliente-contenido/actualizar-cuenta']);
+  }
+
   logOut(){
     this.clienteInfoService.logOut();
     this.router.navigate(['cliente-inicio/login']);

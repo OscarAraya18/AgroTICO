@@ -3,7 +3,9 @@ import { Articulo } from 'src/app/modelos/publicoGeneral/articulo';
 import { CarritoComprasService } from 'src/app/servicios/publicoGeneral/carrito-compras.service';
 import { Compra } from 'src/app/modelos/publicoGeneral/compra';
 import { ProductoCompra } from 'src/app/modelos/publicoGeneral/producto-compra';
-import { DatePipe } from '@angular/common'
+import { EnrollmentService} from 'src/app/servicios/publicoGeneral/enrollment.service';
+import { Router, ActivatedRoute} from '@angular/router';
+import { ClienteInfoService } from 'src/app/servicios/publicoGeneral/cliente-info.service';
 
 @Component({
   selector: 'app-carrito-compras',
@@ -18,14 +20,15 @@ export class CarritoComprasComponent implements OnInit {
   articulosCarrito: Articulo[] = [];
   montoTotal: number= 0;
   nombreUsuario = '';
+  todayString : string = new Date().toDateString();
 
-  constructor(private carritoComprasService: CarritoComprasService, public datepipe: DatePipe) {}
+  constructor(private carritoComprasService: CarritoComprasService,  private enrollmentService: EnrollmentService, private route: ActivatedRoute, private router: Router, private clienteInfoService: ClienteInfoService) {}
 
   ngOnInit(): void {
     this.articulosCarrito = this.carritoComprasService.getArticulosCarrito();
     this.carritoComprasService.updateMontoTotal();
     this.montoTotal = this.carritoComprasService.getMontoTotal();
-    this.nombreUsuario = this.carritoComprasService.getNombreUsuario();
+    this.nombreUsuario = this.clienteInfoService.getNombreUsuario();
     
   }
 
@@ -43,7 +46,7 @@ export class CarritoComprasComponent implements OnInit {
     //save the total cost
     this.clienteCompra.montoTotal = this.montoTotal;
     //save the user name on the post object
-    this.clienteCompra.nombreUsuario = this.nombreUsuario;
+    this.clienteCompra.nombreUsuario = this.clienteInfoService.nombreUsuario;
     //create the products array
     let productos: ProductoCompra[] = [];
 
@@ -54,8 +57,25 @@ export class CarritoComprasComponent implements OnInit {
     this.clienteCompra.productos = productos;
 
     //put the actual date
-    let date=new Date();
-    this.clienteCompra.fechaCompra =this.datepipe.transform(date, 'yyyy-MM-dd');
+    this.clienteCompra.fechaCompra = this.todayString;
+
+    //pass the object
+    this.enrollmentService.enrollCompra(this.clienteCompra)
+    .subscribe(
+      data => {
+        this.clienteCompra = new Compra(this.nombreUsuario, this.todayString, null, '', null, []);
+        this.carritoComprasService.reset();
+        this.articulosCarrito = this.carritoComprasService.getArticulosCarrito();
+        this.montoTotal = this.carritoComprasService.getMontoTotal();
+        
+        this.carritoComprasService.pdfSrc = data;
+        this.router.navigate(['/cliente-contenido/carrito-compras/comprobante']);
+      },
+      error => {
+        console.log(error);
+
+      })
+    this.carritoComprasService.reset()
     console.log(this.clienteCompra);
     
 

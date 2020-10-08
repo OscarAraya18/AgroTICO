@@ -15,6 +15,9 @@ import { ClienteContenidoComponent } from './vistas/publicoGeneral/cliente-conte
 import { ListaProductoresComponent} from './vistas/publicoGeneral/lista-productores/lista-productores.component';
 import { ListaProductosComponent} from './vistas/publicoGeneral/lista-productos/lista-productos.component';
 import { CarritoComprasComponent} from './vistas/publicoGeneral/carrito-compras/carrito-compras.component';
+import { ActualizarCuentaComponent } from './vistas/publicoGeneral/actualizar-cuenta/actualizar-cuenta.component';
+import { ComprobanteCompraComponent } from './vistas/publicoGeneral/comprobante-compra/comprobante-compra.component';
+
 
 const routes: Routes = [
       //This is the default route
@@ -61,7 +64,11 @@ const routes: Routes = [
          children:[
          {path: 'lista-productores/:usuario', component: ListaProductoresComponent},
          {path: 'lista-productos/:idProductor', component: ListaProductosComponent},
-         {path: 'carrito-compras', component: CarritoComprasComponent}
+         {path: 'carrito-compras', component: CarritoComprasComponent,
+        children:[
+        {path: 'comprobante', component: ComprobanteCompraComponent}
+         ]},
+         {path: 'actualizar-cuenta', component: ActualizarCuentaComponent}
        ]}
    //TODO: ADD PAGE NOT FOUND COMPONENT
 ];
@@ -70,4 +77,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }

@@ -12,6 +12,7 @@ export class ProductoresService {
 
   constructor(private http: HttpClient) { }
 
+  
   getProductoresPorCanton(usuario: string): Observable<ProductorI[]>{
     return this.http.get<ProductorI[]>('/api/Clientes/Productor/canton?', {
       params: {

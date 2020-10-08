@@ -17,6 +17,7 @@ export class CrearCuentaComponent implements OnInit {
 
   usuarioR = new UsuarioRegistro('', '', '', '', null, null, '', '', '', '', '', '');
   ngOnInit(): void {
+    
   }
   gotoLogin(){
     this.router.navigate(['/cliente-inicio/login']);
