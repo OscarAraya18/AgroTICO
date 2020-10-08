@@ -1,1 +1,36 @@
-<p>vista works!</p>
+ <div class="row container">
+    <div class="col" >
+      <h3 class="tittle">Productos más vendidos</h3>
+      <h6  class="list" *ngFor="let producto of productos"  > {{producto}}</h6>
+
+    </div>
+    <div class="col" >
+      <h3 class="tittle">Productos con más ganancias</h3>
+      <h6  class="list" *ngFor="let ganancia of ganancias"  > {{ganancia}}</h6>
+    </div>
+    <div class="col">
+      <h3 class="tittle">Clientes con más compras</h3>
+      <h6  class="list" *ngFor="let cliente of clientes"  > {{cliente}}</h6>
+    </div>
+  </div>
+   <div class="row consultar">
+ <div class="col container">
+  <p class="consultar">Consultar productos más vendidos de un productor</p>
+  <form (ngSubmit)="submit(cedula.value)"
+              #f="ngForm">
+    <label> Numero de cédula:</label> <input class="inputred" type="number" ngModel  #cedula required name="cedula"/>
+
+  <button type="button" class="btn btn-success but"
+   mat-button
+    type="submit"
+   [disabled]="f.invalid"
+                  >
+  Consultar
+  </button>
+
+      <h6  *ngFor="let productor of productores"  > {{productor}}</h6>
+
+</form>
+
+  </div>
+</div>

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +10,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
+import {MatTableModule} from '@angular/material/table';
 
 import { PerfilComponent } from './vistas/administrador/perfil/perfil.component';
 import { VistaComponent } from './vistas/administrador/vista/vista.component';
@@ -25,7 +27,7 @@ import { TarjetaProductorComponent } from './vistas/publicoGeneral/tarjeta-produ
 import { TarjetaProductoComponent } from './vistas/publicoGeneral/tarjeta-producto/tarjeta-producto.component';
 import { ArticuloCarritoComponent } from './vistas/publicoGeneral/articulo-carrito/articulo-carrito.component';
 import { ListaProductosComponent } from './vistas/publicoGeneral/lista-productos/lista-productos.component';
-import { HttpClientModule} from '@angular/common/http';
+
 
 
 
@@ -57,6 +59,7 @@ import { HttpClientModule} from '@angular/common/http';
     MatFormFieldModule,
     FormsModule,
     HttpClientModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
