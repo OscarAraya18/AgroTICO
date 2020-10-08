@@ -7,7 +7,6 @@ import { AfiliacionesComponent } from './vistas/administrador/afiliaciones/afili
 import { CategoriasComponent } from './vistas/administrador/categorias/categorias.component';
 import { VistaComponent } from './vistas/administrador/vista/vista.component';
 import { ProductoresComponent } from './vistas/administrador/productores/productores.component';
-import { PerfilComponent } from './vistas/administrador/perfil/perfil.component';
 import { InicioComponent } from './vistas/publicoGeneral/inicio/inicio.component';
 import { LoginComponent } from './vistas/publicoGeneral/login/login.component';
 import { CrearCuentaComponent } from './vistas/publicoGeneral/crear-cuenta/crear-cuenta.component';
@@ -18,13 +17,22 @@ import { CarritoComprasComponent} from './vistas/publicoGeneral/carrito-compras/
 import { ActualizarCuentaComponent } from './vistas/publicoGeneral/actualizar-cuenta/actualizar-cuenta.component';
 import { ComprobanteCompraComponent } from './vistas/publicoGeneral/comprobante-compra/comprobante-compra.component';
 
+import { ProductorComponent } from './vistas/productor/productor.component';
+import { AfiliacionComponent } from './vistas/productor/afiliacion/afiliacion.component';
+import { ProductosComponent } from './vistas/productor/productos/productos.component';
+import { PedidosComponent } from './vistas/productor/pedidos/pedidos.component';
+import { FormComponent } from './vistas/productor/afiliacion/form/form.component';
 
 const routes: Routes = [
-      //This is the default route
-      //You can change it if you want
+     //VISTA ADMINISTRACION
       {
-        path: '',redirectTo: '/cliente-inicio/login',
-         pathMatch: 'full'},
+        path: '', redirectTo: '/cliente-inicio/login',
+         pathMatch: 'full'
+      },
+      {
+        path: 'form',
+        component: FormComponent
+      },
       {
         path: 'admin',
         component: AdministradorComponent,
@@ -44,24 +52,22 @@ const routes: Routes = [
         {
       	path: 'productores',
       	component: ProductoresComponent
-        },
-         {
-      	path: 'perfil',
-      	component: PerfilComponent
         }
         ]
       },
 
+      //VISTA PÚBLICO GENERAL
+
       {
         path: 'cliente-inicio',
         component: InicioComponent,
-        children:[
+        children: [
         {path: 'login', component: LoginComponent},
         {path: 'crear-cuenta', component: CrearCuentaComponent}
        ]},
 
        { path: 'cliente-contenido', component: ClienteContenidoComponent,
-         children:[
+         children: [
          {path: 'lista-productores/:usuario', component: ListaProductoresComponent},
          {path: 'lista-productos/:idProductor', component: ListaProductosComponent},
          {path: 'carrito-compras', component: CarritoComprasComponent,
@@ -69,8 +75,28 @@ const routes: Routes = [
         {path: 'comprobante', component: ComprobanteCompraComponent}
          ]},
          {path: 'actualizar-cuenta', component: ActualizarCuentaComponent}
-       ]}
-   //TODO: ADD PAGE NOT FOUND COMPONENT
+       ]},
+
+       //VISTA PRODUCTOR
+      {
+        path: 'productor',
+        component: ProductorComponent,
+        children: [
+        {
+        path: 'afiliacion',
+        component: AfiliacionComponent
+        },
+         {
+        path: 'pedidos',
+        component: PedidosComponent
+        },
+         {
+        path: 'productos',
+        component: ProductosComponent
+        }
+        ]
+      }
+   // TODO: ADD PAGE NOT FOUND COMPONENT
 ];
 
 @NgModule({

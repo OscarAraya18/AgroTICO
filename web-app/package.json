@@ -21,14 +21,12 @@
     "@angular/platform-browser": "~10.1.4",
     "@angular/platform-browser-dynamic": "~10.1.4",
     "@angular/router": "~10.1.4",
-    "@types/file-saver": "^2.0.1",
-    "boostrap": "^2.0.0",
     "bootstrap": "^4.5.2",
-    "file-saver": "^2.0.2",
     "ng2-pdf-viewer": "^6.3.2",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.1",
-    "zone.js": "~0.11.1"
+    "zone.js": "~0.11.1",
+    "boostrap": "^2.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1001.4",

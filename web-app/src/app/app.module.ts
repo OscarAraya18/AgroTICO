@@ -2,6 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 
+
+
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdministradorComponent } from './vistas/administrador/administrador.component';
@@ -30,6 +33,11 @@ import { ListaProductosComponent } from './vistas/publicoGeneral/lista-productos
 import { ActualizarCuentaComponent } from './vistas/publicoGeneral/actualizar-cuenta/actualizar-cuenta.component';
 import { ComprobanteCompraComponent } from './vistas/publicoGeneral/comprobante-compra/comprobante-compra.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { ProductorComponent } from './vistas/productor/productor.component';
+import { AfiliacionComponent } from './vistas/productor/afiliacion/afiliacion.component';
+import { ProductosComponent } from './vistas/productor/productos/productos.component';
+import { PedidosComponent } from './vistas/productor/pedidos/pedidos.component';
+import { FormComponent } from './vistas/productor/afiliacion/form/form.component';
 
 
 
@@ -55,6 +63,12 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     ListaProductosComponent,
     ActualizarCuentaComponent,
     ComprobanteCompraComponent,
+    ProductorComponent,
+    AfiliacionComponent,
+    ProductosComponent,
+    PedidosComponent,
+    FormComponent
+
   ],
   imports: [
     BrowserModule,

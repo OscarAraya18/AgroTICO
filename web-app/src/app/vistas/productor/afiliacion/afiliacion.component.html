@@ -1,0 +1,34 @@
+<div class="modal-dialog text-center"> 
+  <div class="col-sm-8 main-section"> 
+    <div class="modal-content">
+
+
+        <div class="col-12 user-img">
+            <img src="assets/client.png" alt="">
+        </div>
+      
+        	<form 
+              
+              #f="ngForm">
+            <div class="form-group" id="user-group">
+              <input class="form-control" type="text" required #cedula
+               placeholder="Número de Cédula" name="Usuario" ngModel />
+               <small class="text-danger" >Número de Cédula válido es requerido</small>
+            </div>
+      
+            <div class="form-group" id="contrasena-group">
+              <input class="form-control" type="password" required #contrasena 
+              placeholder="Contraseña" name="contrasena" ngModel />
+              <small class="text-danger" >Contraseña es requerida</small>
+            </div>
+      
+            <button [disabled]="f.invalid"  type="button"  mat-button type="submit" class="btn btn-primary" (click)="ingresar(cedula.value,contrasena.value)"><i class="fas fa-sign-in-alt"></i>  Ingresar</button>
+      
+        </form>
+      
+        <div class="col-12 forgot">
+          <a routerLink="/form" routerLinkActive="acive">Afiliarse</a>
+        </div>
+      </div>
+    </div>
+</div>
