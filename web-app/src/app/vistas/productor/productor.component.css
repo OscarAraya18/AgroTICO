@@ -4,16 +4,19 @@
    align-items: center;
    color:#FFFFFF;
    width: 100%;
+
  
 }
 .container-fluid{
-	background-color: #FFFFFF ;
+	
 	
 	display: flex;
    align-items: center;
   flex-direction: row;
 	width: 100%;
 	z-index: 999;
+		border-radius: 10px;
+		  background-color: rgba(151, 169, 147,0.8);
 
 }
 .column{

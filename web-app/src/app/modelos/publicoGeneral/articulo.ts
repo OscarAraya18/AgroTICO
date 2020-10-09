@@ -4,8 +4,8 @@ export class Articulo {
     precioUnidad: number;
     precioTotal: number;
     id: number;
-    disponibilidad:number;
-    foto:string;
+    disponibilidad: number;
+    foto: string;
 
     constructor(nombre, cantidad, disponibilidad, precioUnidad, id, foto, precioTotal = precioUnidad * cantidad){
         this.nombre = nombre;

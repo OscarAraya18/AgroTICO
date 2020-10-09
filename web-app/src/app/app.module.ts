@@ -80,7 +80,7 @@ import { FormComponent } from './vistas/productor/afiliacion/form/form.component
     FormsModule,
     HttpClientModule,
     MatTableModule,
-    MatCardModule
+    MatCardModule,
     PdfViewerModule
   ],
   providers: [],

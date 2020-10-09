@@ -1,1 +1,105 @@
-<p>productos works!</p>
+<div  class="container-fluid" >
+
+	<button type="button" class="but button1" (click)="formVisibility = true"  *ngIf="!formVisibility && !form2Visibility && !elimina">
+	Agregar producto
+	</button>
+
+	<br/>
+	<div class="wrapper" *ngIf="formVisibility || form2Visibility " >
+
+		<h2 class="text-white">Datos del producto</h2>
+		<form 
+              (ngSubmit)="submit(codigo.value,nombre.value,modo.value,categoria.value,foto.value)"
+              #f="ngForm">
+		<label class="text-white">Codigo: </label> <input class="inputred" type="number" ngModel  #codigo required name="cod"/>
+		<p class="text-white">Nombre: <input type="text" #nombre  class="inputred"  name="nombre" ngModel required /><br/></p>
+		<p class="text-white">Modo de venta: <input type="text" #modo name="modo" class="inputred" ngModel required /><br/></p>
+
+<p class="text-white">Categoría: 
+  <select #categoria class="inputred" required ngModel  name="cat"  >
+  <option [value]=''> </option>
+  <option *ngFor="let categoria of categorias" [value]='distrito'> {{categoria}}</option>
+
+</select>
+</p>
+<p class="text-white">Foto: <input  (change)="onFileChanged($event)" type="file" #foto  class="inputred"  name="foto" ngModel required /><br/></p>
+
+
+
+
+<div class= "cont"  *ngIf="formVisibility">
+	<button type="button" class="btn btn-success but" (click)="formVisibility = false">
+	Cancelar
+	</button>
+	<button type="button" class="btn btn-success but"
+	 mat-button
+	  type="submit"
+   [disabled]="f.invalid"
+                  >
+	Agregar producto
+	</button>
+
+
+</div>
+
+<div class= "cont"  *ngIf="form2Visibility">
+	<button type="button" class="btn btn-success but" (click)="form2Visibility = false">
+	Cancelar
+	</button>
+	<button type="button" class="btn btn-success but"
+	 mat-button
+	
+   [disabled]="f.invalid"
+   (click)="submit2(codigo.value,nombre.value,modo.value,categoria.value)"
+                  >
+	Actualizar producto
+	</button>
+
+
+</div>
+</form>
+
+		
+	</div>
+
+	<button type="button" class="but button1" (click)="form2Visibility = true"  *ngIf="!formVisibility && !form2Visibility && !elimina">
+	Actualizar producto
+	</button>
+
+	<button type="button" class="but butt2 button1" (click)="elimina = true"  *ngIf="!formVisibility && !form2Visibility && !elimina">
+	Eliminar producto
+	</button>
+
+	<div class= "cont2"  *ngIf="elimina">
+	<form 
+              (ngSubmit)="submit3(cod.value)"
+              #f2="ngForm">
+
+
+ 		<label class="text-white">Codigo:</label> <input class="inputred" type="number" ngModel  #cod required name="cedula"/>
+
+
+
+<div class= "cont">
+	<button type="button" class="btn btn-success but" (click)="elimina = false">
+	Cancelar
+	</button>
+	<button type="button" class="btn btn-success but"
+	 mat-button
+	  type="submit"
+   [disabled]="f2.invalid"
+                  >
+	Eliminar
+	</button>
+
+
+</div>
+
+
+</form>
+
+
+</div>
+
+</div>
+

@@ -13,8 +13,8 @@ export class AfiliacionComponent implements OnInit {
   }
 
   ingresar(cedula, contrasena): void{
-  	console.log(cedula);
-  	console.log(contrasena);
+ 	console.log(cedula);
+ 	console.log(contrasena);
   }
 
 }
