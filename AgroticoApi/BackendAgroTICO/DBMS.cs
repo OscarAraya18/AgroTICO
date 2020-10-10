@@ -405,6 +405,10 @@ namespace Backend.DBMS
             return SELECT(RUTA_CATEGORIAS, identificador);
         }
 
+        public string[] encontrarCategorias()
+        {
+            return READ(RUTA_CATEGORIAS);
+        }
         public bool actualizarProductor(int numeroCedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String provinciaResidencia,
                                         String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, String fechaNacimiento , String claveAcceso)
         {

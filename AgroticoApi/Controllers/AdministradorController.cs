@@ -150,6 +150,26 @@ namespace AgroticoApi.Controllers
             return Ok(JObject.Parse(resultado));
         }
 
+        // GET api/Administrador/categorias
+        [HttpGet]
+        [Route("api/Administrador/categorias")]
+        public IHttpActionResult encontrarCategorias()
+        {
+            string[] resultado = _dbms.encontrarCategorias();
+
+            // Valida si existen categorias
+            if (resultado.Length == 0)
+            {
+                return BadRequest("No se pudo obtener resultados");
+            }
+            List<JObject> lista = new List<JObject>();
+            foreach (string element in resultado)
+            {
+                lista.Add(JObject.Parse(element));
+            }
+            return Ok(lista);
+        }
+
         // POST api/Administrador/Afiliacion/edit
         [HttpPost]
         [Route("api/Administrador/Afiliacion/edit")]
