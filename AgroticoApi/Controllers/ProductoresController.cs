@@ -15,9 +15,9 @@ namespace AgroticoApi.Controllers
         // GET api/Productores/Afiliacion
         [HttpGet]
         [Route("api/Productores/Afiliacion")]
-        public IHttpActionResult solicitudAfiliacion([FromUri] int id)
+        public IHttpActionResult solicitudAfiliacion([FromUri] int cedula)
         {
-            var resultado = _dbms.encontrarSolicitudAfiliacion(id);
+            var resultado = _dbms.encontrarSolicitudAfiliacion(cedula);
 
             if (resultado == null)
             {
@@ -29,9 +29,9 @@ namespace AgroticoApi.Controllers
         // GET api/Productores/pedidos
         [HttpGet]
         [Route("api/Productores/pedidos")]
-        public IHttpActionResult encontrarPedidos([FromUri] int id)
+        public IHttpActionResult encontrarPedidos([FromUri] int cedula)
         {
-            var resultado = _dbms.encontrarPedidos(id);
+            var resultado = _dbms.encontrarPedidos(cedula);
 
             if (resultado == null)
             {
@@ -45,26 +45,40 @@ namespace AgroticoApi.Controllers
             return Ok(lista);
         }
 
+        // GET api/Productores/producto
+        [HttpGet]
+        [Route("api/Productores/producto")]
+        public IHttpActionResult encontrarProducto([FromUri] int codigo)
+        {
+            var resultado = _dbms.encontrarProducto(codigo);
+
+            if (resultado == null)
+            {
+                return BadRequest("No se pudo obtener resultados");
+            }
+            
+            return Ok(JObject.Parse(resultado));
+        }
+
         // POST api/Productores/Afiliacion/new
         [HttpPost]
         [Route("api/Productores/Afiliacion/new")]
-        public IHttpActionResult crearSolicitudAfiliacion([FromBody] JObject nuevoCliente)
+        public IHttpActionResult crearSolicitudAfiliacion([FromBody] JObject nuevaSolicitud)
         {
             bool resultado = _dbms.crearSolicitudAfiliacion(
-                (int)nuevoCliente["numeroCedula"],
-                (string)nuevoCliente["primerNombre"],
-                (string)nuevoCliente["segundoNombre"],
-                (string)nuevoCliente["primerApellido"],
-                (string)nuevoCliente["segundoApellido"],
-                (string)nuevoCliente["provinciaResidencia"],
-                (string)nuevoCliente["cantonResidencia"],
-                (string)nuevoCliente["distritoResidencia"],
-                (int)nuevoCliente["numeroTelefono"],
-                (int)nuevoCliente["numeroSINPE"],
-                (string)nuevoCliente["fechanacimiento"],
-                nuevoCliente.SelectToken("lugarEntrega")?.ToObject<string[]>(),
-                (string)nuevoCliente["claveAcceso"],
-                (string)nuevoCliente["fechaSolicitud"]);
+                (int)nuevaSolicitud["numeroCedula"],
+                (string)nuevaSolicitud["primerNombre"],
+                (string)nuevaSolicitud["segundoNombre"],
+                (string)nuevaSolicitud["primerApellido"],
+                (string)nuevaSolicitud["segundoApellido"],
+                (string)nuevaSolicitud["provinciaResidencia"],
+                (string)nuevaSolicitud["cantonResidencia"],
+                (string)nuevaSolicitud["distritoResidencia"],
+                (int)nuevaSolicitud["numeroTelefono"],
+                (int)nuevaSolicitud["numeroSINPE"],
+                (string)nuevaSolicitud["fechaNacimiento"],
+                (string)nuevaSolicitud["claveAcceso"],
+                (string)nuevaSolicitud["fechaSolicitud"]);
 
             if (resultado == true)
             {
@@ -130,15 +144,15 @@ namespace AgroticoApi.Controllers
             {
                 return NotFound();
             }
-            return Ok("Producto creado correctamente");
+            return Ok("Producto actualizado correctamente");
         }
 
         // DELETE api/Productores/Producto/delete
         [HttpDelete]
         [Route("api/Productores/Producto/delete")]
-        public IHttpActionResult eliminarProducto([FromUri] int id)
+        public IHttpActionResult eliminarProducto([FromUri] int codigo)
         {
-            bool resultado = _dbms.eliminarProducto(id);
+            bool resultado = _dbms.eliminarProducto(codigo);
 
             if(resultado == true)
             {

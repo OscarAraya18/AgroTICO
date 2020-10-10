@@ -283,6 +283,10 @@ namespace Backend.DBMS
             return FILTER(RUTA_PRODUCTOS, "numeroCedulaProductor", null, numeroCedulaProductor);
         }
 
+        public string encontrarProducto(int codigo)
+        {
+            return SELECT(RUTA_PRODUCTOS, codigo);
+        }
 
 
 
@@ -368,12 +372,11 @@ namespace Backend.DBMS
 
         /*-------------------------------------------------------------VISTA DE ADMINISTRACION-----------------------------------------------------------------*/
         public bool crearProductor(int numeroCedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String provinciaResidencia,
-                                    String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, String fechaNacimiento, String[] lugarEntrega, String claveAcceso)
+                                    String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, String fechaNacimiento, String claveAcceso)
         {
             if (SELECT(RUTA_PRODUCTORES, numeroCedula) == null)
             {
                 BackendAgroTICO.Productor nuevoProductor = new BackendAgroTICO.Productor();
-                nuevoProductor.lugarEntrega = lugarEntrega;
                 nuevoProductor.numeroCedula = numeroCedula;
                 nuevoProductor.primerNombre = primerNombre;
                 nuevoProductor.segundoNombre = segundoNombre;
@@ -385,7 +388,6 @@ namespace Backend.DBMS
                 nuevoProductor.numeroTelefono = numeroTelefono;
                 nuevoProductor.numeroSINPE = numeroSINPE;
                 nuevoProductor.fechaNacimiento = fechaNacimiento;
-                nuevoProductor.lugarEntrega = lugarEntrega;
                 nuevoProductor.claveAcceso = claveAcceso;
                 INSERT(RUTA_PRODUCTORES, JsonConvert.SerializeObject(nuevoProductor));
                 return true;
@@ -393,15 +395,23 @@ namespace Backend.DBMS
             return false;
         }
 
+        public string encontrarProductor(int cedula)
+        {
+            return SELECT(RUTA_PRODUCTORES, cedula);
+        }
 
+        public string encontrarCategoria(int identificador)
+        {
+            return SELECT(RUTA_CATEGORIAS, identificador);
+        }
 
         public bool actualizarProductor(int numeroCedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String provinciaResidencia,
-                                        String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, String fechaNacimiento , String[] lugarEntrega, String claveAcceso)
+                                        String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, String fechaNacimiento , String claveAcceso)
         {
             if (DELETE(RUTA_PRODUCTORES, numeroCedula))
             {
                 return crearProductor(numeroCedula, primerNombre, segundoNombre, primerApellido, segundoApellido, provinciaResidencia, cantonResidencia, distritoResidencia,
-                            numeroTelefono, numeroSINPE, fechaNacimiento, lugarEntrega, claveAcceso);
+                            numeroTelefono, numeroSINPE, fechaNacimiento, claveAcceso);
             }
             return false;
         }
@@ -421,7 +431,7 @@ namespace Backend.DBMS
             }
             return false;
         }
-        public bool actualizarSolicitudAfiliacion(int codigoSolicitud, bool estado, int anioRespuesta, int mesRespuesta, int diaRespuesta, String motivoDenegacion)
+        public bool actualizarSolicitudAfiliacion(int codigoSolicitud, bool estado, string fechaRespuesta, String motivoDenegacion)
         {
             String[] solicitudesSinRespuesta = FILTER(RUTA_AFILIACIONES, "estado", "Sin respuesta", 0);
             JObject posibleProductor;
@@ -448,7 +458,6 @@ namespace Backend.DBMS
                        (String)productorAceptado["provinciaResidencia"], (String)productorAceptado["cantonResidencia"],
                        (String)productorAceptado["distritoResidencia"], (int)productorAceptado["numeroTelefono"],
                        (int)productorAceptado["numeroSINPE"], (String)productorAceptado["fechaNacimiento"],
-                       productorAceptado["lugarEntrega"].Values<String>().ToArray(),
                        (String)productorAceptado["claveAcceso"]);
             }
             else
@@ -456,9 +465,8 @@ namespace Backend.DBMS
                 UPDATE(RUTA_AFILIACIONES, codigoSolicitud, "estado", "Denegado", 0);
                 UPDATE(RUTA_AFILIACIONES, codigoSolicitud, "motivoDenegacion", motivoDenegacion, 0);
             }
-            UPDATE(RUTA_AFILIACIONES, codigoSolicitud, "anioRespuesta", null, anioRespuesta);
-            UPDATE(RUTA_AFILIACIONES, codigoSolicitud, "mesRespuesta", null, mesRespuesta);
-            UPDATE(RUTA_AFILIACIONES, codigoSolicitud, "diaRespuesta", null, diaRespuesta);
+            UPDATE(RUTA_AFILIACIONES, codigoSolicitud, "fechaRespuesta", fechaRespuesta, 0);
+            
             return true;
         }
         public bool crearCategoria(int identificador, String nombre)
@@ -568,7 +576,7 @@ namespace Backend.DBMS
 
         /*-------------------------------------------------------------VISTA DE PRODUCTOR-----------------------------------------------------------------*/
         public bool crearSolicitudAfiliacion(int numeroCedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String provinciaResidencia,
-                                            String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, String fechaNacimiento ,String[] lugarEntrega, 
+                                            String cantonResidencia, String distritoResidencia, int numeroTelefono, int numeroSINPE, String fechaNacimiento , 
                                             String claveAcceso, string fechaSolicitud)
         {
             String[] solicitudesRealizadas = FILTER(RUTA_AFILIACIONES, "codigoSolicitud", null, numeroCedula);
@@ -599,7 +607,6 @@ namespace Backend.DBMS
             nuevaAfiliacion.numeroSINPE = numeroSINPE;
             nuevaAfiliacion.numeroCedula = numeroCedula;
             nuevaAfiliacion.fechaNacimiento = fechaNacimiento;
-            nuevaAfiliacion.lugarEntrega = lugarEntrega;
             nuevaAfiliacion.claveAcceso = claveAcceso;
             nuevaAfiliacion.fechaSolicitud = fechaSolicitud;
             nuevaAfiliacion.estado = "Sin respuesta";
@@ -707,12 +714,12 @@ namespace Backend.DBMS
                         productoVendido["codigo"] = (int)productoAnalizar["codigo"];
                         productoVendido["nombre"] = (String)productoAnalizar["nombre"];
                         productoVendido["cantidad"] = (int)JObject.Parse(producto)["cantidad"];
-                        productoVendido["precioUnitario"] = (int)JObject.Parse(producto)["precio"];
-                        productoVendido["montoTotal"] = (int)JObject.Parse(producto)["cantidad"] * (int)JObject.Parse(producto)["precio"];
+                        productoVendido["precioUnitario"] = (int)productoAnalizar["precio"];
+                        productoVendido["montoTotal"] = (int)ventaAnalizar["montoTotal"];
                         productoVendido["numeroCedulaCliente"] = (String)ventaAnalizar["numeroCedulaComprador"];
                         productoVendido["direccionEntrega"] = (String)ventaAnalizar["direccionEntrega"];
 
-                        productosEntregar = productosEntregar.Concat(new String[] { JsonConvert.ToString(productoVendido) }).ToArray();
+                        productosEntregar = productosEntregar.Concat(new String[] { JsonConvert.SerializeObject(productoVendido) }).ToArray();
                     }
 
 
@@ -879,7 +886,7 @@ namespace Backend.DBMS
                     - (int)productoAnalizar["cantidad"];
 
                 UPDATE(RUTA_PRODUCTOS, (int)productoAnalizar["codigo"], "disponibilidad", null, nuevaDisponibilidad);
-                
+
                 int cantidadVendidaPrevia = (int)(JObject.Parse(SELECT(RUTA_PRODUCTOS, (int)productoAnalizar["codigo"]))["cantidadVendida"]);
                 UPDATE(RUTA_PRODUCTOS, (int)productoAnalizar["codigo"], "cantidadVendida", null, cantidadVendidaPrevia + (int)productoAnalizar["cantidad"]);
             }
@@ -902,16 +909,7 @@ namespace Backend.DBMS
                 atributoLlave = (int)cliente["numeroCedula"];
                 return SELECT(RUTA_CLIENTES, atributoLlave);
             }
-            /*else if (nombreRuta.Equals("administradores"))
-            {
-                return SELECT(RUTA_ADMINISTRADORES, atributoLlave);
-            }
-            else if (nombreRuta.Equals("productores"))
-            {
-                return SELECT(RUTA_PRODUCTORES, atributoLlave);
-            }*/
-
-           else
+            else
             {
                 return null;
             }

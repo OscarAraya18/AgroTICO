@@ -72,9 +72,9 @@ namespace AgroticoApi.Controllers
         // GET api/Administrador/Productos/masVendidosProductor
         [HttpGet]
         [Route("api/Administrador/Productos/masVendidosProductor")]
-        public IHttpActionResult masVendidosPorProductor([FromUri] int id)
+        public IHttpActionResult masVendidosPorProductor([FromUri] int cedula)
         {
-            var resultado = _dbms.encontrarProductosMasVendidosPorProductor(id);
+            var resultado = _dbms.encontrarProductosMasVendidosPorProductor(cedula);
 
             if (resultado == null)
             {
@@ -107,6 +107,49 @@ namespace AgroticoApi.Controllers
             return Ok(lista);
         }
 
+        // GET api/Administrador/Afiliacion
+        [HttpGet]
+        [Route("api/Administrador/Afiliacion")]
+        public IHttpActionResult solicitudAfiliacion([FromUri] int cedula)
+        {
+            var resultado = _dbms.encontrarSolicitudAfiliacion(cedula);
+
+            if (resultado == null)
+            {
+                return BadRequest("Ocurrio un error");
+            }
+            return Ok(JObject.Parse(resultado));
+        }
+
+        // GET api/Administrador/Productor
+        [HttpGet]
+        [Route("api/Administrador/Productor")]
+        public IHttpActionResult encontrarProductor([FromUri] int cedula)
+        {
+            var resultado = _dbms.encontrarProductor(cedula);
+
+            if (resultado == null)
+            {
+                return BadRequest("Ocurrio un error");
+            }
+            return Ok(JObject.Parse(resultado));
+        }
+
+        // GET api/Administrador/categoria
+        [HttpGet]
+        [Route("api/Administrador/categoria")]
+        public IHttpActionResult encontrarCategoria([FromUri] int identificador)
+        {
+            var resultado = _dbms.encontrarCategoria(identificador);
+
+            if (resultado == null)
+            {
+                return BadRequest("No se pudo obtener resultados");
+            }
+
+            return Ok(JObject.Parse(resultado));
+        }
+
         // POST api/Administrador/Afiliacion/edit
         [HttpPost]
         [Route("api/Administrador/Afiliacion/edit")]
@@ -115,10 +158,8 @@ namespace AgroticoApi.Controllers
             bool resultado = _dbms.actualizarSolicitudAfiliacion(
                 (int)afiliacion["codigoSolicitud"],
                 (bool)afiliacion["estado"],
-                (int)afiliacion["anioRespuesta"],
-                (int)afiliacion["mesRespuesta"],
-                (int)afiliacion["diaRespuesta"],
-                (string)afiliacion["MotivoDenegacion"]) ;
+                (string)afiliacion["fechaRespuesta"],
+                (string)afiliacion["motivoDenegacion"]);
 
             if(resultado == true)
             {
@@ -145,7 +186,6 @@ namespace AgroticoApi.Controllers
                 (int)nuevoProductor["numeroTelefono"],
                 (int)nuevoProductor["numeroSINPE"],
                 (string)nuevoProductor["fechaNacimiento"],
-                nuevoProductor.SelectToken("lugarEntrega")?.ToObject<string[]>(),
                 (string)nuevoProductor["claveAcceso"]);
 
             if (resultado == true)
@@ -190,7 +230,6 @@ namespace AgroticoApi.Controllers
                 (int)productor["numeroTelefono"],
                 (int)productor["numeroSINPE"],
                 (string)productor["distritoResidencia"],
-                productor.SelectToken("lugarEntrega")?.ToObject<string[]>(),
                 (string)productor["claveAcceso"]);
 
             if (resultado == true)
@@ -219,9 +258,9 @@ namespace AgroticoApi.Controllers
         // DELETE api/Administrador/Productor/delete
         [HttpDelete]
         [Route("api/Administrador/Productor/delete")]
-        public IHttpActionResult eliminarProductor([FromUri] int id)
+        public IHttpActionResult eliminarProductor([FromUri] int cedula)
         {
-            bool resultado = _dbms.eliminarProductor(id);
+            bool resultado = _dbms.eliminarProductor(cedula);
 
             if(resultado == true)
             {
@@ -233,9 +272,9 @@ namespace AgroticoApi.Controllers
         // DELETE api/Administrador/Categoria/delete
         [HttpDelete]
         [Route("api/Administrador/Categoria/delete")]
-        public IHttpActionResult eliminarCategoria([FromUri] int id)
+        public IHttpActionResult eliminarCategoria([FromUri] int identificador)
         {
-            bool resultado = _dbms.eliminarCategoria(id);
+            bool resultado = _dbms.eliminarCategoria(identificador);
 
             if (resultado == true)
             {
