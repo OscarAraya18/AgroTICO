@@ -722,11 +722,10 @@ namespace Backend.DBMS
                         productoVendido["montoTotal"] = (int)ventaAnalizar["montoTotal"];
                         productoVendido["numeroCedulaCliente"] = (String)ventaAnalizar["numeroCedulaComprador"];
                         productoVendido["direccionEntrega"] = (String)ventaAnalizar["direccionEntrega"];
+                        productoVendido["codigoFactura"] = (String)ventaAnalizar["codigoFactura"];
 
                         productosEntregar = productosEntregar.Concat(new String[] { JsonConvert.SerializeObject(productoVendido) }).ToArray();
                     }
-
-
                 }
             }
             return productosEntregar;
