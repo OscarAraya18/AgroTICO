@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title >Crear cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <form  #form="ngForm" (ngSubmit)="register(form)">
+    <ion-grid>
+      <ion-row color="primary" justify-content-center>
+        <ion-col align-self-center size-md="4" size-lg="5" size-xs="12">
+          <div padding class="ion-text-center">
+
+            <ion-item class="ion-margin">
+              <ion-input type="text" required #name="ngModel" [class.is-invalid]="name.invalid && name.touched"
+              placeholder="Primer nombre" name="primerN" [(ngModel)]="usuarioR.primerNombre"></ion-input>
+            </ion-item >
+
+            <ion-item class="ion-margin"> 
+              <ion-input type="text" required #name2="ngModel" [class.is-invalid]="name2.invalid && name2.touched"
+                placeholder="Segundo Nombre" name="segundoN" [(ngModel)]="usuarioR.segundoNombre"></ion-input>
+            </ion-item>
+
+            <ion-item class="ion-margin">
+              <ion-input type="text" required #apellido1="ngModel" [class.is-invalid]="apellido1.invalid && apellido1.touched"
+                  placeholder="Primer apellido" name="primerA" [(ngModel)]="usuarioR.primerApellido"  ></ion-input>
+            </ion-item>
+
+            <ion-item class="ion-margin">
+              <ion-input type="text" required #apellido2="ngModel" [class.is-invalid]="apellido2.invalid && apellido2.touched"
+              placeholder="Segundo apellido" name="segundoA" [(ngModel)]="usuarioR.segundoApellido"></ion-input>
+            </ion-item>
+
+            <ion-item class="ion-margin">
+              <ion-input type="number" required #cedula="ngModel" [class.is-invalid]="cedula.invalid && cedula.touched"
+                pattern="^\d{9}$" placeholder="Número de cédula" name="cedula" [(ngModel)]="usuarioR.numeroCedula"></ion-input>
+            </ion-item>
+
+            <ion-item class="ion-margin">
+              <ion-input type="number" #telefono="ngModel" [class.is-invalid]="telefono.invalid && telefono.touched"
+              pattern="^\d{8}$" placeholder="Número de teléfono" [class.is-invalid]="telefono.invalid && telefono.touched" name="numeroTelefono" [(ngModel)]="usuarioR.numeroTelefono"></ion-input>
+            </ion-item>
+
+            <ion-item class="ion-margin">
+              <ion-input type="text" required #provincia="ngModel" [class.is-invalid]="provincia.invalid && provincia.touched"
+              placeholder="Provincia" name="Provincia" [(ngModel)]="usuarioR.provinciaResidencia"></ion-input>
+            </ion-item>
+
+            <ion-item class="ion-margin">
+              <ion-input  type="text" required #canton="ngModel" [class.is-invalid]="canton.invalid && canton.touched"
+              placeholder="Cantón" name="canton" [(ngModel)]="usuarioR.cantonResidencia"></ion-input>
+            </ion-item>
+
+            <ion-item class="ion-margin">
+              <ion-input type="text" required #distrito="ngModel" [class.is-invalid]="distrito.invalid && distrito.touched"
+              placeholder="Distrito" name="distrito" [(ngModel)]="usuarioR.distritoResidencia"></ion-input>
+            </ion-item>
+
+            <ion-item class="ion-margin">
+              <ion-datetime displayFormat="MM/DD/YYYY" min="1969-03-14" max="2020-12-12" name="fecha" [(ngModel)]="usuarioR.fechaNacimiento"></ion-datetime>
+            </ion-item>
+
+            <ion-item class="ion-margin">
+              <ion-input ype="text" required #usuario="ngModel" [class.is-invalid]="usuario.invalid && usuario.touched"
+              placeholder="Usuario" name="nombreUsuario" [(ngModel)]="usuarioR.nombreUsuario"></ion-input>
+            </ion-item>
+
+            <ion-item class="ion-margin">
+              <ion-input type="password" required #contrasena="ngModel" [class.is-invalid]="contrasena.invalid && contrasena.touched"
+              placeholder="Contraseña" name="Contraseña" [(ngModel)]="usuarioR.claveAcceso"></ion-input>
+            </ion-item>
+
+          </div>
+          <div padding>
+            <ion-button  size="large" (click)="onSubmit()" type="submit" [disabled]="form.invalid" expand="block">Registrarse</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

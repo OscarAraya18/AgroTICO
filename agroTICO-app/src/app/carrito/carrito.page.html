@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/productores"></ion-back-button>
+    </ion-buttons>
+    <ion-title >Carrito de compras</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding">
+    <ion-list>
+
+      <ion-list-header lines="full">
+        <ion-col size="3"class="ion-text-start">
+           Producto
+        </ion-col> 
+        <ion-col size="6" class="ion-text-center">
+          Cantidad
+        </ion-col> 
+        <ion-col size="3" class="ion-text-center">
+          SubTotal
+        </ion-col> 
+        
+  
+      </ion-list-header>
+
+      <ion-item *ngFor="let articulo of articulosCarrito" class="ion-text-wrap" lines="full">
+
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3"class="ion-text-start">
+              <ion-badge color="medium">{{ articulo.nombre}}</ion-badge>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button fill="clear" (click)="updateQts(articulo.id, 1)">
+                <ion-icon name="add-circle" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+              <b>{{ articulo.cantidad }}</b>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button fill="clear" (click)="updateQts(articulo.id, 2)">
+                <ion-icon name="remove-circle" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="3"class="ion-text-end">
+              ₡  {{ articulo.precioTotal }}
+            </ion-col> 
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="2" offset="10">
+              <ion-button fill="clear" (click)="removeArticulo(articulo)">
+                <ion-icon name="trash" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-col>
+       
+          </ion-row>
+
+
+        </ion-grid>
+      </ion-item>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="9">
+              Total:
+            </ion-col>
+            <ion-col size="3" class="ion-text-end">
+              ₡ {{ montoTotal }}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+
+    <form #compraForm="ngForm" novalidate>
+      <ion-grid>
+        <ion-row class="ion-justify-content-center" >
+          <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+            <div>
+              <ion-item class="ion-margin">
+                <ion-input type="text" required #direccion="ngModel" [class.is-invalid]="direccion.invalid && direccion.touched"
+                 placeholder="Direccion de entrega" name="direccionE"[(ngModel)]="clienteCompra.direccionEntrega" >
+                </ion-input>
+              </ion-item>
+  
+              <ion-item class="ion-margin">
+                <ion-input type="number" required #calificacion="ngModel" [class.is-invalid]="calificacion.invalid && calificacion.touched"  
+                 placeholder="Calificacion de la compra" name="calificacionC"  [(ngModel)]="clienteCompra.calificacionGeneral"></ion-input>
+              </ion-item>
+            </div>
+          </ion-col>
+        </ion-row>
+  
+      </ion-grid>
+    </form>
+
+    <ion-button  [disabled]="compraForm.invalid" (click)="buyProducts()" expand="full" color="success">
+      Checkout
+    </ion-button>
+</div>
+</ion-content>

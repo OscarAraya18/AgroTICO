@@ -52,7 +52,7 @@
             <div class="col-md-6">
               <div class="form-group">
                   <input type="number" #telefono="ngModel" [class.is-invalid]="telefono.invalid && telefono.touched"
-                   #telefono="ngModel" pattern="^\d{8}$"
+                    pattern="^\d{8}$"
                   [class.is-invalid]="telefono.invalid && telefono.touched" class="form-control" placeholder="Numero de teléfono" name="numeroTelefono" [(ngModel)]="usuarioR.numeroTelefono"/>
                   <small class="text-danger" [class.d-none]="telefono.valid || telefono.untouched">Numero de teléfono debe de tener 8 dígitos</small>
               </div>

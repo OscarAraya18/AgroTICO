@@ -17,6 +17,12 @@ table tr th {
     box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 7px;
     background-color: darkslategrey;
 }
+.table{
+    color:white;
+}
+table thead{
+    color:black;
+}
 
 
 

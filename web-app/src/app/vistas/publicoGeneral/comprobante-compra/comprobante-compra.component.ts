@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap} from '@angular/router';
 import { CarritoComprasService } from 'src/app/servicios/publicoGeneral/carrito-compras.service';
+import { saveAs } from 'file-saver';
+
 @Component({
   selector: 'app-comprobante-compra',
   templateUrl: './comprobante-compra.component.html',
@@ -13,6 +15,20 @@ export class ComprobanteCompraComponent implements OnInit {
 
   ngOnInit(): void {
     this.pdf = this.dostuff(this.carritoComprasService.pdfSrc);
+
+    
+    let byteCharacters = atob(this.carritoComprasService.pdfSrc);
+
+    const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+
+    var blob = new Blob([byteArray], {type: 'application/pdf'});
+    console.log(blob);
+    saveAs(blob, "comprobante.pdf");
   }
 
   dostuff(b64Data){
