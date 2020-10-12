@@ -11,7 +11,7 @@
 		<form 
               (ngSubmit)="submit(codigo.value,nombre.value,modo.value,categoria.value,disp.value,precio.value)"
               #f="ngForm">
-		<label class="text-white">Codigo: </label> <input class="inputred" type="number" ngModel  #codigo required name="cod"/>
+		<label class="text-white">Codigo: </label> <input class="inputred" type="number" ngModel  #codigo required name="cod"/><br />
 		<label class="text-white">Precio: </label> <input class="inputred" type="number" ngModel  #precio required name="cod"/>
 		<p class="text-white">Nombre: <input type="text" #nombre  class="inputred"  name="nombre" ngModel required /><br/></p>
 		<p class="text-white">Modo de venta: <input type="text" #modo name="modo" class="inputred" ngModel required /><br/></p>

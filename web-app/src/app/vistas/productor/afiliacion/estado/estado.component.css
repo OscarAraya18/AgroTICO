@@ -4,6 +4,13 @@
   margin-left: 5px;
    background-color: rgba(151, 169, 147,0.8);
 }
+.inputred2 {
+  border-radius: 10px;
+  border: 1px solid green;
+   background-color: rgba(151, 169, 147,0.8);
+   margin-top: 20px;
+}
+
 
 .but{
 	margin-left:20px;
@@ -43,6 +50,14 @@
 	align-items: center;
 	flex-direction: column;
 	justify-content: center;
+
+}
+.container{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	width: 300px;
 
 }
 
