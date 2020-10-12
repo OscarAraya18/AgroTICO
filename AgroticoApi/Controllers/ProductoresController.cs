@@ -11,7 +11,11 @@ namespace AgroticoApi.Controllers
     {
         DBMS _dbms = new DBMS();
 
-
+        /// <summary>
+        /// Peticion para acceder a una solicitud de afiliación en especifico
+        /// </summary>
+        /// <param name="cedula">es la identificacion del productor a consultar</param>
+        /// <returns>la solicitud de afiliacion en caso de tener exito</returns>
         // GET api/Productores/Afiliacion
         [HttpGet]
         [Route("api/Productores/Afiliacion")]
@@ -26,6 +30,11 @@ namespace AgroticoApi.Controllers
             return Ok(JObject.Parse(resultado));
         }
 
+        /// <summary>
+        /// Peticion para acceder a todos los pedidos que tiene un productor
+        /// </summary>
+        /// <param name="cedula">es la identificacion del productor a consultar</param>
+        /// <returns>la lista de pedidos en caso de exito</returns>
         // GET api/Productores/pedidos
         [HttpGet]
         [Route("api/Productores/pedidos")]
@@ -45,6 +54,11 @@ namespace AgroticoApi.Controllers
             return Ok(lista);
         }
 
+        /// <summary>
+        /// Peticion para encontrar un producto en específico
+        /// </summary>
+        /// <param name="codigo">el el identificador para encontrar el producto</param>
+        /// <returns>el producto en caso de exito</returns>
         // GET api/Productores/producto
         [HttpGet]
         [Route("api/Productores/producto")]
@@ -60,6 +74,12 @@ namespace AgroticoApi.Controllers
             return Ok(JObject.Parse(resultado));
         }
 
+        /// <summary>
+        /// Peticion para crear una solicitud de afiliacion
+        /// </summary>
+        /// <param name="nuevaSolicitud">Un objeto json con toda la informacion necesaria
+        /// para crear la peticion</param>
+        /// <returns>Un ok en caso de exito</returns>
         // POST api/Productores/Afiliacion/new
         [HttpPost]
         [Route("api/Productores/Afiliacion/new")]
@@ -88,6 +108,12 @@ namespace AgroticoApi.Controllers
 
         }
 
+        /// <summary>
+        /// Peticion para crear un nuevo producto
+        /// </summary>
+        /// <param name="producto">Un objeto json con toda la informacion necesaria para crear
+        /// un producto</param>
+        /// <returns>Un ok en caso de exito</returns>
         // POST api/Productores/Producto/new
         [HttpPost]
         [Route("api/Productores/Producto/new")]
@@ -110,6 +136,12 @@ namespace AgroticoApi.Controllers
             return Ok("Producto creado correctamente");
         }
 
+        /// <summary>
+        /// Peticion para verificar un inicio de sesion
+        /// </summary>
+        /// <param name="login">Un objeto json con toda la informacion necesaria 
+        /// para autentificar al productor</param>
+        /// <returns>Un ok en caso de tener exito</returns>
         // POST api/Productores/login
         [HttpPost]
         [Route("api/Productores/login")]
@@ -126,6 +158,12 @@ namespace AgroticoApi.Controllers
             return BadRequest("Usuario o contrasenia incorrectos");
         }
 
+        /// <summary>
+        /// Peticion para editar un producto
+        /// </summary>
+        /// <param name="producto">Un objeto json con toda la informacion necesaria
+        /// para representar un producto, con algun atributo actualizado</param>
+        /// <returns>Un ok en caso de exito</returns>
         // PUT api/Productores/Producto/edit
         [HttpPut]
         [Route("api/Productores/Producto/edit")]
@@ -147,6 +185,11 @@ namespace AgroticoApi.Controllers
             return Ok("Producto actualizado correctamente");
         }
 
+        /// <summary>
+        /// Peticion para eliminar un producto
+        /// </summary>
+        /// <param name="codigo">El identificador del producto a eliminar</param>
+        /// <returns>Un ok en caso de exito</returns>
         // DELETE api/Productores/Producto/delete
         [HttpDelete]
         [Route("api/Productores/Producto/delete")]

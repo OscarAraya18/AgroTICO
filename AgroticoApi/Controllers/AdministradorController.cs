@@ -11,6 +11,10 @@ namespace AgroticoApi.Controllers
     {
         DBMS _dbms = new DBMS();
 
+        /// <summary>
+        /// Peticion para acceder a todas las afiliaciones que se encuentran sin responder
+        /// </summary>
+        /// <returns>Una lista de objetos tipo solicitud</returns>
         // GET api/Administrador/Afiliaciones
         [HttpGet]
         [Route("api/Administrador/Afiliaciones")]
@@ -30,6 +34,10 @@ namespace AgroticoApi.Controllers
             return Ok(lista);
         }
 
+        /// <summary>
+        /// Peticion para encontrar a los primeros 10 productos mas vendidos
+        /// </summary>
+        /// <returns>Una lista de productos</returns>
         // GET api/Administrador/Productos/masVendidos
         [HttpGet]
         [Route("api/Administrador/Productos/masVendidos")]
@@ -49,6 +57,10 @@ namespace AgroticoApi.Controllers
             return Ok(lista);
         }
 
+        /// <summary>
+        /// Peticion para acceder a los 10 primeros productos con más ganancia
+        /// </summary>
+        /// <returns>Una lista de productos</returns>
         // GET api/Administrador/Productos/masGanancia
         [HttpGet]
         [Route("api/Administrador/Productos/masGanancia")]
@@ -68,6 +80,11 @@ namespace AgroticoApi.Controllers
             return Ok(lista);
         }
 
+        /// <summary>
+        /// Peticion para acceder a los productos más vendidos por productor
+        /// </summary>
+        /// <param name="cedula">La identificacion del productor a consultar</param>
+        /// <returns>Una lista de productos</returns>
         // GET api/Administrador/Productos/masVendidosProductor
         [HttpGet]
         [Route("api/Administrador/Productos/masVendidosProductor")]
@@ -87,6 +104,10 @@ namespace AgroticoApi.Controllers
             return Ok(lista);
         }
 
+        /// <summary>
+        /// Peticion para acceder a los clientes con más compras
+        /// </summary>
+        /// <returns>Una lista de clientes</returns>
         // GET api/Administrador/Clientes/masCompras
         [HttpGet]
         [Route("api/Administrador/Clientes/masCompras")]
@@ -106,6 +127,11 @@ namespace AgroticoApi.Controllers
             return Ok(lista);
         }
 
+        /// <summary>
+        /// Peticion para acceder a una afiliacion en especifico
+        /// </summary>
+        /// <param name="cedula">Identificador del productor a consultar</param>
+        /// <returns>La afiliacion en caso de tener exito</returns>
         // GET api/Administrador/Afiliacion
         [HttpGet]
         [Route("api/Administrador/Afiliacion")]
@@ -120,6 +146,11 @@ namespace AgroticoApi.Controllers
             return Ok(JObject.Parse(resultado));
         }
 
+        /// <summary>
+        /// Peticion para acceder a un productor en específico
+        /// </summary>
+        /// <param name="cedula">El identificador del productor a consultar</param>
+        /// <returns>El productor encontrado</returns>
         // GET api/Administrador/Productor
         [HttpGet]
         [Route("api/Administrador/Productor")]
@@ -134,6 +165,11 @@ namespace AgroticoApi.Controllers
             return Ok(JObject.Parse(resultado));
         }
 
+        /// <summary>
+        /// Peticion para acceder a una categoria en especifico
+        /// </summary>
+        /// <param name="identificador">Identificador para saber a que categoria acceder</param>
+        /// <returns></returns>
         // GET api/Administrador/categoria
         [HttpGet]
         [Route("api/Administrador/categoria")]
@@ -149,6 +185,10 @@ namespace AgroticoApi.Controllers
             return Ok(JObject.Parse(resultado));
         }
 
+        /// <summary>
+        /// Peticion para acceder a todas las categorias existentes
+        /// </summary>
+        /// <returns>Todas las categorias que encuentre</returns>
         // GET api/Administrador/categorias
         [HttpGet]
         [Route("api/Administrador/categorias")]
@@ -169,6 +209,11 @@ namespace AgroticoApi.Controllers
             return Ok(lista);
         }
 
+        /// <summary>
+        /// Peticion para 
+        /// </summary>
+        /// <param name="afiliacion"></param>
+        /// <returns></returns>
         // POST api/Administrador/Afiliacion/edit
         [HttpPost]
         [Route("api/Administrador/Afiliacion/edit")]
@@ -187,7 +232,11 @@ namespace AgroticoApi.Controllers
             return NotFound();
         }
 
-
+        /// <summary>
+        /// Peticion para crear un nuevo productor
+        /// </summary>
+        /// <param name="nuevoProductor">Un objeto json con toda la informacion del productor</param>
+        /// <returns>Un ok en caso de exito</returns>
         // POST api/Administrador/Productor/new
         [HttpPost]
         [Route("api/Administrador/Productor/new")]
@@ -214,6 +263,11 @@ namespace AgroticoApi.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Peticion para crear una nueva categoria
+        /// </summary>
+        /// <param name="nuevaCategoria">Ub objeto json con la informacion de la categoria</param>
+        /// <returns>Un ok en caso de exito</returns>
         // POST api/Administrador/Categoria/new
         [HttpPost]
         [Route("api/Administrador/Categoria/new")]
@@ -229,9 +283,13 @@ namespace AgroticoApi.Controllers
             }
             return NotFound();
         }
-
-
-
+        
+        /// <summary>
+        /// Peticion para editar la informacion de un productor
+        /// </summary>
+        /// <param name="productor">Un objeto json con la informacion del productor
+        /// ya sea modificada o no</param>
+        /// <returns>Un ok en caso de exito</returns>
         // PUT api/Administrador/Productor/edit
         [HttpPut]
         [Route("api/Administrador/Productor/edit")]
@@ -258,6 +316,11 @@ namespace AgroticoApi.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Peticion para editar una categoria
+        /// </summary>
+        /// <param name="categoria">Un objeto json con la informacion de la categoria</param>
+        /// <returns>Un ok en caso de exito</returns>
         // PUT api/Administrador/Categoria/edit
         [HttpPut]
         [Route("api/Administrador/Categoria/edit")]
@@ -274,6 +337,11 @@ namespace AgroticoApi.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Peticion para eliminar un productor específico
+        /// </summary>
+        /// <param name="cedula">El identificador del productor a eliminar</param>
+        /// <returns>Un ok en caso de exito</returns>
         // DELETE api/Administrador/Productor/delete
         [HttpDelete]
         [Route("api/Administrador/Productor/delete")]
@@ -288,6 +356,11 @@ namespace AgroticoApi.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Peticion para eliminar una categoria en especifico
+        /// </summary>
+        /// <param name="identificador">El identificador de la categoria a eliminar</param>
+        /// <returns>Un ok en caso de exito</returns>
         // DELETE api/Administrador/Categoria/delete
         [HttpDelete]
         [Route("api/Administrador/Categoria/delete")]

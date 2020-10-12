@@ -7,14 +7,18 @@ using System.Web.Http.Cors;
 
 namespace AgroticoApi.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors(origins: "http://localhost:4200/", headers: "*", methods: "*")]
     public class ClientesController : ApiController
     {
 
         DBMS _dbms = new DBMS();
         Reporte _reporte = new Reporte();
 
-
+        /// <summary>
+        /// Peticion para acceder a todos los productores en un distrito especifico
+        /// </summary>
+        /// <param name="usuario">El usuario que solicita la informacion</param>
+        /// <returns>Un lista con todos los productores solicitados</returns>
         // GET api/Clientes/Productor/distrito
         [HttpGet]
         [Route("api/Clientes/Productor/distrito")]
@@ -39,6 +43,11 @@ namespace AgroticoApi.Controllers
 
         }
 
+        /// <summary>
+        /// Peticion para acceder a todos los productores en un canton especifico
+        /// </summary>
+        /// <param name="usuario">El usuario que solicita la informacion</param>
+        /// <returns>Una lista de productores</returns>
         // GET api/Clientes/Productor/canton
         [HttpGet]
         [Route("api/Clientes/Productor/canton")]
@@ -62,6 +71,11 @@ namespace AgroticoApi.Controllers
             return Ok(lista);
         }
 
+        /// <summary>
+        /// Peticion para acceder a los productores de una provincia en especifico
+        /// </summary>
+        /// <param name="usuario">El usuario que solicita la informacion</param>
+        /// <returns>Una lista de productores</returns>
         // GET api/Clientes/Productor/provincia
         [HttpGet]
         [Route("api/Clientes/Productor/provincia")]
@@ -86,6 +100,11 @@ namespace AgroticoApi.Controllers
 
         }
 
+        /// <summary>
+        /// Peticion para acceder a todos los productos que tiene un productor
+        /// </summary>
+        /// <param name="id">identificador del productor a consultar</param>
+        /// <returns>Una lista de productos correspondientes al productor</returns>
         // GET api/Clientes/Productos/productor
         [HttpGet]
         [Route("api/Clientes/Productos/productor")]
@@ -105,6 +124,11 @@ namespace AgroticoApi.Controllers
             return Ok(lista);
         }
 
+        /// <summary>
+        /// Peticion para acceder a la informacion del usuario
+        /// </summary>
+        /// <param name="usuario">identificador del usuario que realiza la peticion</param>
+        /// <returns>Un objeto json con toda la informacion del cliente</returns>
         // GET api/Clientes/MiInfo
         [HttpGet]
         [Route("api/Clientes/MiInfo")]
@@ -119,7 +143,11 @@ namespace AgroticoApi.Controllers
             return Ok(jcliente);
         }
 
-
+        /// <summary>
+        /// Peticion para verificar un inicio de sesion
+        /// </summary>
+        /// <param name="login">un objeto json con la informacion necesaria del login</param>
+        /// <returns>Un ok en caso de exito</returns>
         // POST api/Clientes/login
         [HttpPost]
         [Route("api/Clientes/login")]
@@ -136,6 +164,11 @@ namespace AgroticoApi.Controllers
             return BadRequest("Usuario o contrasenia incorrectos");
          }
 
+        /// <summary>
+        /// Peticion para crear un nuevo cliente
+        /// </summary>
+        /// <param name="nuevoCliente">Un objeto json con toda la informacion del cliente</param>
+        /// <returns>Un ok en caso de exito</returns>
         // POST api/Clientes/new
         [HttpPost]
         [Route("api/Clientes/new")]
@@ -162,22 +195,11 @@ namespace AgroticoApi.Controllers
             return NotFound();
         }
 
-        // POST api/Clientes/Carrito/new
-        [HttpPost]
-        [Route("api/Clientes/Carrito/new")]
-        public IHttpActionResult agregarProductoCarrito([FromBody] JObject producto)
-        {
-            bool resultado = _dbms.agregarProductoCarrito(
-                (int)producto["codigo"],
-                5);
-
-            if (resultado == true)
-            {
-                return Ok("Producto agregado exitosamente");
-            }
-            return NotFound();
-        }
-
+        /// <summary>
+        /// Peticion para finalizar una compra
+        /// </summary>
+        /// <param name="compra">Un objeto json con la informacion de la compra</param>
+        /// <returns>Un comprobante en pdf base64</returns>
         // POST api/Clientes/compra
         [HttpPost]
         [Route("api/Clientes/compra")]
@@ -214,6 +236,11 @@ namespace AgroticoApi.Controllers
             return BadRequest("Ha ocurrido un error");
         }
 
+        /// <summary>
+        /// Peticion para actualizar la informacion de un cliente
+        /// </summary>
+        /// <param name="cliente">Un objeto json con la informacion del cliente</param>
+        /// <returns>Un ok en caso de exito</returns>
         // PUT api/Clientes/edit
         [HttpPut]
         [Route("api/Clientes/edit")]
@@ -240,35 +267,11 @@ namespace AgroticoApi.Controllers
             return NotFound();
         }
 
-        // PUT api/Clientes/Carrito/mas
-        [HttpPut]
-        [Route("api/Clientes/Carrito/mas")]
-        public IHttpActionResult aumentarCantidadProductoCarrito([FromBody] int codigo)
-        {
-            bool resultado = _dbms.aumentarCantidadProductoCarrito(codigo);
-
-            if (resultado == true)
-            {
-                return Ok("Se aumento la cantidad exitosamente");
-            }
-            return BadRequest("Producto no encontrado");
-        }
-
-        // PUT api/Clientes/Carrito/edit-
-        [HttpPut]
-        [Route("api/Clientes/Carrito/menos")]
-        public IHttpActionResult reducirCantidadProductoCarrito([FromBody] int codigo)
-        {
-            bool resultado = _dbms.reducirCantidadProductoCarrito(codigo);
-
-
-            if (resultado == true)
-            {
-                return Ok("Se redujo la cantidad exitosamente");
-            }
-            return BadRequest("Ya tiene la cantidad minima del producto");
-        }
-
+        /// <summary>
+        /// Peticion para eliminar un cliente en especifico
+        /// </summary>
+        /// <param name="usuario">el identificador del usuario a eliminar</param>
+        /// <returns>Un ok en caso de exito</returns>
         // DELETE api/Clientes/delete
         [HttpDelete]
         [Route("api/Clientes/delete")]
@@ -289,20 +292,5 @@ namespace AgroticoApi.Controllers
             }
             return NotFound();
         }
-
-        // DELETE api/Clientes/Carrito/delete
-        [HttpDelete]
-        [Route("api/Clientes/Carrito/delete")]
-        public IHttpActionResult eliminarProductoCarrito([FromUri] int codigo)
-        {
-            bool res = _dbms.eliminarProductoCarrito(codigo);
-
-            if (res == true)
-            {
-                return Ok("Producto eliminado del carrito exitosamente");
-            }
-            return NotFound();
-        }
-
     }
 }

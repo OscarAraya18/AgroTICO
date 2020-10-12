@@ -7,11 +7,14 @@ namespace AgroticoApi.BackendAgroTICO
 {
     public class Reporte
     {
+        // Funcion para generar un reporte pdf mediante la herramienta 
+        // Crystal Reports
         public string generarComprobante(string nombre, string apellido1, string apellido2,
             string monto, string codigo)
         {
             Sinpe cr = new Sinpe();
 
+            // Se acceden a los atributos del reporte
             TextObject codigoTx = (TextObject)cr.ReportDefinition.
                 Sections["Section1"].ReportObjects["codigo"];
             TextObject nombreTx = (TextObject)cr.ReportDefinition.
@@ -23,14 +26,14 @@ namespace AgroticoApi.BackendAgroTICO
             TextObject montoTx = (TextObject)cr.ReportDefinition.
                 Sections["Section4"].ReportObjects["monto"];
 
-
+            // Se actualizan los atributos del reporte
             codigoTx.Text = codigo;
             nombreTx.Text = nombre;
             apellido1Tx.Text = apellido1;
             apellido2Tx.Text = apellido2;
-
             montoTx.Text = monto;
 
+            // Se pasa el pdf a un string formato base64
             Stream stream = cr.ExportToStream(ExportFormatType.PortableDocFormat);
             var bytes = new Byte[(int)stream.Length];
 
