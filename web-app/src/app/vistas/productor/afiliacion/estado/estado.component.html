@@ -1,0 +1,25 @@
+<div class ="container-fluid"><form 
+              (ngSubmit)="consulta(cedula.value)"
+              #f2="ngForm">
+
+
+ 		<label class="text-white">Numero de cedula:</label> <input class="inputred" type="number" ngModel  #cedula required name="cedula"/>
+
+
+
+<div class= "cont">
+
+	<button type="button" class="btn btn-success but"
+	 mat-button
+	  type="submit"
+   [disabled]="f2.invalid"
+                  >
+	Consultar
+	</button>
+
+
+</div>
+</form>
+</div>
+<div *ngIf="info">
+</div>

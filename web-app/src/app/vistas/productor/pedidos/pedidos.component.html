@@ -1,1 +1,40 @@
-<p>pedidos works!</p>
+<div class="row name" *ngIf="!ver">
+	<mat-card class="example-card " *ngFor="let pedido of pedidos" >
+
+  <mat-card-header >
+    <mat-card-title  >
+    	<h5>{{pedido.numeroCedulaCliente}}</h5></mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-actions>
+    <button type="button" class="btn btn-success but" (click)="mostrar(pedido.numeroCedulaCliente,pedido.codigo,pedido.nombre,pedido.cantidad,pedido.montoTotal,pedido.direccionEntrega)" >
+	Ver
+	</button>
+  </mat-card-actions>
+</mat-card>
+
+</div>
+<div *ngIf="ver" class="example">
+	<mat-card class="example-card2" >
+
+  <mat-card-header >
+    <mat-card-title  >
+    	<h5>{{cedula}}</h5></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+  	<p> {{codigo}} {{nombre}} <br />
+  		Cantidad: {{cant}} <br />
+  		Monto: {{monto}} <br />
+  		Entrega: {{lugar}}
+  </mat-card-content>
+  
+  <mat-card-actions>
+    <button type="button" class="btn btn-success but" (click)="listo(cedula)" >
+	Listo
+	</button>
+	<button type="button" class="btn btn-success but" (click)="ver = false" >
+	Cancelar
+	</button>
+  </mat-card-actions>
+</mat-card>
+</div>

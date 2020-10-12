@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Afiliacion } from 'src/app/modelos/productor/afiliacion';
+import { AfiliacionesService} from 'src/app/servicios/administrador/afiliaciones.service';
 
 @Component({
   selector: 'app-afiliaciones',
@@ -6,110 +8,46 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./afiliaciones.component.css']
 })
 export class AfiliacionesComponent implements OnInit {
-productores: any[];
+productores: Afiliacion[];
 denegar: boolean;
+afiliacion = new Afiliacion();
 
-  constructor() { }
+  constructor(private _AfiliacionesService: AfiliacionesService) { }
 
   ngOnInit(): void {
 this.denegar = false;
-this.productores = [
-    {
-        "numeroCedula": 12330645,
-        "primerNombre": "Kevin",
-        "segundoNombre": "Francisco",
-        "primerApellido": "Acevedo",
-        "segundoApellido": "Rodriguez",
-        "provinciaResidencia": "Guanacaste",
-        "cantonResidencia": "Santa Cruz",
-        "distritoResidencia": "La Palma",
-        "numeroTelefono": 83488907,
-        "numeroSINPE": 757575,
-        "anioNacimiento": 2000,
-        "mesNacimiento": 6,
-        "diaNacimiento": 20,
-        "lugarEntrega": ["Parque central", "Mercado de San Jose"],
-        "claveAcceso": "234Hola"
-    },
-
-    {
-        "numeroCedula": 123,
-        "primerNombre": "Albert",
-        "segundoNombre": "Francisco",
-        "primerApellido": "Acevedo",
-        "segundoApellido": "Rodriguez",
-        "provinciaResidencia": "Guanacaste",
-        "cantonResidencia": "Santa Cruz",
-        "distritoResidencia": "La Palma",
-        "numeroTelefono": 83488907,
-        "numeroSINPE": 757575,
-        "anioNacimiento": 2000,
-        "mesNacimiento": 6,
-        "diaNacimiento": 20,
-        "lugarEntrega": ["Parque", "Mercado"],
-        "claveAcceso": "234Hola"
-    },
-
-    {
-        "numeroCedula": 12384,
-        "primerNombre": "Karol",
-        "segundoNombre": "Francisco",
-        "primerApellido": "Acevedo",
-        "segundoApellido": "Rodriguez",
-        "provinciaResidencia": "Guanacaste",
-        "cantonResidencia": "Santa Cruz",
-        "distritoResidencia": "La Palma",
-        "numeroTelefono": 83488907,
-        "numeroSINPE": 757575,
-        "anioNacimiento": 2000,
-        "mesNacimiento": 6,
-        "diaNacimiento": 20,
-        "lugarEntrega": ["Parque", "Mercado"],
-        "claveAcceso": "234Hola"
-    },
-
-    {
-        "numeroCedula": 1234,
-        "primerNombre": "Saymon",
-        "segundoNombre": "Francisco",
-        "primerApellido": "Acevedo",
-        "segundoApellido": "Rodriguez",
-        "provinciaResidencia": "Guanacaste",
-        "cantonResidencia": "Santa Cruz",
-        "distritoResidencia": "La Palma",
-        "numeroTelefono": 83488907,
-        "numeroSINPE": 757575,
-        "anioNacimiento": 2000,
-        "mesNacimiento": 6,
-        "diaNacimiento": 20,
-        "lugarEntrega": ["Parque", "Mercado"],
-        "claveAcceso": "234Hola"
-    },
-
-    {
-        "numeroCedula": 1235,
-        "primerNombre": "Oscar",
-        "segundoNombre": "Francisco",
-        "primerApellido": "Acevedo",
-        "segundoApellido": "Rodriguez",
-        "provinciaResidencia": "Guanacaste",
-        "cantonResidencia": "Santa Cruz",
-        "distritoResidencia": "La Palma",
-        "numeroTelefono": 83488907,
-        "numeroSINPE": 757575,
-        "anioNacimiento": 2000,
-        "mesNacimiento": 6,
-        "diaNacimiento": 20,
-        "lugarEntrega": ["Parque", "Mercado"],
-        "claveAcceso": "234Hola"
-    }
-]  }
+this.getAfiliaciones();
+}
 
   aceptar(cedula): void{
 console.log(cedula);
 console.log(true);
 const f = new Date();
 console.log(f.getDate() + '/' + (f.getMonth() + 1) + '/' + f.getFullYear());
+
+
+this._AfiliacionesService.getAfiliacion(cedula).
+  subscribe(data => this.afiliacion = data,
+error => {
+        console.log(error);
+        if (error.status === 400){
+          
+        }
+      });
+  this.afiliacion.codigoSolicitud = cedula;
+  this.afiliacion.numeroCedula= cedula;
+this.afiliacion.estado = 'Aceptado';
+this.afiliacion.fechaRespuesta = f.getDate() + '/' + (f.getMonth() + 1) + '/' + f.getFullYear();
+this.afiliacion.motivoDenegacion = "";
+this._AfiliacionesService.actualizaAfiliacion(this.afiliacion).
+  subscribe(data => {},
+error => {
+        console.log(error);
+        if (error.status === 400){
+          
+        }
+      });
+
 this.productores = this.productores.filter((i) => i.numeroCedula !== cedula); // filtramos
   }
 
@@ -119,11 +57,39 @@ this.productores = this.productores.filter((i) => i.numeroCedula !== cedula); //
     console.log(comentario);
     console.log(false);
     const f = new Date();
-		console.log(f.getDate() + '/' + (f.getMonth() + 1) + '/' + f.getFullYear());
-		this.productores = this.productores.filter((i) => i.numeroCedula !== cedula); // filtramos
+	console.log(f.getDate() + '/' + (f.getMonth() + 1) + '/' + f.getFullYear());
+  this._AfiliacionesService.getAfiliacion(cedula).
+  subscribe(data => this.afiliacion = data,
+error => {
+        console.log(error);
+        if (error.status === 400){
+          
+        }
+      });
+
+  this.afiliacion.codigoSolicitud = cedula;
+  this.afiliacion.numeroCedula= cedula;
+this.afiliacion.estado = 'Denegado';
+this.afiliacion.fechaRespuesta = f.getDate() + '/' + (f.getMonth() + 1) + '/' + f.getFullYear();
+this.afiliacion.motivoDenegacion = comentario;
+this._AfiliacionesService.actualizaAfiliacion(this.afiliacion).
+  subscribe(data => {},
+error => {
+        console.log(error);
+        if (error.status === 400){
+          
+        }
+      });
+	this.productores = this.productores.filter((i) => i.numeroCedula !== cedula); // filtramos
 
 
   }
+  }
+
+
+getAfiliaciones(){
+    this._AfiliacionesService.getAfiliaciones()
+    .subscribe(data => this.productores = data );
   }
 
 }

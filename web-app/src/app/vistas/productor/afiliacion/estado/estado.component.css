@@ -1,12 +1,3 @@
-.container-fluid{
-	margin-top:150px;
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	justify-content: center;
-
-}
-
 .inputred {
   border-radius: 10px;
   border: 1px solid green;
@@ -16,15 +7,13 @@
 
 .but{
 	margin-left:20px;
-	
 }
 
 .butt2{
 	margin-top: 20px;
 }
-
 .wrapper{
-	margin-top: -80px;
+	margin-top: -20px;
 }
 
 .buta{
@@ -40,19 +29,21 @@
 	justify-content: center;
 }
 .button1{
-	height: 60px;
-	font-size: 40px;
-
-	background-color:  transparent;
-	color:#FFFFFF;
-	border-radius: 10px;
-	display: flex;
-	align-items: center;
+	height: 50px;
+	font-size: 25px;
 
 }
 
 .cont2{
 	margin-top: 10px;
+}
+.container-fluid{
+	margin-top:20px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+
 }
 
 ::placeholder { color: black; }

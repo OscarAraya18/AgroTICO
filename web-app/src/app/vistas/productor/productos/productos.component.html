@@ -9,16 +9,18 @@
 
 		<h2 class="text-white">Datos del producto</h2>
 		<form 
-              (ngSubmit)="submit(codigo.value,nombre.value,modo.value,categoria.value,foto.value)"
+              (ngSubmit)="submit(codigo.value,nombre.value,modo.value,categoria.value,disp.value,precio.value)"
               #f="ngForm">
 		<label class="text-white">Codigo: </label> <input class="inputred" type="number" ngModel  #codigo required name="cod"/>
+		<label class="text-white">Precio: </label> <input class="inputred" type="number" ngModel  #precio required name="cod"/>
 		<p class="text-white">Nombre: <input type="text" #nombre  class="inputred"  name="nombre" ngModel required /><br/></p>
 		<p class="text-white">Modo de venta: <input type="text" #modo name="modo" class="inputred" ngModel required /><br/></p>
+		<label class="text-white">Disponibilidad: </label> <input class="inputred" type="number" ngModel  #disp required name="cod"/>
 
 <p class="text-white">Categoría: 
   <select #categoria class="inputred" required ngModel  name="cat"  >
   <option [value]=''> </option>
-  <option *ngFor="let categoria of categorias" [value]='distrito'> {{categoria}}</option>
+  <option *ngFor="let categoria of categorias" [value]='categoria.identificador'> {{categoria.nombre}}</option>
 
 </select>
 </p>
@@ -50,7 +52,7 @@
 	 mat-button
 	
    [disabled]="f.invalid"
-   (click)="submit2(codigo.value,nombre.value,modo.value,categoria.value)"
+   (click)="submit2(codigo.value,nombre.value,modo.value,categoria.value,disp.value,precio.value)"
                   >
 	Actualizar producto
 	</button>

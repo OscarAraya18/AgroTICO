@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { VistaService} from 'src/app/servicios/administrador/vista.service';
+import { UsuarioRegistro } from 'src/app/modelos/publicoGeneral/usuario-registro';
+import { Producto } from 'src/app/modelos/productor/producto';
+
 
 @Component({
   selector: 'app-vista',
@@ -6,24 +10,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vista.component.css']
 })
 export class VistaComponent implements OnInit {
-productos: string[];
-ganancias: string[];
-clientes: string[];
-productores: string[];
+productos: Producto[];
+ganancias: Producto[];
+clientes: UsuarioRegistro[];
+productores: Producto[];
 
-  constructor() { }
+  constructor(private _vistasService: VistaService) { }
 
   ngOnInit(): void{
-this.productos = ['Fresa','Manzana','Papa','Zanahoria','Cebolla','Chile dulce','Culantro','Limón','Yuca','Platano'];
-this.ganancias = ['Papa','Zanahoria','Cebolla','Chile dulce','Culantro','Jocote','Ayote','Camote','Mango','Banano'];
-this.clientes = ['ffvf','efsdf','dfedw','fred','red','rfed','reds','red','rfdd','redd'];
-this.productores = [];
+this._vistasService.getMasVendidos()
+    .subscribe(data => this.productos = data );
+this._vistasService.getMasGanancias()
+    .subscribe(data => this.ganancias = data );
 
-  }
-
+this._vistasService.getClientes()
+    .subscribe(data => this.clientes = data );
+}
   submit(cedula): void {
 console.log(cedula);
-this.productores = ['Pitahaya','Naranja','Cebolla','Chile dulce','Culantro','Jocote','Ayote','Camote','Mango','Banano'];
+this._vistasService.getMasVendidosProductor(cedula)
+    .subscribe(data => this.productores = data );
   }
 
 }

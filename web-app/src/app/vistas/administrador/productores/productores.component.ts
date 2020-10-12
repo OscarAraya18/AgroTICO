@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Afiliacion } from 'src/app/modelos/productor/afiliacion';
+import { ProductorLogInService} from 'src/app/servicios/productor/productor-log-in.service';
+import { ProductoresService} from 'src/app/servicios/administrador/productores.service';
 
 
 @Component({
@@ -13,6 +16,8 @@ distritos: string[];
 formVisibility: boolean;
 form2Visibility: boolean;
 elimina: boolean;
+productor = new Afiliacion();
+f: Date = new Date();
 
 provinciasSeleccion = {
     Alajuela: ['Alajuela', 'San Ramón','Grecia','San Mateo','Atenas','Naranjo','Palmares','Poás','San Pedro',
@@ -127,7 +132,7 @@ Hojancha: ['Hojancha', 'Monte Romo','Puerto Carrillo','Huacas','Matambú']
 
 };
 
-  constructor() {
+  constructor( private _ProductoresService: ProductoresService ) {
 this.provincias = ['Elegir','Alajuela','San José','Cartago','Heredia','Puntarenas','Limón','Guanacaste'];
 this.formVisibility = false;
 this.form2Visibility = false;
@@ -140,42 +145,64 @@ this.elimina = false;
 
 
 
-  submit(cedula, nombre, apellido1, apellido2, provincia, canton, distrito, fecha, numero, sinpe, lugar,contrasena): void  {
+  submit(cedula, nombre, apellido1, apellido2, provincia, canton, distrito, fecha, numero, sinpe, contrasena): void  {
 this.formVisibility = false;
-console.log(cedula);
-console.log(nombre.split(' '));
-console.log(apellido1);
-console.log(apellido2);
-console.log(provincia);
-console.log(canton);
-console.log(distrito);
-console.log('Año: ' + fecha.split('-')[0]);
-console.log('Mes: ' + fecha.split('-')[1]);
-console.log('Dia: ' + fecha.split('-')[2]);
-console.log(numero);
-console.log(sinpe);
-console.log(lugar.split(','));
-console.log(contrasena);
+
+this.productor.numeroCedula = cedula;
+this.productor.primerNombre = nombre;
+this.productor.primerApellido = apellido1;
+this.productor.segundoApellido = apellido2;
+this.productor.provinciaResidencia = provincia;
+this.productor.cantonResidencia = canton;
+this.productor.distritoResidencia = distrito;
+this.productor.numeroTelefono = numero;
+this.productor.numeroSINPE = sinpe;
+this.productor.claveAcceso = contrasena;
+this.productor.fechaNacimiento = fecha;
+this.productor.fechaSolicitud = this.f.getDate() + '/' + (this.f.getMonth() + 1) + '/' + this.f.getFullYear();
+
+this._ProductoresService.creaProductor(this.productor).
+  subscribe(data => {},
+error => {
+        console.log(error);
+        if (error.status === 400){
+          
+        }
+      });
 
   }
 
-  submit2(cedula, nombre, apellido1, apellido2, provincia, canton, distrito, fecha, numero, sinpe, lugar, contrasena): void  {
+  submit2(cedula, nombre, apellido1, apellido2, provincia, canton, distrito, fecha, numero, sinpe,  contrasena): void  {
 this.form2Visibility = false;
 console.log('Actualiza');
-console.log(cedula);
-console.log(nombre.split(' '));
-console.log(apellido1);
-console.log(apellido2);
-console.log(provincia);
-console.log(canton);
-console.log(distrito);
-console.log('Año: ' + fecha.split('-')[0]);
-console.log('Mes: ' + fecha.split('-')[1]);
-console.log('Dia: ' + fecha.split('-')[2]);
-console.log(numero);
-console.log(sinpe);
-console.log(lugar.split(','));
-console.log(contrasena);
+this.productor.numeroCedula = cedula;
+this.productor.primerNombre = nombre;
+this.productor.primerApellido = apellido1;
+this.productor.segundoApellido = apellido2;
+this.productor.provinciaResidencia = provincia;
+this.productor.cantonResidencia = canton;
+this.productor.distritoResidencia = distrito;
+this.productor.numeroTelefono = numero;
+this.productor.numeroSINPE = sinpe;
+this.productor.claveAcceso = contrasena;
+this.productor.fechaNacimiento = fecha;
+this.productor.fechaSolicitud = this.f.getDate() + '/' + (this.f.getMonth() + 1) + '/' + this.f.getFullYear();
+
+this._ProductoresService.getProductor(this.productor).
+  subscribe(data =>  this.productor = data,
+error => {
+        console.log(error);
+        if (error.status === 400){        
+        }
+      });
+  this._ProductoresService.actualizaProductor(this.productor).
+  subscribe(data => {},
+error => {
+        console.log(error);
+        if (error.status === 400){
+          
+        }
+      });
 
   }
   submit3(cedula): void  {
@@ -184,6 +211,15 @@ if (confirmed) {
 this.elimina = false;
 console.log('Eliminaa');
 console.log(cedula);
+ this._ProductoresService.borraProductor(cedula).
+  subscribe(data => {},
+error => {
+        console.log(error);
+        if (error.status === 400){
+          
+        }
+      });
+
 }
 
 

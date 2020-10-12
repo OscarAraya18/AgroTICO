@@ -16,7 +16,6 @@ import { FormsModule } from '@angular/forms';
 import {MatTableModule} from '@angular/material/table';
 import {MatCardModule} from '@angular/material/card';
 
-import { PerfilComponent } from './vistas/administrador/perfil/perfil.component';
 import { VistaComponent } from './vistas/administrador/vista/vista.component';
 import { ProductoresComponent } from './vistas/administrador/productores/productores.component';
 import { CategoriasComponent } from './vistas/administrador/categorias/categorias.component';
@@ -39,6 +38,7 @@ import { AfiliacionComponent } from './vistas/productor/afiliacion/afiliacion.co
 import { ProductosComponent } from './vistas/productor/productos/productos.component';
 import { PedidosComponent } from './vistas/productor/pedidos/pedidos.component';
 import { FormComponent } from './vistas/productor/afiliacion/form/form.component';
+import { EstadoComponent } from './vistas/productor/afiliacion/estado/estado.component';
 
 
 
@@ -47,7 +47,6 @@ import { FormComponent } from './vistas/productor/afiliacion/form/form.component
   declarations: [
     AppComponent,
     AdministradorComponent,
-    PerfilComponent,
     VistaComponent,
     ProductoresComponent,
     CategoriasComponent,
@@ -68,7 +67,8 @@ import { FormComponent } from './vistas/productor/afiliacion/form/form.component
     AfiliacionComponent,
     ProductosComponent,
     PedidosComponent,
-    FormComponent
+    FormComponent,
+    EstadoComponent
 
   ],
   imports: [

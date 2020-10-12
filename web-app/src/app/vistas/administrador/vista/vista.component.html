@@ -1,16 +1,16 @@
  <div class="row container">
     <div class="col" >
       <h3 class="tittle">Productos más vendidos</h3>
-      <h6  class="list" *ngFor="let producto of productos"  > {{producto}}</h6>
+      <h6  class="list" *ngFor="let producto of productos"  > {{producto.nombre}}</h6>
 
     </div>
     <div class="col" >
       <h3 class="tittle">Productos con más ganancias</h3>
-      <h6  class="list" *ngFor="let ganancia of ganancias"  > {{ganancia}}</h6>
+      <h6  class="list" *ngFor="let ganancia of ganancias"  > {{ganancia.nombre}}</h6>
     </div>
     <div class="col">
       <h3 class="tittle">Clientes con más compras</h3>
-      <h6  class="list" *ngFor="let cliente of clientes"  > {{cliente}}</h6>
+      <h6  class="list" *ngFor="let cliente of clientes"  > {{cliente.nombreUsuario}} </h6>
     </div>
   </div>
    <div class="row consultar">
@@ -28,7 +28,7 @@
   Consultar
   </button>
 
-      <h6  *ngFor="let productor of productores"  > {{productor}}</h6>
+      <h6  *ngFor="let productor of productores"  > {{productor.nombre}}</h6>
 
 </form>
 

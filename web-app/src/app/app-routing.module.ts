@@ -22,6 +22,7 @@ import { AfiliacionComponent } from './vistas/productor/afiliacion/afiliacion.co
 import { ProductosComponent } from './vistas/productor/productos/productos.component';
 import { PedidosComponent } from './vistas/productor/pedidos/pedidos.component';
 import { FormComponent } from './vistas/productor/afiliacion/form/form.component';
+import { EstadoComponent } from './vistas/productor/afiliacion/estado/estado.component';
 
 const routes: Routes = [
      //VISTA ADMINISTRACION
@@ -32,6 +33,10 @@ const routes: Routes = [
       {
         path: 'form',
         component: FormComponent
+      },
+      {
+        path: 'estado',
+        component: EstadoComponent
       },
       {
         path: 'admin',
@@ -91,7 +96,7 @@ const routes: Routes = [
         component: PedidosComponent
         },
          {
-        path: 'productos',
+        path: 'productos/:id',
         component: ProductosComponent
         }
         ]

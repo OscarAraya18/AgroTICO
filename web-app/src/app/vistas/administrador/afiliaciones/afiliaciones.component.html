@@ -5,22 +5,22 @@
   <mat-card-header >
     <mat-card-title  >
     	<h4>{{productor.primerNombre}} {{productor.segundoNombre}} {{productor.primerApellido}}  {{productor.segundoApellido}}</h4></mat-card-title>
-    <mat-card-subtitle>{{productor.numeroCedula}}</mat-card-subtitle>
+    <mat-card-subtitle>{{productor.codigoSolicitud}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <p> Dirección:<br /> {{productor.provinciaResidencia}}, {{productor.cantonResidencia}}, {{productor.distritoResidencia}}
     <br /> Número de telefono: {{productor.numeroTelefono}}
       <br /> Número de SINPE: {{productor.numeroSINPE}}
-      <br /> Fecha de nacimiento: {{productor.diaNacimiento}}/{{productor.mesNacimiento}}/{{productor.anioNacimiento}}
-      <br /> Lugares de entrega: {{productor.lugarEntrega}}
+      <br /> Fecha de nacimiento: {{productor.fechaNacimiento}}
+     
 
   </p>
   </mat-card-content>
   <mat-card-actions>
-    <button type="button" class="btn btn-success but" (click)="aceptar(productor.numeroCedula)" >
+    <button type="button" class="btn btn-success but" (click)="aceptar(productor.codigoSolicitud)" >
 	Aceptar
 	</button>
-    <button type="button" class="btn btn-success but" (click)="denegado(productor.numeroCedula)" >
+    <button type="button" class="btn btn-success but" (click)="denegado(productor.codigoSolicitud)" >
 	Denegar
 	</button>
   </mat-card-actions>

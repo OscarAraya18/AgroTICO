@@ -1,0 +1,49 @@
+.example-card {
+
+  background-color: rgba(151, 169, 147,0.8);
+	border-radius: 20px;
+	box-shadow: 10px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin-bottom: 5px;
+
+}
+.example-card2 {
+
+  background-color: rgba(151, 169, 147,0.8);
+	border-radius: 20px;
+	box-shadow: 10px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin-bottom: 5px;
+	width: 300px;
+	text-align: center;
+	margin-top: 10px;
+	align-items: center;
+
+}
+.example{
+	display: flex;
+	justify-content: center;
+
+}
+.name{
+	text-align: center;
+	margin-top: 10px;
+}
+
+.but{
+	margin-left:20px;
+	margin-top: -20px;
+	font-size: 15px;
+}
+.row{
+	display: flex;
+	justify-content:space-around;
+	flex-direction: row;
+	width: 95%;
+	margin-left: 10px;
+
+}

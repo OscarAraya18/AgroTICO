@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Afiliacion } from 'src/app/modelos/productor/afiliacion';
+import { AfiliacionesService} from 'src/app/servicios/administrador/afiliaciones.service';
+
 
 @Component({
   selector: 'app-form',
@@ -11,6 +14,8 @@ distritos: string[];
 formVisibility: boolean;
 form2Visibility: boolean;
 elimina: boolean;
+productor = new Afiliacion();
+f: Date = new Date();
 
 provinciasSeleccion = {
     Alajuela: ['Alajuela', 'San Ramón','Grecia','San Mateo','Atenas','Naranjo','Palmares','Poás','San Pedro',
@@ -125,7 +130,7 @@ Hojancha: ['Hojancha', 'Monte Romo','Puerto Carrillo','Huacas','Matambú']
 
 };
 
-  constructor() {
+  constructor(private _AfiliacionesService: AfiliacionesService) {
 this.provincias = ['Elegir','Alajuela','San José','Cartago','Heredia','Puntarenas','Limón','Guanacaste'];
   }
 
@@ -134,21 +139,28 @@ this.provincias = ['Elegir','Alajuela','San José','Cartago','Heredia','Puntaren
 
 
 
-  solicitar(cedula, nombre, apellido1, apellido2, provincia, canton, distrito, fecha, numero, sinpe, lugar,contrasena): void  {
-console.log(cedula);
-console.log(nombre.split(' '));
-console.log(apellido1);
-console.log(apellido2);
-console.log(provincia);
-console.log(canton);
-console.log(distrito);
-console.log('Año: ' + fecha.split('-')[0]);
-console.log('Mes: ' + fecha.split('-')[1]);
-console.log('Dia: ' + fecha.split('-')[2]);
-console.log(numero);
-console.log(sinpe);
-console.log(lugar.split(','));
-console.log(contrasena);
+  solicitar(cedula, nombre, apellido1, apellido2, provincia, canton, distrito, fecha, numero, sinpe,contrasena): void  {
+this.productor.numeroCedula = cedula;
+this.productor.primerNombre = nombre;
+this.productor.primerApellido = apellido1;
+this.productor.segundoApellido = apellido2;
+this.productor.provinciaResidencia = provincia;
+this.productor.cantonResidencia = canton;
+this.productor.distritoResidencia = distrito;
+this.productor.numeroTelefono = numero;
+this.productor.numeroSINPE = sinpe;
+this.productor.claveAcceso = contrasena;
+this.productor.fechaNacimiento = fecha;
+this.productor.fechaSolicitud = this.f.getDate() + '/' + (this.f.getMonth() + 1) + '/' + this.f.getFullYear();
+
+this._AfiliacionesService.solicitarAfiliacion(this.productor).
+  subscribe(data => {},
+error => {
+        console.log(error);
+        if (error.status === 400){
+          
+        }
+      });
 
   }
 
