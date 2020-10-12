@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private enrollmentService: EnrollmentService, private clienteInfoService: ClienteInfoService) { }
 
   ngOnInit(): void {
+
   }
 
   gotoContenido(){
