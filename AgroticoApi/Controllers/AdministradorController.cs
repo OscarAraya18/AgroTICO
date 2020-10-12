@@ -11,7 +11,6 @@ namespace AgroticoApi.Controllers
     {
         DBMS _dbms = new DBMS();
 
-
         // GET api/Administrador/Afiliaciones
         [HttpGet]
         [Route("api/Administrador/Afiliaciones")]
@@ -177,7 +176,7 @@ namespace AgroticoApi.Controllers
         {
             bool resultado = _dbms.actualizarSolicitudAfiliacion(
                 (int)afiliacion["codigoSolicitud"],
-                (bool)afiliacion["estado"],
+                (string)afiliacion["estado"],
                 (string)afiliacion["fechaRespuesta"],
                 (string)afiliacion["motivoDenegacion"]);
 

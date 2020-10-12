@@ -435,7 +435,7 @@ namespace Backend.DBMS
             }
             return false;
         }
-        public bool actualizarSolicitudAfiliacion(int codigoSolicitud, bool estado, string fechaRespuesta, String motivoDenegacion)
+        public bool actualizarSolicitudAfiliacion(int codigoSolicitud, string estado, string fechaRespuesta, String motivoDenegacion)
         {
             String[] solicitudesSinRespuesta = FILTER(RUTA_AFILIACIONES, "estado", "Sin respuesta", 0);
             JObject posibleProductor;
@@ -452,7 +452,7 @@ namespace Backend.DBMS
             {
                 return false;
             }
-            if (estado == true)
+            if (estado.Equals("Aceptado"))
             {
                 UPDATE(RUTA_AFILIACIONES, codigoSolicitud, "estado", "Aceptado", 0);
                 UPDATE(RUTA_AFILIACIONES, codigoSolicitud, "motivoDenegacion", "Ha sigo aceptado en AgroTICO", 0);
@@ -512,7 +512,7 @@ namespace Backend.DBMS
         }
         public String[] encontrarSolicitudesSinResponder()
         {
-            return FILTER(RUTA_AFILIACIONES, "Estado", "Sin respuesta", 0);
+            return FILTER(RUTA_AFILIACIONES, "estado", "Sin respuesta", 0);
         }
         public String[] encontrarPrimerosDiezElementos(String[] listaElementos)
         {
@@ -674,7 +674,7 @@ namespace Backend.DBMS
         {
             if (SELECT(RUTA_PRODUCTOS, codigo) != null)
             {
-                if (SELECT(RUTA_CATEGORIAS, codigo) != null)
+                if (SELECT(RUTA_CATEGORIAS, identificadorCategoria) != null)
                 {
                     UPDATE(RUTA_PRODUCTOS, codigo, "nombre", nombre, 0);
                     UPDATE(RUTA_PRODUCTOS, codigo, "modoVenta", modoVenta, 0);
