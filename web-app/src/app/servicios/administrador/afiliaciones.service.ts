@@ -26,4 +26,11 @@ solicitarAfiliacion(Afiliacion: Afiliacion){
 actualizaAfiliacion(Afiliacion: Afiliacion){
     return this.http.post<string>('/api/Administrador/Afiliacion/edit', Afiliacion);
   }
+   getRespuestaAfiliacion(id: number): Observable<Afiliacion>{
+    return this.http.get<Afiliacion>('api/Productores/Afiliacion', {
+      params: {
+        cedula: id.toString()
+      }});
+}
+
 }

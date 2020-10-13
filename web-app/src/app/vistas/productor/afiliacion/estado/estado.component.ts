@@ -18,7 +18,7 @@ afiliacion = new Afiliacion();
   }
 
   consulta(id: number){
-  	 this._AfiliacionesService.getAfiliacion(id).
+  	 this._AfiliacionesService.getRespuestaAfiliacion(id).
   subscribe(data => this.afiliacion = data,
 error => {
         console.log(error);
