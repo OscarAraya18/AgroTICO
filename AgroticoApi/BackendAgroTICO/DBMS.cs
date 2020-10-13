@@ -1,12 +1,9 @@
-﻿using System;
-using System.IO;
-using Newtonsoft.Json;
-
-using System.Linq;
-
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 
 namespace Backend.DBMS
@@ -708,8 +705,8 @@ namespace Backend.DBMS
             foreach (String solicitud in solicitudesProductor)
             {
                 posibleSolicitud = JObject.Parse(solicitud);
-                // verifica si existe una solicitud sin respuesta dentro de todas las solicitudes
-                if ((String)posibleSolicitud["estado"] == "Sin respuesta")
+                // verifica si existe una solicitud sin aceptar dentro de todas las solicitudes
+                if (!((String)posibleSolicitud["estado"]).Equals("Aceptado"))
                 {
                     solicitudPendiente = posibleSolicitud;
                 }
