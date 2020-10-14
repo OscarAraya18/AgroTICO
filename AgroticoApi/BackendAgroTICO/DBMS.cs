@@ -439,6 +439,18 @@ namespace Backend.DBMS
             return SELECT(RUTA_PRODUCTORES, cedula);
         }
 
+        //método para acceder a todos los productores disponibles
+        public string[] encontarTodosProductores()
+        {
+            return READ(RUTA_PRODUCTORES);
+        }
+
+        //método para acceder a todos los clientes disponibles
+        public string[] encontarTodosClientes()
+        {
+            return READ(RUTA_CLIENTES);
+        }
+
         // método para encontrar una categoría específica mediante su identificador
         public string encontrarCategoria(int identificador)
         {
@@ -769,6 +781,12 @@ namespace Backend.DBMS
                 return false;
             }
             return false;
+        }
+
+        // método para obtener todos los productos asociados a un productor específico
+        public string[] encontrarTodosProductos(int cedulaProductor)
+        {
+            return FILTER(RUTA_PRODUCTOS, "numeroCedulaProductor", null, cedulaProductor);
         }
 
         // Metodo para eliminar algun producto de acuerdo a su codigo

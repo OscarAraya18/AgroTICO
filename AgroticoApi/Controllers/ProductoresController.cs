@@ -57,7 +57,7 @@ namespace AgroticoApi.Controllers
         /// <summary>
         /// Peticion para encontrar un producto en específico
         /// </summary>
-        /// <param name="codigo">el el identificador para encontrar el producto</param>
+        /// <param name="codigo">es el identificador para encontrar el producto</param>
         /// <returns>el producto en caso de exito</returns>
         // GET api/Productores/producto
         [HttpGet]
@@ -72,6 +72,30 @@ namespace AgroticoApi.Controllers
             }
             
             return Ok(JObject.Parse(resultado));
+        }
+
+        /// <summary>
+        /// Peticion para encontrar todos los productos de un productor
+        /// </summary>
+        /// <param name="cedula">es el identificador para saber el productor</param>
+        /// <returns>el producto en caso de exito</returns>
+        // GET api/Productores/TodosProductos
+        [HttpGet]
+        [Route("api/Productores/TodosProductos")]
+        public IHttpActionResult encontrarTodosProductos([FromUri] int cedula)
+        {
+            string[] resultado = _dbms.encontrarTodosProductos(cedula);
+
+            if (resultado == null)
+            {
+                return BadRequest("No se pudo obtener resultados");
+            }
+            List<JObject> lista = new List<JObject>();
+            foreach (string element in resultado)
+            {
+                lista.Add(JObject.Parse(element));
+            }
+            return Ok(lista);
         }
 
         /// <summary>

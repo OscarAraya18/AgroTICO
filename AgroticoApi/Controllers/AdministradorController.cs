@@ -166,6 +166,52 @@ namespace AgroticoApi.Controllers
         }
 
         /// <summary>
+        /// Peticion para acceder a todos los productores de la base de datos
+        /// </summary>
+        /// <returns>Una lista con todos los productores existentes</returns>
+        // GET api/Administrador/TodosProductores
+        [HttpGet]
+        [Route("api/Administrador/TodosProductores")]
+        public IHttpActionResult encontrarTodosProductores()
+        {
+            string[] resultado = _dbms.encontarTodosProductores();
+
+            if (resultado == null)
+            {
+                return BadRequest("Ocurrio un error");
+            }
+            List<JObject> lista = new List<JObject>();
+            foreach (string element in resultado)
+            {
+                lista.Add(JObject.Parse(element));
+            }
+            return Ok(lista);
+        }
+
+        /// <summary>
+        /// Peticion para acceder a todos los clientes de la base de datos
+        /// </summary>
+        /// <returns>Una lista con todos los clientes existentes</returns>
+        // GET api/Administrador/TodosClientes
+        [HttpGet]
+        [Route("api/Administrador/TodosClientes")]
+        public IHttpActionResult encontrarTodosClientes()
+        {
+            string[] resultado = _dbms.encontarTodosClientes();
+
+            if (resultado == null)
+            {
+                return BadRequest("Ocurrio un error");
+            }
+            List<JObject> lista = new List<JObject>();
+            foreach (string element in resultado)
+            {
+                lista.Add(JObject.Parse(element));
+            }
+            return Ok(lista);
+        }
+
+        /// <summary>
         /// Peticion para acceder a una categoria en especifico
         /// </summary>
         /// <param name="identificador">Identificador para saber a que categoria acceder</param>
