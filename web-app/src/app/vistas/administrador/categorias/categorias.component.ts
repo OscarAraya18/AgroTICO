@@ -66,8 +66,7 @@ this._CategoriasService.actualizaCategoria(this.categoria).
   subscribe(data => {},
 error => {
         console.log(error);
-        if (error.status === 400){
-          
+        if (error.status === 400){       
         }
       });
 
@@ -93,6 +92,10 @@ error => {
 actualiza(cat){
 
   this.categoria = cat;
-  this.form2Visibility = true
+  this.form2Visibility = true;
+}
+agrega(){
+  this.categoria = new Categoria();
+this.formVisibility = true
 }
 }

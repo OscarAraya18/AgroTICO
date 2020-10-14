@@ -16,6 +16,7 @@ distritos: string[];
 formVisibility: boolean;
 form2Visibility: boolean;
 elimina: boolean;
+productores: Afiliacion[];
 productor = new Afiliacion();
 f: Date = new Date();
 
@@ -141,6 +142,14 @@ this.elimina = false;
   }
 
   ngOnInit(): void {
+    this._ProductoresService.getProductores().
+  subscribe(data => this.productores = data,
+error => {
+        console.log(error);
+        if (error.status === 400){
+          
+        }
+      });
   }
 
 
@@ -209,8 +218,8 @@ error => {
 const confirmed = window.confirm('¿Seguro que desea eliminar este productor?');
 if (confirmed) {
 this.elimina = false;
-console.log('Eliminaa');
-console.log(cedula);
+this.productores = this.productores.filter((i) => i.numeroCedula !== cedula); // filtramos
+
  this._ProductoresService.borraProductor(cedula).
   subscribe(data => {},
 error => {
@@ -220,6 +229,14 @@ error => {
         }
       });
 
+ this._ProductoresService.getProductores().
+  subscribe(data => this.productores = data,
+error => {
+        console.log(error);
+        if (error.status === 400){
+          
+        }
+      });
 }
 
 
@@ -231,5 +248,12 @@ this.cantones = this.provinciasSeleccion[provincia];
   cambioCanton(canton): void  {
 this.distritos = this.cantonesSeleccion[canton];
   }
+
+actualiza(productor){
+
+  this.productor = productor;
+  this.form2Visibility = true;
+}
+
 
 }

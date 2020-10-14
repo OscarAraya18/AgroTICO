@@ -30,4 +30,8 @@ actualizaProductor(productor: Afiliacion){
         cedula: id.toString()
       }});
 }
+getProductores(): Observable<Afiliacion[]>{
+  return this.http.get<Afiliacion[]>('/api/Administrador/TodosProductores');
+
+}
 }

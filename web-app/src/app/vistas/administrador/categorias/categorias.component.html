@@ -1,8 +1,8 @@
-<div  class="container-fluid" >
-
-	<button type="button" class="btn btn-success button1" (click)="formVisibility = true"  *ngIf="!formVisibility && !form2Visibility && !elimina">
+<button type="button" class="btn btn-success button1" (click)="agrega()"  *ngIf="!formVisibility && !form2Visibility && !elimina"><img class="img"  src="assets/add.svg">
 	Agregar categoría
 	</button>
+
+	<div  class="container-fluid" >
 
 	<br/>
 	<div class="wrapper" *ngIf="formVisibility || form2Visibility " >

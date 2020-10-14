@@ -1,42 +1,38 @@
 
-<div  class="container-fluid" >
-
 	<button type="button" class="btn btn-success button1" (click)="formVisibility = true"  *ngIf="!formVisibility && !form2Visibility && !elimina">
+		<img class="img"  src="assets/add.svg">
 	Agregar productor
 	</button>
-
-	<br/>
+<div  class="container-fluid" >
 	<div class="wrapper" *ngIf="formVisibility || form2Visibility " >
 
-		<h2 class="text-white">Datos del productor</h2>
+		<h2 class="text-white name">Datos del productor</h2>
 		<form 
               (ngSubmit)="submit(cedula.value,nombre.value,apellidos.value,apellidos2.value,provincia.value,canton.value,distrito.value,fecha.value,
               numero.value,sinpe.value,contrasena.value)"
               #f="ngForm">
-		<label class="text-white">Numero de cédula:</label> <input class="inputred" type="number" ngModel  #cedula required name="cedula"/>
-		<p class="text-white">Nombre: <input type="text" #nombre  class="inputred"  name="nombre" ngModel required /><br/></p>
-		<p class="text-white">Primer Apellido: <input type="text" #apellidos  name="apellidos" class="inputred" ngModel required /><br/></p>
-		<p class="text-white">Segundo Apellido: <input type="text" #apellidos2  name="apellidos" class="inputred" ngModel required /><br/></p>
-		<p class="text-white">Dirección<br/></p>
-		<p class="text-white">Provincia:
+
+		<p class="text-white">Numero de cédula: <input [(ngModel)]="productor.numeroCedula" class="inputred" type="number" ngModel  #cedula required name="cedula"/></p>
+		<p class="text-white">Nombre: <input [(ngModel)]="productor.primerNombre"  type="text" #nombre  class="inputred"  name="nombre" ngModel required />
+		Primer Apellido: <input  type="text" #apellidos [(ngModel)]="productor.primerApellido"  name="apellido1" class="inputred" ngModel required />
+		Segundo Apellido: <input type="text" #apellidos2  [(ngModel)]="productor.segundoApellido" name="apellido2" class="inputred" ngModel required /><br/></p>
+		<p class="text-white">Dirección</p>
+		<p class="text-white">
+		Provincia:
 			<select #provincia class="inputred" (change)="cambioProvincia($event.target.value)" ngModel  name="provincia" required>
 					<option *ngFor="let provincia of provincias" [value]='provincia' > {{provincia}}</option>
 			</select>
 
 
 			
-		<br/>
-		</p>
-		<p class="text-white">Canton: 
-  <select  #canton class="inputred" (change)="cambioCanton($event.target.value)" ngModel  name="canton" required>
+		Canton: 
+  <select  #canton class="inputred"   (change)="cambioCanton($event.target.value)" ngModel  name="canton" required>
   	<option [value]=''> </option>
   <option *ngFor="let canton of cantones"  [value]='canton'> {{canton}}</option>
 
 </select>
-</p>
-
-<p class="text-white">Distrito: 
-  <select #distrito class="inputred" required ngModel  name="distrito"  >
+Distrito: 
+  <select #distrito class="inputred"   required ngModel  name="distrito"  >
   <option [value]=''> </option>
   <option *ngFor="let distrito of distritos" [value]='distrito'> {{distrito}}</option>
 
@@ -44,12 +40,11 @@
 </p>
 
 <p class="text-white">Fecha de nacimiento:
-  <input #fecha type="date" ngModel name="born" class="inputred"  required /></p>
+  <input #fecha type="date" ngModel [(ngModel)]="productor.fechaNacimiento" name="born" class="inputred"  required /></p>
 
-  <p class="text-white">Numero de telefono: <input class="inputred" type="number" ngModel  #numero required name="num"/></p>
-  <p class="text-white">Numero de Sinpe: <input class="inputred" type="number" ngModel  #sinpe required name="sinpes"/></p>
+  <p class="text-white">Numero de telefono: <input [(ngModel)]="productor.numeroTelefono" class="inputred" type="number" ngModel  #numero required name="num"/>     Numero de Sinpe: <input [(ngModel)]="productor.numeroSINPE"  class="inputred" type="number" ngModel  #sinpe required name="sinpes"/></p>
 
-  <p class="text-white">Contraseña: <input class=" inputred"  type="password" required #contrasena 
+  <p class="text-white">Contraseña: <input [(ngModel)]="productor.claveAcceso"  class=" inputred"  type="password" required #contrasena 
        name="contrasena" ngModel /></p>
 
 
@@ -89,13 +84,6 @@
 		
 	</div>
 
-	<button type="button" class="btn btn-success button1" (click)="form2Visibility = true"  *ngIf="!formVisibility && !form2Visibility && !elimina">
-	Actualizar productor
-	</button>
-
-	<button type="button" class="btn btn-success butt2 button1" (click)="elimina = true"  *ngIf="!formVisibility && !form2Visibility && !elimina">
-	Eliminar productor
-	</button>
 
 	<div class= "cont2"  *ngIf="elimina">
 	<form 
@@ -103,24 +91,7 @@
               #f2="ngForm">
 
 
- 		<label class="text-white">Numero de cédula:</label> <input class="inputred" type="number" ngModel  #cedula2 required name="cedula"/>
 
-
-
-<div class= "cont">
-	<button type="button" class="btn btn-success but" (click)="elimina = false">
-	Cancelar
-	</button>
-	<button type="button" class="btn btn-success but"
-	 mat-button
-	  type="submit"
-   [disabled]="f2.invalid"
-                  >
-	Eliminar
-	</button>
-
-
-</div>
 
 <div class= "cont"  *ngIf="form2Visibility">
 	<button type="button" class="btn btn-success but" (click)="form2Visibility = false">
@@ -140,8 +111,35 @@
 </div>
 </form>
 
-
 </div>
 
 </div>
+<div class="row name">
+	<mat-card class="example-card " *ngFor="let productor of productores" >
+		<div >
+  <mat-card-header >
+    <mat-card-title  >
+    	<h4>{{productor.primerNombre}} {{productor.segundoNombre}} {{productor.primerApellido}}  {{productor.segundoApellido}}</h4></mat-card-title>
+    <mat-card-subtitle>{{productor.numeroCedula}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p> Dirección:<br /> {{productor.provinciaResidencia}}, {{productor.cantonResidencia}}, {{productor.distritoResidencia}}
+    <br /> Número de telefono: {{productor.numeroTelefono}}
+      <br /> Número de SINPE: {{productor.numeroSINPE}}
+      <br /> Fecha de nacimiento: {{productor.fechaNacimiento}}
+     
 
+  </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button type="button" class="btn btn-success but" (click)="actualiza(productor)" >
+	Actualizar
+	</button>
+    <button type="button" class="btn btn-success but" (click)="submit3(productor.numeroCedula)" >
+	Eliminar
+	</button>
+  </mat-card-actions>
+  </div>
+</mat-card>
+
+</div>

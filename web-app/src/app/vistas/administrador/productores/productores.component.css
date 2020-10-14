@@ -48,3 +48,46 @@
 }
 
 ::placeholder { color: black; }
+.example-card {
+  max-width: 300px;
+  background-color: rgba(151, 169, 147,0.8);
+border-radius: 10px;
+	box-shadow: 10px;
+	display: flex;
+	flex-direction: column;
+	margin-top: 15px;
+	height: 320px;
+
+}
+.name{
+	text-align: center;
+}
+.button1{
+	height: 50px;
+	font-size: 25px;
+	margin-left: 30px;
+	display: flex;
+	align-items: center;
+
+
+
+
+}
+.img{
+	height:15px;
+	margin-right: 10px;
+
+}
+
+.row{
+	display: flex;
+	justify-content:space-around;
+	flex-direction: row;
+	width: 95%;
+	margin-left: 10px;
+
+}
+.cont{
+	display: flex;
+	justify-content:center;
+}
