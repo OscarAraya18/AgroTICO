@@ -40,6 +40,7 @@
 .button1{
 	height: 50px;
 	font-size: 25px;
+	margin-left: 10px;
 
 }
 
@@ -48,3 +49,31 @@
 }
 
 ::placeholder { color: black; }
+.example-card {
+  max-width: 300px;
+  background-color: rgba(151, 169, 147,0.8);
+border-radius: 10px;
+	box-shadow: 10px;
+	display: flex;
+	flex-direction: column;
+	margin-top: 5px;
+
+}
+.name{
+	text-align: center;
+	display: block;
+}
+
+
+.but{
+	margin-left:10px;
+	
+}
+.row{
+	display: flex;
+	justify-content:space-around;
+	flex-direction: row;
+	width: 95%;
+	margin-left: 10px;
+
+}

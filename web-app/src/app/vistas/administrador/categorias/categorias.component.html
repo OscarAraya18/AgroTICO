@@ -11,8 +11,8 @@
 		<form 
               (ngSubmit)="submit(cedula.value,nombre.value)"
               #f="ngForm">
-		<label class="text-white">Codigo unico:</label> <input class="inputred" type="number" ngModel  #cedula required name="cedula"/>
-		<p class="text-white">Nombre: <input type="text" #nombre  class="inputred"  name="nombre" ngModel required /><br/></p>
+		<label class="text-white">Codigo unico:</label> <input  [(ngModel)]="categoria.identificador" class="inputred" type="number" ngModel  #cedula required name="cedula"/>
+		<p class="text-white">Nombre: <input type="text" #nombre [(ngModel)]="categoria.nombre" class="inputred"  name="nombre" ngModel required /><br/></p>
 
 
 
@@ -49,59 +49,27 @@
 		
 	</div>
 
-	<button type="button" class="btn btn-success button1" (click)="form2Visibility = true"  *ngIf="!formVisibility && !form2Visibility && !elimina">
-	Actualizar categoría
+</div>
+
+
+
+<div class="row">
+	<mat-card class="example-card" *ngFor="let categoria of categorias" >
+		<div *ngIf="!eliminar" >
+  <mat-card-header class="name">
+    <mat-card-title >
+    	<h4 >{{categoria.nombre}}</h4></mat-card-title>
+    <mat-card-subtitle >{{categoria.identificador}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-actions>
+    <button type="button" class="btn btn-success " (click)="actualiza(categoria)" >
+	Actualizar
 	</button>
-
-	<button type="button" class="btn btn-success butt2 button1" (click)="elimina = true"  *ngIf="!formVisibility && !form2Visibility && !elimina">
-	Eliminar categoría
-	</button>
-
-	<div class= "cont2"  *ngIf="elimina">
-	<form 
-              (ngSubmit)="submit3(cedula2.value)"
-              #f2="ngForm">
-
-
- 		<label class="text-white">Codigo:</label> <input class="inputred" type="number" ngModel  #cedula2 required name="cedula"/>
-
-
-
-<div class= "cont">
-	<button type="button" class="btn btn-success but" (click)="elimina = false">
-	Cancelar
-	</button>
-	<button type="button" class="btn btn-success but"
-	 mat-button
-	  type="submit"
-   [disabled]="f2.invalid"
-                  >
+    <button type="button" class="btn btn-success but" (click)="submit3(categoria.identificador)" >
 	Eliminar
 	</button>
-
-
-</div>
-
-<div class= "cont"  *ngIf="form2Visibility">
-	<button type="button" class="btn btn-success but" (click)="form2Visibility = false">
-	Cancelar
-	</button>
-	<button type="button" class="btn btn-success but"
-	 mat-button
-	
-   [disabled]="f.invalid"
-   (click)="submit2(cedula.value,nombre.value)"
-                  >
-	Actualizar categoría
-	</button>
-
+  </mat-card-actions>
+  </div>
+</mat-card>
 
 </div>
-</form>
-
-
-</div>
-
-</div>
-
-

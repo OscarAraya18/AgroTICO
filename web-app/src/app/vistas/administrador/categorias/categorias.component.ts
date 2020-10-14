@@ -12,15 +12,20 @@ import { Categoria } from 'src/app/modelos/productor/categoria';
 export class CategoriasComponent implements OnInit {
 formVisibility: boolean;
 form2Visibility: boolean;
-elimina: boolean
+elimina: boolean;
 categoria = new Categoria();
+categorias: Categoria[];
+name: string;
   constructor(private httpClient: HttpClient,private _CategoriasService: CategoriasService ) {
 this.form2Visibility = false;
 this.formVisibility = false;
 this.elimina = false;
+
 }
 
   ngOnInit(): void {
+     this._CategoriasService.getCategorias()
+    .subscribe(data => this.categorias = data );
   }
 
     submit(id, nombre): void  {
@@ -36,6 +41,9 @@ error => {
           
         }
       });
+
+  this._CategoriasService.getCategorias()
+    .subscribe(data => this.categorias = data );
 
   }
 
@@ -69,7 +77,8 @@ error => {
 const confirmed = window.confirm('¿Seguro que desea eliminar esta categoría?');
 if (confirmed) {
 this.elimina = false;
-console.log('Eliminaa');
+this.categorias = this.categorias.filter((i) => i.identificador !== id); // filtramos
+
  this._CategoriasService.borraCategoria(id).
   subscribe(data => {},
 error => {
@@ -80,5 +89,10 @@ error => {
       });
 }
 
+}
+actualiza(cat){
+
+  this.categoria = cat;
+  this.form2Visibility = true
 }
 }
