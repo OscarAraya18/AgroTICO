@@ -174,11 +174,11 @@ this._ProductoresService.creaProductor(this.productor).
   subscribe(data => {},
 error => {
         console.log(error);
-        if (error.status === 400){
-          
+        if (error.status === 400){         
         }
       });
-
+this._ProductoresService.getProductores().
+  subscribe(data => this.productores = data);
   }
 
   submit2(cedula, nombre, apellido1, apellido2, provincia, canton, distrito, fecha, numero, sinpe,  contrasena): void  {
@@ -229,14 +229,6 @@ error => {
         }
       });
 
- this._ProductoresService.getProductores().
-  subscribe(data => this.productores = data,
-error => {
-        console.log(error);
-        if (error.status === 400){
-          
-        }
-      });
 }
 
 
@@ -253,6 +245,11 @@ actualiza(productor){
 
   this.productor = productor;
   this.form2Visibility = true;
+}
+
+agregar(){
+  this.formVisibility = true;
+  this.productor = new Afiliacion();
 }
 
 

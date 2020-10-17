@@ -16,21 +16,33 @@
    <div class="row consultar">
  <div class="col container">
   <p class="consultar">Consultar productos más vendidos de un productor</p>
-  <form (ngSubmit)="submit(cedula.value)"
-              #f="ngForm">
-    <label> Numero de cédula:</label> <input class="inputred" type="number" ngModel  #cedula required name="cedula"/>
 
-  <button type="button" class="btn btn-success but"
-   mat-button
-    type="submit"
-   [disabled]="f.invalid"
-                  >
+
+<h4 class="name">{{productor.primerNombre}} {{productor.segundoNombre}} {{productor.primerApellido}}  {{productor.segundoApellido}}</h4>
+<p class="name">{{productor.numeroCedula}}</p>
+      <h6 class="name" *ngFor="let productor of productores"  > {{productor.nombre}}</h6>
+
+      <div class="row2 name">
+  <mat-card class="example-card name" *ngFor="let productor of productoresT" >
+    <div >
+  <mat-card-header >
+    <mat-card-title class="name" >
+      <h4 class="name">{{productor.primerNombre}} {{productor.segundoNombre}} </h4>
+      <h4>{{productor.primerApellido}}  {{productor.segundoApellido}}</h4></mat-card-title>
+    <mat-card-subtitle>{{productor.numeroCedula}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-actions>
+    <button type="button" class="btn btn-success but" (click)="submit(productor.numeroCedula,productor)" >
   Consultar
   </button>
+   
+  </mat-card-actions>
+  </div>
+</mat-card>
 
-      <h6  *ngFor="let productor of productores"  > {{productor.nombre}}</h6>
+</div>
 
-</form>
 
   </div>
 </div>
+

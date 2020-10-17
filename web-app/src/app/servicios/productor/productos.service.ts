@@ -9,9 +9,9 @@ import { Observable } from 'rxjs';
 export class ProductosService {
 
  constructor(private http: HttpClient) { }
-
  
- creaProducto( Producto: Producto){
+ creaProducto( Producto : Producto){
+  console.log(Producto);
     return this.http.post<string>('/api/Productores/Producto/new', Producto);
   }
 
@@ -28,6 +28,12 @@ actualizaProducto( Producto: Producto){
     return this.http.delete<string>('/api/Productores/Producto/delete', {
       params: {
         codigo: id.toString()
+      }});
+}
+ getProductosProductor(id: string){
+    return this.http.get<Producto[]>('/api/Productores/TodosProductos', {
+      params: {
+        cedula: id
       }});
 }
 }

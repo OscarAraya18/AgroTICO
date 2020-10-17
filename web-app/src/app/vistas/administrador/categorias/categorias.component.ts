@@ -42,7 +42,7 @@ error => {
         }
       });
 
-  this._CategoriasService.getCategorias()
+this._CategoriasService.getCategorias()
     .subscribe(data => this.categorias = data );
 
   }
@@ -96,6 +96,6 @@ actualiza(cat){
 }
 agrega(){
   this.categoria = new Categoria();
-this.formVisibility = true
+this.formVisibility = true;
 }
 }

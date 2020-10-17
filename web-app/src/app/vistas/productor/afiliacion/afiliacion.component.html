@@ -13,13 +13,13 @@
             <div class="form-group" id="user-group">
               <input class="form-control" type="text" required #cedula
                placeholder="Número de Cédula" name="Usuario" ngModel />
-               <small class="text-danger" >Número de Cédula válido es requerido</small>
+               <small class="text-danger" *ngIf="invalid">Número de Cédula válido es requerido</small>
             </div>
       
             <div class="form-group" id="contrasena-group">
               <input class="form-control" type="password" required #contrasena 
               placeholder="Contraseña" name="contrasena" ngModel />
-              <small class="text-danger" >Contraseña es requerida</small>
+              <small class="text-danger" *ngIf="invalid" >Contraseña es requerida</small>
             </div>
       
             <button [disabled]="f.invalid"  type="button"  mat-button type="submit" class="btn btn-primary" (click)="ingresar(cedula.value,contrasena.value)"><i class="fas fa-sign-in-alt"></i>  Ingresar</button>

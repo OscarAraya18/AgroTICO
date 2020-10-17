@@ -34,3 +34,34 @@
 	margin-bottom: 5px;
 
 }
+.example-card {
+	width: 270px;
+  background-color: rgba(72, 241, 31  ,0.3);
+border-radius: 10px;
+	box-shadow: 10px;
+	display: flex;
+	flex-direction: column;
+	margin-top: 5px;
+	height: 180px;
+	justify-content: center;
+	margin-bottom: 30px;
+
+}
+.name{
+	text-align: center;
+
+}
+
+
+.but{
+	margin-left:10px;
+	
+}
+.row2{
+	display: flex;
+	justify-content:space-around;
+	flex-direction: row;
+	width: 95%;
+	margin-left: 10px;
+
+}

@@ -1,30 +1,30 @@
-<div  class="container-fluid" >
-
-	<button type="button" class="but button1" (click)="formVisibility = true"  *ngIf="!formVisibility && !form2Visibility && !elimina">
+	<button type="button" class="but1 btn btn-success " (click)="agregar()"  *ngIf="!formVisibility && !form2Visibility && !elimina">
+	<img class="img"  src="assets/add.svg">
 	Agregar producto
 	</button>
 
-	<br/>
+	<div  class="container-fluid" >
 	<div class="wrapper" *ngIf="formVisibility || form2Visibility " >
 
 		<h2 class="text-white">Datos del producto</h2>
 		<form 
               (ngSubmit)="submit(codigo.value,nombre.value,modo.value,categoria.value,disp.value,precio.value)"
               #f="ngForm">
-		<label class="text-white">Codigo: </label> <input class="inputred" type="number" ngModel  #codigo required name="cod"/><br />
-		<label class="text-white">Precio: </label> <input class="inputred" type="number" ngModel  #precio required name="cod"/>
-		<p class="text-white">Nombre: <input type="text" #nombre  class="inputred"  name="nombre" ngModel required /><br/></p>
-		<p class="text-white">Modo de venta: <input type="text" #modo name="modo" class="inputred" ngModel required /><br/></p>
-		<label class="text-white">Disponibilidad: </label> <input class="inputred" type="number" ngModel  #disp required name="cod"/>
+		<p class="text-white">Codigo: <input [(ngModel)]="producto.codigo" class="inputred" type="number" ngModel  #codigo required name="codigo" /></p>
+		<p class="text-white">Precio: <input [(ngModel)]="producto.precio"  class="inputred" type="number" ngModel  #precio required name="precio" /></p>
+		<p class="text-white">Nombre: <input type="text" [(ngModel)]="producto.nombre" #nombre  class="inputred"  name="nombre" ngModel required /></p>
+		<p class="text-white">Modo de venta: <input [(ngModel)]="producto.modoVenta" type="text" #modo name="modo"   class="inputred" ngModel required /></p>
+		<p class="text-white">Disponibilidad: <input [(ngModel)]="producto.disponibilidad" class="inputred"  type="number" ngModel  #disp required name="cod" /></p>
 
 <p class="text-white">Categoría: 
-  <select #categoria class="inputred" required ngModel  name="cat"  >
+  <select #categoria class="inputred" [(ngModel)]="producto.categoria" required ngModel  name="categoria" >
   <option [value]=''> </option>
   <option *ngFor="let categoria of categorias" [value]='categoria.identificador'> {{categoria.nombre}}</option>
 
 </select>
 </p>
-<p class="text-white">Foto: <input  (change)="onFileChanged($event)" type="file" #foto  class="inputred"  name="foto" ngModel required /><br/></p>
+<p class="text-white">Foto: <input (change)="onFileChanged($event)" type="file" #foto  
+	class="inputred"  name="foto" ngModel required /></p>
 
 
 
@@ -64,44 +64,37 @@
 		
 	</div>
 
-	<button type="button" class="but button1" (click)="form2Visibility = true"  *ngIf="!formVisibility && !form2Visibility && !elimina">
-	Actualizar producto
+
+
+</div>
+
+
+
+
+<div class="row">
+	<mat-card class="example-card" *ngFor="let producto of productos" >
+		<div>
+  <mat-card-header class="name">
+    <mat-card-title >
+    	<h4 >{{producto.nombre}}</h4></mat-card-title>
+    <mat-card-subtitle >{{producto.codigo}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+  	<div class="img-wrap"><img src="{{ producto.foto }}"></div>
+  	<p><strong>Modo de venta:</strong> {{producto.modoVenta}}</p>
+  	<p><strong>Disponibilidad:</strong> {{producto.disponibilidad}}</p>
+  	<p><strong>Precio:</strong> {{producto.precio}}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button type="button" class="btn btn-success " (click)="actualiza(producto)" >
+	Actualizar
 	</button>
-
-	<button type="button" class="but butt2 button1" (click)="elimina = true"  *ngIf="!formVisibility && !form2Visibility && !elimina">
-	Eliminar producto
-	</button>
-
-	<div class= "cont2"  *ngIf="elimina">
-	<form 
-              (ngSubmit)="submit3(cod.value)"
-              #f2="ngForm">
-
-
- 		<label class="text-white">Codigo:</label> <input class="inputred" type="number" ngModel  #cod required name="cedula"/>
-
-
-
-<div class= "cont">
-	<button type="button" class="btn btn-success but" (click)="elimina = false">
-	Cancelar
-	</button>
-	<button type="button" class="btn btn-success but"
-	 mat-button
-	  type="submit"
-   [disabled]="f2.invalid"
-                  >
+    <button type="button" class="btn btn-success but" (click)="submit3(producto.codigo)" >
 	Eliminar
 	</button>
-
-
-</div>
-
-
-</form>
-
-
-</div>
+  </mat-card-actions>
+  </div>
+</mat-card>
 
 </div>
 
