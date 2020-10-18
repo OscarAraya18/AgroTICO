@@ -4,6 +4,8 @@ import { CategoriasService } from 'src/app/servicios/administrador/categorias.se
 import { Categoria } from 'src/app/modelos/productor/categoria';
 import { ProductosService } from 'src/app/servicios/productor/productos.service';
 import { Producto } from 'src/app/modelos/productor/producto';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-productos',
@@ -18,8 +20,9 @@ categorias: Categoria[];
 idUsuario: string;
 base64img;
 producto = new Producto();
+productos: Producto[];
 
-  constructor(private route: ActivatedRoute, private router: Router, private _CategoriasService: CategoriasService,  private _ProductosService: ProductosService) {
+constructor(private route: ActivatedRoute, private router: Router, private _CategoriasService: CategoriasService,  private _ProductosService: ProductosService) {
 
 this.formVisibility = false;
 this.form2Visibility = false;
@@ -36,6 +39,9 @@ this.elimina = false;
   });
 
   this.getcategorias();
+
+  this._ProductosService.getProductosProductor(this.idUsuario)
+    .subscribe(data => this.productos = data );
 }
 
 
@@ -53,7 +59,9 @@ this.producto.precio = precio;
 
 this._ProductosService.creaProducto(this.producto)
     .subscribe(data => {} );
-
+    
+ this._ProductosService.getProductosProductor(this.idUsuario)
+    .subscribe(data => this.productos = data );
 
   }
 onFileChanged(event): void {
@@ -87,18 +95,21 @@ this._ProductosService.getProducto(this.producto)
 
 this._ProductosService.actualizaProducto(this.producto)
     .subscribe(data => {} );
+     this._ProductosService.getProductosProductor(this.idUsuario)
+    .subscribe(data => this.productos = data );
 
 
   }
-  submit3(cedula): void  {
+  submit3(cod): void  {
 const confirmed = window.confirm('¿Seguro que desea eliminar este producto?');
 if (confirmed) {
 this.elimina = false;
-console.log('Eliminaa');
-console.log(cedula);
-this._ProductosService.borraProducto(cedula)
+
+this._ProductosService.borraProducto(cod)
     .subscribe(data => {} );
 }
+this.productos = this.productos.filter((i) => i.codigo !== cod); // filtramos
+
 
 
   }
@@ -107,5 +118,17 @@ this._ProductosService.borraProducto(cedula)
     this._CategoriasService.getCategorias()
     .subscribe(data => this.categorias = data );
   }
+
+  actualiza(producto){
+    console.log(producto);
+
+  this.producto = producto;
+  this.form2Visibility = true;
+}
+
+agregar(){
+  this.producto = new Producto();
+this.formVisibility = true;
+}
 
 }

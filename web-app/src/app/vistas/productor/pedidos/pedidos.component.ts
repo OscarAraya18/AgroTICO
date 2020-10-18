@@ -19,7 +19,8 @@ lugar: string[];
 cedula: number;
 
 
-  constructor(private _PedidossService: PedidosService,private _logInService: ProductorLogInService ) { }
+  constructor(private _PedidossService: PedidosService,private _logInService: ProductorLogInService ) { 
+  }
 
   ngOnInit(): void {
   this.ver = false;
