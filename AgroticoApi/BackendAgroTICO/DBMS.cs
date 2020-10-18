@@ -569,9 +569,9 @@ namespace Backend.DBMS
                 JObject productoAnalizar;
                 foreach (String producto in productosModificar)
                 {
-                    // por cada producto asociado se cambia la categoria a una nula (000)
+                    // por cada producto asociado se cambia la categoria a una nula (0)
                     productoAnalizar = JObject.Parse(producto);
-                    UPDATE(RUTA_PRODUCTOS, (int)productoAnalizar["codigo"], "identificadorCategoria", null, 000);
+                    UPDATE(RUTA_PRODUCTOS, (int)productoAnalizar["codigo"], "identificadorCategoria", null, 0);
                 }
                 return true;
             }
