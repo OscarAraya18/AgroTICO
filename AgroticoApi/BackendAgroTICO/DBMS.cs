@@ -815,23 +815,32 @@ namespace Backend.DBMS
                 // se recorre esos productos vendidos
                 foreach (String producto in listaProductosPorVenta)
                 {
-                    // se accede al producto mediante su codigo
-                    productoAnalizar = JObject.Parse(SELECT(RUTA_PRODUCTOS, (int)JObject.Parse(producto)["codigo"]));
+                    string resultadoBusqueda = SELECT(RUTA_PRODUCTOS, (int)JObject.Parse(producto)["codigo"]);
 
-                    if ((int)productoAnalizar["numeroCedulaProductor"] == numeroCedula) // se seleccionan solo los correspondientes al productor
+                    if (resultadoBusqueda != null)
                     {
-                        // se crea el pedido
-                        productoVendido = new JObject();
-                        productoVendido["codigo"] = (int)productoAnalizar["codigo"];
-                        productoVendido["nombre"] = (String)productoAnalizar["nombre"];
-                        productoVendido["cantidad"] = (int)JObject.Parse(producto)["cantidad"];
-                        productoVendido["precioUnitario"] = (int)productoAnalizar["precio"];
-                        productoVendido["montoTotal"] = (int)ventaAnalizar["montoTotal"];
-                        productoVendido["numeroCedulaCliente"] = (String)ventaAnalizar["numeroCedulaComprador"];
-                        productoVendido["direccionEntrega"] = (String)ventaAnalizar["direccionEntrega"];
-                        productoVendido["codigoFactura"] = (String)ventaAnalizar["codigoFactura"];
+                        // se accede al producto mediante su codigo
+                        productoAnalizar = JObject.Parse(resultadoBusqueda);
 
-                        productosEntregar = productosEntregar.Concat(new String[] { JsonConvert.SerializeObject(productoVendido) }).ToArray();
+                        if ((int)productoAnalizar["numeroCedulaProductor"] == numeroCedula) // se seleccionan solo los correspondientes al productor
+                        {
+                            // se crea el pedido
+                            productoVendido = new JObject();
+                            productoVendido["codigo"] = (int)productoAnalizar["codigo"];
+                            productoVendido["nombre"] = (String)productoAnalizar["nombre"];
+                            productoVendido["cantidad"] = (int)JObject.Parse(producto)["cantidad"];
+                            productoVendido["precioUnitario"] = (int)productoAnalizar["precio"];
+                            productoVendido["montoTotal"] = (int)ventaAnalizar["montoTotal"];
+                            productoVendido["numeroCedulaCliente"] = (String)ventaAnalizar["numeroCedulaComprador"];
+                            productoVendido["direccionEntrega"] = (String)ventaAnalizar["direccionEntrega"];
+                            productoVendido["codigoFactura"] = (String)ventaAnalizar["codigoFactura"];
+
+                            productosEntregar = productosEntregar.Concat(new String[] { JsonConvert.SerializeObject(productoVendido) }).ToArray();
+                        }
+                    }
+                    else
+                    {
+                        return null;
                     }
                 }
             }
